@@ -1,213 +1,234 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEON SENS AI - Free Fire Hassasiyet</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Fire AI Hassasiyet</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-    
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Press Start 2P', cursive;
-      background: #0a001f;
-      color: #ff00ff;
-      overflow: hidden;
-      height: 100vh;
+    :root{
+      --bg:#050505;
+      --panel: rgba(10,10,10,.72);
+      --line: rgba(255, 40, 40, .55);
+      --neon:#ff2a2a;
+      --text:#f4f4f4;
+      --muted:#c8c8c8;
     }
-
-    /* Neon Kız Arka Plan Animasyonu */
-    .bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(45deg, #ff00ff22, #00ffff22);
-      z-index: -2;
-      animation: neonpulse 8s infinite;
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+    #bg{position:fixed;inset:0;width:100%;height:100%;z-index:-2;background:#020202}
+    .overlay{
+      position:fixed;inset:0;z-index:-1;
+      background:
+        radial-gradient(circle at center, rgba(255,0,0,.10), transparent 45%),
+        linear-gradient(180deg, rgba(255,0,0,.06), transparent 35%, rgba(0,0,0,.55));
+      pointer-events:none;
     }
-
-    .neon-girl {
-      position: absolute;
-      font-size: 180px;
-      opacity: 0.15;
-      animation: wave 4s infinite alternate ease-in-out;
-      filter: drop-shadow(0 0 40px #ff00ff);
-      z-index: -1;
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{
+      width:min(980px,100%);
+      background:var(--panel);
+      border:1px solid rgba(255,40,40,.25);
+      border-radius:24px;
+      backdrop-filter:blur(16px);
+      box-shadow:0 0 40px rgba(255,0,0,.08), inset 0 0 80px rgba(255,0,0,.04);
+      overflow:hidden;
     }
-
-    @keyframes wave {
-      from { transform: rotate(-12deg) translateY(20px); }
-      to { transform: rotate(12deg) translateY(-20px); }
+    .hero{
+      padding:28px 26px 18px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, rgba(255,40,40,.10), transparent);
     }
-
-    .gate {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(10, 0, 31, 0.98);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      flex-direction: column;
-      text-align: center;
+    .title{
+      margin:0;
+      font-size:clamp(28px,4vw,46px);
+      text-shadow:0 0 12px rgba(255,42,42,.45);
     }
-
-    .main-content {
-      display: none;
-      padding: 20px;
-      height: 100vh;
-      overflow-y: auto;
+    .sub{margin:10px 0 0;color:var(--muted);line-height:1.6}
+    .grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:18px;
+      padding:20px;
     }
-
-    .neon-text {
-      text-shadow: 0 0 10px #ff00ff,
-                   0 0 20px #ff00ff,
-                   0 0 40px #00ffff;
+    @media (max-width: 850px){.grid{grid-template-columns:1fr}}
+    .panel{
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:18px;
+      background:rgba(0,0,0,.25);
     }
-
-    button {
-      background: transparent;
-      border: 3px solid #ff00ff;
-      color: #ff00ff;
-      padding: 15px 30px;
-      font-family: 'Press Start 2P';
-      cursor: pointer;
-      transition: all 0.3s;
-      text-shadow: 0 0 10px #ff00ff;
+    .tag{
+      display:inline-block;
+      padding:8px 12px;
+      border:1px solid rgba(255,42,42,.35);
+      border-radius:999px;
+      color:#fff;
+      box-shadow:0 0 18px rgba(255,42,42,.15);
+      margin-bottom:14px;
     }
-
-    button:hover {
-      background: #ff00ff;
-      color: #000;
-      box-shadow: 0 0 30px #ff00ff;
+    .row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+    .row:last-child{border-bottom:none}
+    .muted{color:var(--muted)}
+    .btn{
+      display:inline-block;
+      margin-top:14px;
+      padding:12px 18px;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(90deg, #ff1f1f, #ff4b4b);
+      color:white;
+      font-weight:700;
+      text-decoration:none;
+      cursor:pointer;
+      box-shadow:0 10px 24px rgba(255,0,0,.18);
+      transition:.2s transform ease;
     }
-
-    input, select {
-      background: #1a0033;
-      border: 2px solid #00ffff;
-      color: #ff00ff;
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      max-width: 400px;
+    .btn:hover{transform:translateY(-1px)}
+    .follow-box{
+      display:flex;flex-direction:column;gap:12px;align-items:flex-start
+    }
+    .follow-note{
+      font-size:15px;line-height:1.6;color:#f3dcdc
+    }
+    .pill{
+      padding:10px 14px;border-radius:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08)
+    }
+    .hidden{display:none}
+    .footer{
+      padding:0 20px 20px;
+      color:#aaa;
+      font-size:13px;
+    }
+    .glow{
+      text-shadow:0 0 8px rgba(255,42,42,.65), 0 0 22px rgba(255,42,42,.25);
     }
   </style>
 </head>
 <body>
+  <canvas id="bg"></canvas>
+  <div class="overlay"></div>
 
-  <!-- Neon Arka Plan -->
-  <div class="bg"></div>
-  <div class="neon-girl" style="left: 10%; top: 20%;">♀</div>
-  <div class="neon-girl" style="right: 15%; top: 40%; animation-delay: 1.2s;">♀</div>
-  <div class="neon-girl" style="left: 25%; bottom: 30%; animation-delay: 2.5s;">♀</div>
+  <div class="wrap">
+    <div class="card">
+      <div class="hero">
+        <h1 class="title glow">Free Fire AI Hassasiyet</h1>
+        <p class="sub">
+          Cihazına göre önerilen hassasiyet, headshot odaklı ayarlar ve neon kırmızı görünüm.
+          TikTok hesabı: <strong>@wedzx_</strong>
+        </p>
+      </div>
 
-  <!-- Giriş Kapısı (TikTok Takip) -->
-  <div id="gate" class="gate">
-    <h1 class="neon-text">🔥 NEON SENS AI 🔥</h1>
-    <h2>Garena Free Fire</h2>
-    <p style="margin:20px 0; max-width:500px;">
-      Siteye girmek için <strong>@wedzx_</strong> TikTok hesabımı takip etmen gerekiyor!
-    </p>
-    <a href="https://www.tiktok.com/@wedzx_" target="_blank" style="text-decoration:none;">
-      <button onclick="checkFollow()">TIKTOK'TA TAKİP ET</button>
-    </a>
-    <p style="margin-top:30px; font-size:12px;">Takip ettikten sonra "Doğrula" butonuna bas</p>
-    <button onclick="verifyFollow()" style="margin-top:10px; background:#00ffff; color:#000;">DOĞRULA & GİR</button>
-  </div>
+      <div class="grid">
+        <div class="panel">
+          <span class="tag">AI Öneri Paneli</span>
+          <div class="row"><span>Genel</span><strong>98</strong></div>
+          <div class="row"><span>Red Dot</span><strong>92</strong></div>
+          <div class="row"><span>2x Scope</span><strong>88</strong></div>
+          <div class="row"><span>4x Scope</span><strong>78</strong></div>
+          <div class="row"><span>Sniper</span><strong>52</strong></div>
+          <div class="row"><span>DPI</span><strong>700 - 900</strong></div>
+          <a class="btn" href="#access" onclick="openAccess()">Devam Et</a>
+          <p class="muted" style="margin-top:14px">
+            Not: Bu demo, TikTok takip kontrolü yapmaz; sadece takip çağrısı gösterir.
+          </p>
+        </div>
 
-  <!-- Ana İçerik -->
-  <div id="main" class="main-content">
-    <header style="text-align:center; padding:20px;">
-      <h1 class="neon-text">NEON SENS AI v2.0</h1>
-      <p>Yapay Zeka Destekli Free Fire Hassasiyet Ayarı</p>
-    </header>
+        <div class="panel" id="access">
+          <span class="tag">Giriş Ekranı</span>
+          <div id="locked" class="follow-box">
+            <div class="follow-note">
+              Siteye girmeden önce lütfen TikTok'ta <strong>@wedzx_</strong> hesabını takip et.
+              Sonra aşağıdaki butona bas.
+            </div>
+            <a class="btn" href="https://www.tiktok.com/@wedzx_" target="_blank" rel="noopener">TikTok Profili Aç</a>
+            <button class="btn" onclick="unlock()">Takip Ettim, Aç</button>
+          </div>
 
-    <div style="max-width:700px; margin:0 auto; background:rgba(20,0,50,0.7); padding:30px; border:2px solid #ff00ff;">
-      <h2>Hassasiyet Hesapla</h2>
-      
-      <label>Cihazın:</label><br>
-      <select id="device">
-        <option value="phone">Telefon (Dokunmatik)</option>
-        <option value="tablet">Tablet</option>
-        <option value="claw">Claw Oyuncu</option>
-        <option value="2finger">2 Parmak</option>
-        <option value="3finger">3 Parmak</option>
-        <option value="4finger">4 Parmak</option>
-      </select><br><br>
+          <div id="unlocked" class="hidden">
+            <div class="follow-note">
+              Hoş geldin. Burada Free Fire için farklı cihazlara göre hassasiyet kartları,
+              başparmak / 2 parmak / 3 parmak önerileri ve hızlı ayar paneli olabilir.
+            </div>
+            <div style="margin-top:14px" class="pill">Öneri: Genel 98 | Red Dot 92 | 2x 88 | 4x 78 | Sniper 52</div>
+          </div>
+        </div>
+      </div>
 
-      <label>Oynama Tarzın:</label><br>
-      <select id="style">
-        <option value="rush">Rush / Aggressive</option>
-        <option value="tactical">Taktiksel</option>
-        <option value="sniper">Sniper / Long Range</option>
-        <option value="balanced">Dengeli</option>
-      </select><br><br>
-
-      <label>DPI (Fare / Ekran Hassasiyeti):</label><br>
-      <input type="number" id="dpi" value="800" placeholder="Örn: 800"><br><br>
-
-      <button onclick="calculateSensitivity()" style="width:100%;">AI İLE HESAPLA</button>
-
-      <div id="result" style="margin-top:30px; padding:20px; background:#000; border:2px solid #00ffff; display:none;"></div>
+      <div class="footer">
+        Neon kırmızı ağ arka planlı tek sayfa demo.
+      </div>
     </div>
-
-    <footer style="text-align:center; margin-top:40px; opacity:0.7;">
-      <p>© wedzx_ • Neon Sens AI • Free Fire 2026</p>
-    </footer>
   </div>
 
   <script>
-    function checkFollow() {
-      alert("TikTok'a yönlendiriliyorsun... @wedzx_ hesabını takip et ve geri gel!");
+    const canvas = document.getElementById('bg');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+
+    function resize(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      particles = Array.from({length: Math.min(110, Math.floor(w*h/18000))}, () => ({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        vx: (Math.random()-.5)*0.45,
+        vy: (Math.random()-.5)*0.45,
+        r: 1.2 + Math.random()*1.8
+      }));
     }
 
-    function verifyFollow() {
-      if (confirm("Takip ettiğine emin misin?")) {
-        document.getElementById("gate").style.display = "none";
-        document.getElementById("main").style.display = "block";
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      ctx.fillStyle = '#020202';
+      ctx.fillRect(0,0,w,h);
+
+      for(const p of particles){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0||p.x>w) p.vx*=-1;
+        if(p.y<0||p.y>h) p.vy*=-1;
+
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(255,40,40,.95)';
+        ctx.shadowColor = 'rgba(255,40,40,.9)';
+        ctx.shadowBlur = 14;
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
       }
-    }
 
-    function calculateSensitivity() {
-      const device = document.getElementById("device").value;
-      const style = document.getElementById("style").value;
-      const dpi = parseInt(document.getElementById("dpi").value) || 800;
-
-      let general = Math.floor(80 + Math.random() * 40);
-      let scope2x = Math.floor(general * 0.75);
-      let scope4x = Math.floor(general * 0.55);
-      let redDot = Math.floor(general * 0.85);
-
-      let advice = "";
-
-      if (style === "rush") {
-        general = Math.floor(general * 1.15);
-        advice = "Hızlı dönmeler için yüksek hassasiyet önerilir!";
-      } else if (style === "sniper") {
-        general = Math.floor(general * 0.75);
-        advice = "Kontrol için daha düşük değerler daha iyi.";
+      for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+          const a = particles[i], b = particles[j];
+          const dx = a.x-b.x, dy = a.y-b.y, d = Math.sqrt(dx*dx+dy*dy);
+          if(d < 140){
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(255,40,40,${(1-d/140)*0.28})`;
+            ctx.lineWidth = 1;
+            ctx.shadowColor = 'rgba(255,40,40,.35)';
+            ctx.shadowBlur = 8;
+            ctx.moveTo(a.x,a.y);
+            ctx.lineTo(b.x,b.y);
+            ctx.stroke();
+          }
+        }
       }
 
-      document.getElementById("result").innerHTML = `
-        <h3 style="color:#00ffff;">✅ AI ÖNERİSİ</h3>
-        <p><strong>Genel Hassasiyet:</strong> ${general}%</p>
-        <p><strong>Red Dot:</strong> ${redDot}%</p>
-        <p><strong>2x Scope:</strong> ${scope2x}%</p>
-        <p><strong>4x Scope:</strong> ${scope4x}%</p>
-        <p style="color:#ff00ff; margin-top:15px;">${advice}</p>
-        <small>DPI: ${dpi} • Tarz: ${style.toUpperCase()}</small>
-      `;
-      document.getElementById("result").style.display = "block";
+      requestAnimationFrame(draw);
     }
 
-    // Arka plan neon efekti
-    setInterval(() => {
-      document.querySelectorAll('.neon-girl').forEach(g => {
-        g.style.opacity = 0.1 + Math.random() * 0.15;
-      });
-    }, 3000);
+    function openAccess(){
+      document.getElementById('access').scrollIntoView({behavior:'smooth'});
+    }
+
+    function unlock(){
+      document.getElementById('locked').classList.add('hidden');
+      document.getElementById('unlocked').classList.remove('hidden');
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
   </script>
 </body>
 </html>
