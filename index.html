@@ -3,20 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedzx V2 - FF AI Sensitivity</title>
+    <title>Wedzx V2 - AI Sensitivity Matrix</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap');
+
         :root {
             --neon-red: #ff003c;
-            --neon-glow: #ff3366;
-            --bg-dark: #0a0a0c;
-            --card-bg: rgba(20, 20, 25, 0.85);
+            --neon-glow: #ff1a4f;
+            --bg-dark: #050505;
+            --panel-bg: rgba(10, 10, 12, 0.7);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Rajdhani', sans-serif;
             user-select: none;
         }
 
@@ -30,7 +32,7 @@
             align-items: center;
         }
 
-        /* Arka Plan Canvas */
+        /* Neon Kırmızı Ağ Canvas */
         #bg-canvas {
             position: absolute;
             top: 0;
@@ -40,177 +42,247 @@
             z-index: 1;
         }
 
-        /* Ortak Panel Tasarımı */
-        .container {
+        /* Havalı Cyberpunk Panel */
+        .cyber-container {
             position: relative;
             z-index: 2;
-            background: var(--card-bg);
-            border: 2px solid var(--neon-red);
-            border-radius: 16px;
-            padding: 30px;
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 0, 60, 0.3);
+            border-radius: 12px;
+            padding: 35px 30px;
             width: 90%;
-            max-width: 450px;
+            max-width: 480px;
             text-align: center;
-            box-shadow: 0 0 20px rgba(255, 0, 60, 0.2), inset 0 0 15px rgba(255, 0, 60, 0.1);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.15), inset 0 0 20px rgba(255, 0, 60, 0.05);
+            animation: borderPulse 3s infinite alternate;
         }
 
-        h1, h2 {
+        .cyber-container::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, transparent, var(--neon-red), transparent);
+            z-index: -1;
+            border-radius: 14px;
+            opacity: 0.3;
+        }
+
+        @keyframes borderPulse {
+            0% { box-shadow: 0 0 20px rgba(255, 0, 60, 0.1); }
+            100% { box-shadow: 0 0 40px rgba(255, 0, 60, 0.4); }
+        }
+
+        h2 {
+            font-size: 28px;
             color: #fff;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px var(--neon-glow);
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px var(--neon-glow);
         }
 
         p {
-            color: #cccccc;
-            font-size: 14px;
+            color: #999;
+            font-size: 15px;
             margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        /* Butonlar */
-        .btn {
-            display: inline-block;
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(45deg, #111, #222);
-            border: 2px solid var(--neon-red);
-            color: #fff;
-            font-weight: bold;
             letter-spacing: 1px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
         }
 
-        .btn:hover {
-            background: var(--neon-red);
-            box-shadow: 0 0 20px var(--neon-glow);
-            transform: translateY(-2px);
-        }
-
-        /* TikTok Gate Ekranı */
-        #gate-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .tiktok-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-            animation: pulse 1.5s infinite;
-        }
-
-        /* Ana Panel (Giriş Yapılınca Açılacak) */
-        #main-panel {
-            display: none;
-        }
-
-        .setup-group {
-            margin-bottom: 15px;
+        /* Cyber Giriş Alanları */
+        .input-group {
+            margin-bottom: 20px;
             text-align: left;
         }
 
         label {
             display: block;
-            font-size: 12px;
+            font-size: 13px;
+            color: var(--neon-red);
+            margin-bottom: 8px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: #aaa;
-            margin-bottom: 5px;
         }
 
-        select {
+        select, input[type="text"] {
             width: 100%;
-            padding: 10px;
-            background: #151518;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid #333;
             color: #fff;
             border-radius: 6px;
             outline: none;
+            font-size: 16px;
+            transition: all 0.3s;
         }
 
-        .results {
-            margin-top: 20px;
-            background: rgba(0,0,0,0.4);
+        select:focus, input[type="text"]:focus {
+            border-color: var(--neon-red);
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
+        }
+
+        #custom-phone-group {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Havalı Butonlar */
+        .cyber-btn {
+            display: inline-block;
+            width: 100%;
             padding: 15px;
+            background: transparent;
+            border: 2px solid var(--neon-red);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: var(--neon-red);
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .cyber-btn:hover::before {
+            left: 0;
+        }
+
+        .cyber-btn:hover {
+            box-shadow: 0 0 20px var(--neon-glow);
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .tiktok-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Sonuç Paneli */
+        .results {
+            margin-top: 25px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px;
             border-radius: 8px;
             display: none;
-            border-left: 3px solid var(--neon-red);
+            border-left: 4px solid var(--neon-red);
+            position: relative;
         }
 
         .res-item {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid #222;
-            font-size: 14px;
+            padding: 8px 0;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            font-size: 16px;
         }
 
         .res-item:last-child { border: none; }
-        .res-val { color: var(--neon-red); font-weight: bold; text-shadow: 0 0 5px var(--neon-glow); }
-
-        @keyframes pulse {
-            0% { transform: scale(1); text-shadow: 0 0 5px var(--neon-glow); }
-            50% { transform: scale(1.05); text-shadow: 0 0 15px var(--neon-glow); }
-            100% { transform: scale(1); text-shadow: 0 0 5px var(--neon-glow); }
+        .res-label { color: #ccc; }
+        .res-val { 
+            color: var(--neon-red); 
+            font-weight: bold; 
+            font-size: 18px;
+            text-shadow: 0 0 10px rgba(255,0,60,0.5); 
         }
+
+        /* Yükleme Efekti */
+        .scanning {
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: #fff;
+            box-shadow: 0 0 10px #fff, 0 0 20px var(--neon-red);
+            animation: scan 1.5s linear infinite;
+            display: none;
+        }
+
+        @keyframes scan {
+            0% { top: 0; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); text-shadow: 0 0 10px var(--neon-glow); }
+            50% { transform: scale(1.1); text-shadow: 0 0 25px var(--neon-glow); }
+            100% { transform: scale(1); text-shadow: 0 0 10px var(--neon-glow); }
+        }
+
+        /* Panellerin Gizliliği */
+        #main-panel { display: none; }
     </style>
 </head>
 <body>
 
-    <!-- Neon Kırmızı Ağ Efekti -->
+    <!-- Arka Plan Neon Ağlar -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- KİLİT EKRANI (TIKTOK TAKİP ŞARTI) -->
-    <div class="container" id="gate-screen">
+    <!-- TIKTOK KİLİT EKRANI -->
+    <div class="cyber-container" id="gate-screen">
         <div class="tiktok-icon">📱</div>
-        <h2>Sistem Kilitli</h2>
-        <p>Yayındaki güncel Yapay Zeka (AI) hassasiyet ayarlarına erişmek için önce <b>@wedzx_</b> TikTok hesabını takip etmelisiniz.</p>
-        <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn" id="follow-btn">TIKTOK'TA TAKİP ET</a>
-        <button class="btn" id="verify-btn" style="display: none; margin-top: 10px;">GİRİŞİ DOĞRULA</button>
+        <h2>SİSTEM KORUMASI</h2>
+        <p>Yapay zeka (AI) destekli V2 hassasiyet motoruna erişmek için <b>@wedzx_</b> TikTok hesabını takip etmelisin.</p>
+        <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="cyber-btn" id="follow-btn">TIKTOK'TA TAKİP ET</a>
+        <button class="cyber-btn" id="verify-btn" style="display: none; margin-top: 15px;">BAĞLANTIYI DOĞRULA</button>
     </div>
 
     <!-- ANA AYAR PANELİ -->
-    <div class="container" id="main-panel">
-        <h2>WEDZX V2 AI</h2>
-        <p>Cihazınıza en uygun legal hassasiyet ve DPI ayarlarını optimize edin.</p>
+    <div class="cyber-container" id="main-panel">
+        <h2>WEDZX V2 AI MOTORU</h2>
+        <p>Cihazınıza özel kusursuz Aim & DPI değerleri.</p>
         
-        <div class="setup-group">
+        <div class="input-group">
             <label>Cihaz Markası</label>
-            <select id="device-brand">
-                <option value="iphone">iPhone / iPad</option>
-                <option value="xiaomi">Xiaomi / Redmi / Poco</option>
+            <select id="device-select">
+                <option value="iphone">Apple / iPhone</option>
                 <option value="samsung">Samsung</option>
-                <option value="infinix">Infinix / Tecno</option>
-                <option value="other">Diğer Android Cihazlar</option>
+                <option value="xiaomi">Xiaomi / Redmi</option>
+                <option value="other">Diğer (Kendin Yaz)</option>
             </select>
         </div>
 
-        <button class="btn" id="generate-btn">HASSASİYETİ HESAPLA</button>
+        <div class="input-group" id="custom-phone-group">
+            <label>Telefon Modelini Yaz</label>
+            <input type="text" id="custom-phone-input" placeholder="Örn: Infinix Note 30, Poco X3...">
+        </div>
+
+        <button class="cyber-btn" id="generate-btn">YAPAY ZEKAYI BAŞLAT</button>
 
         <div class="results" id="results-box">
-            <div class="res-item"><span>Genel:</span><span class="res-val" id="v-genel">0</span></div>
-            <div class="res-item"><span>Kırmızı Nokta:</span><span class="res-val" id="v-red">0</span></div>
-            <div class="res-item"><span>2x Dürbün:</span><span class="res-val" id="v-2x">0</span></div>
-            <div class="res-item"><span>4x Dürbün:</span><span class="res-val" id="v-4x">0</span></div>
-            <div class="res-item"><span>AWM Dürbünü:</span><span class="res-val" id="v-awm">0</span></div>
-            <div class="res-item"><span>Önerilen DPI:</span><span class="res-val" id="v-dpi">0</span></div>
+            <div class="scanning" id="scanner"></div>
+            <div class="res-item"><span class="res-label">Genel:</span><span class="res-val" id="v-genel">0</span></div>
+            <div class="res-item"><span class="res-label">Kırmızı Nokta:</span><span class="res-val" id="v-red">0</span></div>
+            <div class="res-item"><span class="res-label">2x Dürbün:</span><span class="res-val" id="v-2x">0</span></div>
+            <div class="res-item"><span class="res-label">4x Dürbün:</span><span class="res-val" id="v-4x">0</span></div>
+            <div class="res-item"><span class="res-label">Keskin Nişancı:</span><span class="res-val" id="v-awm">0</span></div>
+            <div class="res-item"><span class="res-label">Önerilen DPI:</span><span class="res-val" id="v-dpi">0</span></div>
         </div>
     </div>
 
     <script>
-        // --- 1. NEON KIRMIZI AĞ SİMÜLASYONU (CANVAS) ---
+        // --- 1. NEON KIRMIZI AĞ ANİMASYONU ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
-
         let particles = [];
-        const maxParticles = 65;
-        const connectionDist = 120;
+        const maxParticles = 75;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -223,14 +295,13 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.2;
-                this.vy = (Math.random() - 0.5) * 1.2;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
                 this.radius = Math.random() * 2 + 1;
             }
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
             }
@@ -238,8 +309,6 @@
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = '#ff003c';
-                ctx.shadowBlur = 8;
-                ctx.shadowColor = '#ff3366';
                 ctx.fill();
             }
         }
@@ -250,24 +319,19 @@
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.shadowBlur = 0; // Performans için çizgilerde gölgeyi sıfırlıyoruz
-
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
-
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < connectionDist) {
+                    if (dist < 130) {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        // Yakınlığa göre çizgi opaklığı
-                        let alpha = (1 - dist / connectionDist) * 0.25;
-                        ctx.strokeStyle = `rgba(255, 0, 60, ${alpha})`;
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist/130})`;
                         ctx.lineWidth = 1;
                         ctx.stroke();
                     }
@@ -277,66 +341,115 @@
         }
         animate();
 
-
-        // --- 2. TIKTOK GİRİŞ KONTROLÜ VE DOĞRULAMA ---
+        // --- 2. TIKTOK DOĞRULAMA ---
         const followBtn = document.getElementById('follow-btn');
         const verifyBtn = document.getElementById('verify-btn');
-        const gateScreen = document.getElementById('gate-screen');
-        const mainPanel = document.getElementById('main-panel');
-
-        // Kullanıcı "Takip Et" linkine bastığında doğrulama butonunu aç
+        
         followBtn.addEventListener('click', () => {
             followBtn.innerText = "YÖNLENDİRİLDİ...";
             setTimeout(() => {
                 followBtn.style.display = "none";
                 verifyBtn.style.display = "inline-block";
-            }, 1000);
+            }, 1500);
         });
 
-        // Doğrula butonuna basınca gerçekleşecek simülasyon
         verifyBtn.addEventListener('click', () => {
-            verifyBtn.innerText = "KONTROL EDİLİYOR...";
+            verifyBtn.innerText = "VERİTABANI ONAYLIYOR...";
             verifyBtn.disabled = true;
-
             setTimeout(() => {
-                // Kilidi aç ve ana paneli getir
-                gateScreen.style.display = "none";
-                mainPanel.style.display = "block";
-            }, 2500); // 2.5 saniye kontrol simülasyonu
+                document.getElementById('gate-screen').style.display = "none";
+                document.getElementById('main-panel').style.display = "block";
+            }, 2500);
         });
 
+        // --- 3. DİNAMİK ARAYÜZ (KENDİN YAZ KISMI) ---
+        const deviceSelect = document.getElementById('device-select');
+        const customPhoneGroup = document.getElementById('custom-phone-group');
+        
+        deviceSelect.addEventListener('change', () => {
+            if (deviceSelect.value === 'other') {
+                customPhoneGroup.style.display = 'block';
+            } else {
+                customPhoneGroup.style.display = 'none';
+            }
+        });
 
-        // --- 3. YAPAY ZEKA HASSASİYET GENERATORÜ ---
+        // --- 4. GELİŞMİŞ YAPAY ZEKA HESAPLAMA ---
         const generateBtn = document.getElementById('generate-btn');
         const resultsBox = document.getElementById('results-box');
+        const scanner = document.getElementById('scanner');
+
+        // Belirli model ismi için hep aynı DPI'ı üreten basit bir HASH fonksiyonu
+        function generateModelHash(str) {
+            let hash = 0;
+            if (str.length === 0) return 450; // Varsayılan değer
+            for (let i = 0; i < str.length; i++) {
+                let char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash);
+        }
+
+        // Rastgele sayı üreteci (min-max arası)
+        function getRnd(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
 
         generateBtn.addEventListener('click', () => {
-            generateBtn.innerText = "AI OPTİMİZE EDİYOR...";
+            generateBtn.innerText = "SİSTEM ANALİZ EDİYOR...";
             generateBtn.disabled = true;
+            resultsBox.style.display = "block";
+            scanner.style.display = "block";
+
+            // Paneli gizle / değerleri sıfırla efekti
+            document.querySelectorAll('.res-val').forEach(el => el.innerText = "...");
 
             setTimeout(() => {
-                const brand = document.getElementById('device-brand').value;
+                const isIphone = deviceSelect.value === 'iphone';
                 
-                // Seçilen markaya göre dinamik mantıklı değer aralıkları
-                let baseGenel = brand === 'iphone' ? Math.floor(Math.random() * 5) + 95 : Math.floor(Math.random() * 10) + 88;
-                let baseRed = Math.floor(Math.random() * 6) + 92;
-                let base2x = Math.floor(Math.random() * 8) + 90;
-                let base4x = Math.floor(Math.random() * 5) + 95;
-                let baseAwm = Math.floor(Math.random() * 20) + 40;
-                let baseDpi = brand === 'iphone' ? "Yok (Gerekli Değil)" : Math.floor(Math.random() * 120) + 520;
+                let sensMin, sensMax, dpiValue;
 
-                // UI Yazdırma
-                document.getElementById('v-genel').innerText = baseGenel;
-                document.getElementById('v-red').innerText = baseRed;
-                document.getElementById('v-2x').innerText = base2x;
-                document.getElementById('v-4x').innerText = base4x;
-                document.getElementById('v-awm').innerText = baseAwm;
-                document.getElementById('v-dpi').innerText = baseDpi;
+                if (isIphone) {
+                    // İPHONE KURALI: Hassasiyet 40-120, DPI 50-120
+                    sensMin = 40;
+                    sensMax = 120;
+                    dpiValue = getRnd(50, 120);
+                } else {
+                    // ANDROID KURALI: Hassasiyet 100-200
+                    sensMin = 100;
+                    sensMax = 200;
+                    
+                    // ANDROID DPI KURALI: Modele göre dinamik üret (Aynı modele aynı DPI)
+                    let modelName = "";
+                    if (deviceSelect.value === 'other') {
+                        modelName = document.getElementById('custom-phone-input').value.trim().toLowerCase();
+                        if (modelName === "") modelName = "bilinmeyencihaz";
+                    } else {
+                        modelName = deviceSelect.value;
+                    }
+                    
+                    // Modeli hashleyerek 300 ile 900 arasında o telefona özel eşsiz bir DPI çıkartıyoruz
+                    let modelHash = generateModelHash(modelName);
+                    dpiValue = (modelHash % 600) + 300; 
+                }
 
-                resultsBox.style.display = "block";
-                generateBtn.innerText = "HASSASİYETİ HESAPLA";
+                // Ekrana Yazdırma
+                document.getElementById('v-genel').innerText = getRnd(sensMin, sensMax);
+                document.getElementById('v-red').innerText = getRnd(sensMin, sensMax);
+                document.getElementById('v-2x').innerText = getRnd(sensMin, sensMax);
+                document.getElementById('v-4x').innerText = getRnd(sensMin, sensMax);
+                
+                // AWM için her zaman biraz daha düşük hassasiyet daha iyidir, bu yüzden max sınırını kısıyoruz
+                let awmMax = isIphone ? 90 : 150; 
+                document.getElementById('v-awm').innerText = getRnd(sensMin, awmMax);
+                
+                document.getElementById('v-dpi').innerText = dpiValue;
+
+                scanner.style.display = "none";
+                generateBtn.innerText = "YENİDEN HESAPLA";
                 generateBtn.disabled = false;
-            }, 1500);
+            }, 2000); // 2 saniyelik havalı analiz simülasyonu
         });
     </script>
 </body>
