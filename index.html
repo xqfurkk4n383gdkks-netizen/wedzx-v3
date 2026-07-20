@@ -2,135 +2,462 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>WEDZX AI | SYSTEM V3</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEDZX V2 | AI SENSITIVITY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #ff003c; --bg: #050508; }
-        body { margin: 0; background: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; overflow: hidden; }
-        
-        /* Arka Plan Ağı */
-        canvas { position: absolute; top: 0; left: 0; z-index: 0; }
-
-        /* Paneller */
-        .ui-container { position: relative; z-index: 1; height: 100vh; display: flex; justify-content: center; align-items: center; }
-        .panel { 
-            background: rgba(10, 10, 15, 0.85); 
-            border: 1px solid var(--neon); 
-            padding: 30px; border-radius: 20px; 
-            width: 350px; text-align: center; 
-            box-shadow: 0 0 30px rgba(255, 0, 60, 0.3);
-            backdrop-filter: blur(10px);
+        :root {
+            --neon-red: #ff003c;
+            --neon-glow: rgba(255, 0, 60, 0.6);
+            --bg-dark: #060608;
+            --panel-bg: rgba(15, 15, 25, 0.7);
+            --border-color: rgba(255, 0, 60, 0.2);
         }
 
-        h1 { font-family: 'Orbitron', sans-serif; color: var(--neon); text-shadow: 0 0 10px var(--neon); margin-bottom: 20px; }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.5); border: 1px solid #444; color: white; border-radius: 8px; }
-        
-        button { 
-            width: 100%; padding: 15px; background: var(--neon); border: none; 
-            color: white; font-weight: bold; cursor: pointer; border-radius: 8px; 
-            font-family: 'Orbitron', sans-serif; transition: 0.3s;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            user-select: none;
         }
-        button:hover { box-shadow: 0 0 20px var(--neon); transform: translateY(-2px); }
 
-        .data-row { display: flex; justify-content: space-between; margin: 10px 0; padding-bottom: 5px; border-bottom: 1px solid #333; }
-        .val { color: var(--neon); font-weight: bold; }
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Arka Plan Canlı Ağ Efekti */
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Ana Kapsayıcı */
+        .main-container {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 480px;
+            perspective: 1000px;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 0, 60, 0.1);
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-glow);
+            margin-bottom: 5px;
+        }
+
+        h1 span {
+            color: var(--neon-red);
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: #8a8a93;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* TİKTOK GATE (Kilit Ekranı) */
+        #tiktok-gate {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .lock-icon {
+            font-size: 3rem;
+            color: var(--neon-red);
+            margin-bottom: 15px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); text-shadow: 0 0 10px var(--neon-glow); }
+            50% { transform: scale(1.05); text-shadow: 0 0 25px var(--neon-red); }
+            100% { transform: scale(1); text-shadow: 0 0 10px var(--neon-glow); }
+        }
+
+        .gate-text {
+            font-size: 0.95rem;
+            color: #e4e4e7;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #ff003c 0%, #990024 100%);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px var(--neon-glow);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px var(--neon-red);
+        }
+
+        /* Yükleniyor Ekranı */
+        .loader-container {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 0, 60, 0.1);
+            border-top: 4px solid var(--neon-red);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ANA SİTE PANELİ (Giriş Sonrası) */
+        #main-panel {
+            display: none;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            color: #a1a1aa;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        select:focus, input[type="text"]:focus {
+            border-color: var(--neon-red);
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
+        }
+
+        #custom-model-group {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        /* SONUÇ ALANI */
+        #results {
+            display: none;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--border-color);
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .result-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .result-box.special {
+            grid-column: span 2;
+            background: rgba(255, 0, 60, 0.05);
+            border: 1px solid rgba(255, 0, 60, 0.3);
+        }
+
+        .res-title {
+            font-size: 0.75rem;
+            color: #a1a1aa;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .res-val {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .result-box.special .res-val {
+            color: var(--neon-red);
+            text-shadow: 0 0 10px var(--neon-glow);
+            font-size: 1.6rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10deg); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
 
-    <canvas id="canvas"></canvas>
+    <!-- Arka Plan Ağları -->
+    <canvas id="bg-canvas"></canvas>
 
-    <div class="ui-container">
-        <!-- 1. KİLİT EKRANI -->
-        <div id="gate" class="panel">
-            <h1>WEDZX ACCESS</h1>
-            <p>Sistemi kullanmak için takip et.</p>
-            <button onclick="window.open('https://www.tiktok.com/@wedzx_', '_blank'); document.getElementById('btn-enter').disabled=false;">TAKİP ET</button>
-            <button id="btn-enter" onclick="show('selector')" disabled style="margin-top:10px; background:#444;">GİRİŞ YAP</button>
+    <div class="main-container">
+        
+        <!-- 1. ADIM: TİKTOK KİLİDİ -->
+        <div class="panel" id="tiktok-gate">
+            <h1>WEDZX <span>V2</span></h1>
+            <p class="subtitle">AI Mobile Optimization</p>
+            
+            <div class="lock-icon">🔒</div>
+            <p class="gate-text">
+                Yapay Zeka destekli hassasiyet motoruna erişmek için önce resmi TikTok hesabımızı takip etmelisiniz.
+            </p>
+            
+            <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn" id="follow-btn" onclick="startVerification()">
+                TAKİP ET & KİLİDİ AÇ
+            </a>
+
+            <div class="loader-container" id="gate-loader">
+                <div class="spinner"></div>
+                <p style="font-size: 0.85rem; color: var(--neon-red); letter-spacing: 1px;">TAKİP DOĞRULANIYOR...</p>
+            </div>
         </div>
 
-        <!-- 2. SEÇİM EKRANI -->
-        <div id="selector" class="panel" style="display:none;">
-            <h1>DEVICE SCAN</h1>
-            <select id="brand"><option value="iPhone">iPhone</option><option value="Android">Samsung / Xiaomi / Diğer</option></select>
-            <input type="text" id="model" placeholder="Telefon Modeli Yaz...">
-            <button onclick="process()">ANALİZ ET</button>
+        <!-- 2. ADIM: ANA HASSASİYET PANELİ -->
+        <div class="panel" id="main-panel">
+            <h1>WEDZX <span>V2</span></h1>
+            <p class="subtitle">AI Sensitivity Generator</p>
+
+            <div class="form-group">
+                <label for="brand-select">Telefon Markası</label>
+                <select id="brand-select" onchange="handleBrandChange()">
+                    <option value="iphone">Apple (iPhone)</option>
+                    <option value="samsung">Samsung</option>
+                    <option value="other">Diğer Markalar</option>
+                </select>
+            </div>
+
+            <div class="form-group" id="custom-model-group">
+                <label for="custom-model">Telefon Modelini Yazın</label>
+                <input type="text" id="custom-model" placeholder="Örn: Xiaomi Poco X3, Redmi Note 11">
+            </div>
+
+            <button class="btn" onclick="generateSensitivity()">YAPAY ZEKAYI ÇALIŞTIR</button>
+
+            <!-- 3. ADIM: SONUÇLAR -->
+            <div id="results">
+                <p class="subtitle" style="margin-bottom: 15px; color: #4ade80;">Cihaza Özel Ayarlar Üretildi</p>
+                <div class="result-grid">
+                    <div class="result-box"><div class="res-title">Genel</div><div class="res-val" id="val-genel">0</div></div>
+                    <div class="result-box"><div class="res-title">Kırmızı Nokta</div><div class="res-val" id="val-red">0</div></div>
+                    <div class="result-box"><div class="res-title">2x Dürbün</div><div class="res-val" id="val-2x">0</div></div>
+                    <div class="result-box"><div class="res-title">4x Dürbün</div><div class="res-val" id="val-4x">0</div></div>
+                    <div class="result-box special"><div class="res-title">Önerilen DPI</div><div class="res-val" id="val-dpi">0</div></div>
+                </div>
+            </div>
         </div>
 
-        <!-- 3. YÜKLEME EKRANI -->
-        <div id="loading" class="panel" style="display:none;">
-            <h1>PROCESSING...</h1>
-            <div id="status" style="margin-top:20px;">Veri paketleri işleniyor...</div>
-        </div>
-
-        <!-- 4. SONUÇ EKRANI -->
-        <div id="results" class="panel" style="display:none;">
-            <h1>AI OPTIMIZED</h1>
-            <div id="data-list"></div>
-            <button onclick="location.reload()" style="margin-top:20px;">YENİLE</button>
-        </div>
     </div>
 
     <script>
-        // --- NEON AĞ ANIMASYONU ---
-        const canvas = document.getElementById('canvas');
+        // --- 1. NEON RED NETWORK BACKGROUND (CANVAS) ---
+        const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
+
         let particles = [];
-        function init() {
-            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
-            for(let i=0; i<60; i++) particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:Math.random()-0.5, vy:Math.random()-0.5});
-        }
-        function draw() {
-            ctx.fillStyle = '#050508'; ctx.fillRect(0,0,canvas.width, canvas.height);
-            particles.forEach((p, i) => {
-                p.x += p.vx; p.y += p.vy;
-                if(p.x<0 || p.x>canvas.width) p.vx*=-1; if(p.y<0 || p.y>canvas.height) p.vy*=-1;
-                ctx.fillStyle = '#ff003c'; ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, Math.PI*2); ctx.fill();
-                for(let j=i+1; j<particles.length; j++) {
-                    let d = Math.hypot(p.x-particles[j].x, p.y-particles[j].y);
-                    if(d<150) { ctx.strokeStyle = `rgba(255,0,60,${1-d/150})`; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(particles[j].x, particles[j].y); ctx.stroke(); }
-                }
-            });
-            requestAnimationFrame(draw);
-        }
-        init(); draw();
+        const maxParticles = 65;
 
-        // --- MANTIK ---
-        function show(id) { 
-            document.querySelectorAll('.panel').forEach(p => p.style.display='none');
-            document.getElementById(id).style.display='block';
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff003c';
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#ff003c';
+                ctx.fill();
+            }
         }
 
-        function process() {
-            if(!document.getElementById('model').value) return alert("Model gir!");
-            show('loading');
-            setTimeout(()=>document.getElementById('status').innerText="Donanım matrisi kuruluyor...", 1000);
-            setTimeout(()=>document.getElementById('status').innerText="Sens hassasiyeti optimize ediliyor...", 2500);
-            setTimeout(() => {
-                const b = document.getElementById('brand').value;
-                const seed = document.getElementById('model').value.length;
-                const rand = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+        for (let i = 0; i < maxParticles; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.shadowBlur = 0; // Reset blur for lines
+            
+            // Ağ çizgilerini çizme
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
                 
-                const sMin = b === 'iPhone' ? 40 : 80;
-                const sMax = b === 'iPhone' ? 120 : 100;
-                const dMin = b === 'iPhone' ? 50 : 100;
-                const dMax = b === 'iPhone' ? 120 : 200;
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 120})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
 
-                const data = {
-                    "DPI": rand(dMin, dMax),
-                    "Genel": rand(sMin, sMax),
-                    "Kırmızı Nokta": rand(sMin, sMax),
-                    "2x Dürbün": rand(sMin, sMax),
-                    "4x Dürbün": rand(sMin, sMax),
-                    "Tüfek Dürbünü": rand(sMin, sMax),
-                    "Serbest Bakış": rand(sMin, sMax)
-                };
 
-                let html = "";
-                for(let k in data) html += `<div class="data-row"><span>${k}</span><span class="val">${data[k]}</span></div>`;
-                document.getElementById('data-list').innerHTML = html;
-                show('results');
-            }, 4000);
+        // --- 2. TİKTOK GATE LOGIC ---
+        function startVerification() {
+            const btn = document.getElementById('follow-btn');
+            const loader = document.getElementById('gate-loader');
+            
+            btn.style.display = 'none';
+            loader.style.display = 'block';
+
+            // 5 saniye bekleme simülasyonu
+            setTimeout(() => {
+                document.getElementById('tiktok-gate').style.display = 'none';
+                document.getElementById('main-panel').style.display = 'block';
+            }, 5000);
+        }
+
+
+        // --- 3. BRAND SELECTION & AI LOGIC ---
+        function handleBrandChange() {
+            const brand = document.getElementById('brand-select').value;
+            const customGroup = document.getElementById('custom-model-group');
+            if (brand === 'other') {
+                customGroup.style.display = 'block';
+            } else {
+                customGroup.style.display = 'none';
+            }
+            // Reset results if brand changes
+            document.getElementById('results').style.display = 'none';
+        }
+
+        function randomRange(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function generateSensitivity() {
+            const brand = document.getElementById('brand-select').value;
+            
+            let sensMin = 85, sensMax = 100; // Standart android için tatlı varsayılan hassasiyetler
+            let dpiMin = 100, dpiMax = 200;
+
+            if (brand === 'iphone') {
+                // İstek: iPhone hassasiyetleri 40-120, DPI 50-120 arası
+                sensMin = 40;
+                sensMax = 120;
+                dpiMin = 50;
+                dpiMax = 120;
+            } else {
+                // İstek: Android'ler için DPI 100-200 arası (Samsung ve Diğerleri)
+                sensMin = 88; 
+                sensMax = 99;
+                dpiMin = 100;
+                dpiMax = 200;
+            }
+
+            // Değerleri üretme
+            const genel = randomRange(sensMin, sensMax);
+            const redDot = randomRange(sensMin, Math.min(sensMax, genel + 5));
+            const scope2x = randomRange(sensMin, sensMax);
+            const scope4x = randomRange(sensMin, sensMax);
+            const dpi = randomRange(dpiMin, dpiMax);
+
+            // Arayüze yazdırma
+            document.getElementById('val-genel').innerText = genel;
+            document.getElementById('val-red').innerText = redDot;
+            document.getElementById('val-2x').innerText = scope2x;
+            document.getElementById('val-4x').innerText = scope4x;
+            document.getElementById('val-dpi').innerText = dpi;
+
+            // Sonuç alanını göster
+            document.getElementById('results').style.display = 'block';
         }
     </script>
 </body>
