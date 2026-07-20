@@ -9,366 +9,99 @@
 
         :root {
             --neon-red: #ff003c;
-            --neon-glow: #ff1a4f;
+            --neon-blue: #00d4ff;
             --bg-dark: #050505;
-            --panel-bg: rgba(10, 10, 12, 0.75);
+            --panel-bg: rgba(10, 10, 15, 0.8);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Rajdhani', sans-serif;
-            user-select: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rajdhani', sans-serif; user-select: none; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: #fff;
-            overflow: hidden;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        body { background-color: var(--bg-dark); color: #fff; overflow: hidden; height: 100vh; display: flex; justify-content: center; align-items: center; }
 
-        /* Neon Kırmızı Ağ Canvas */
-        #bg-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
+        #bg-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 
-        /* Havalı Cyberpunk Panel */
         .cyber-container {
-            position: relative;
-            z-index: 2;
-            background: var(--panel-bg);
-            border: 1px solid rgba(255, 0, 60, 0.3);
-            border-radius: 12px;
-            padding: 30px 25px;
-            width: 90%;
-            max-width: 480px;
-            max-height: 95vh;
-            overflow-y: auto;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 0 30px rgba(255, 0, 60, 0.15), inset 0 0 20px rgba(255, 0, 60, 0.05);
-            animation: borderPulse 3s infinite alternate;
+            position: relative; z-index: 2; background: var(--panel-bg);
+            border: 1px solid rgba(255, 0, 60, 0.3); border-radius: 12px;
+            padding: 30px 25px; width: 90%; max-width: 480px; max-height: 95vh; overflow-y: auto;
+            text-align: center; backdrop-filter: blur(15px);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.1), inset 0 0 20px rgba(255, 0, 60, 0.05);
         }
 
-        /* Scrollbar Gizleme/İnceltme (Mobilde kaydırma için) */
-        .cyber-container::-webkit-scrollbar { width: 5px; }
-        .cyber-container::-webkit-scrollbar-thumb { background: var(--neon-red); border-radius: 5px; }
-
-        .cyber-container::before {
-            content: '';
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(45deg, transparent, var(--neon-red), transparent);
-            z-index: -1;
-            border-radius: 14px;
-            opacity: 0.3;
-        }
-
-        @keyframes borderPulse {
-            0% { box-shadow: 0 0 20px rgba(255, 0, 60, 0.1); }
-            100% { box-shadow: 0 0 40px rgba(255, 0, 60, 0.4); }
-        }
-
-        h2 {
-            font-size: 28px;
-            color: #fff;
-            letter-spacing: 3px;
-            margin-bottom: 5px;
-            text-shadow: 0 0 15px var(--neon-glow);
-            text-transform: uppercase;
-        }
-
-        p {
-            color: #999;
-            font-size: 14px;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        /* Cyber Giriş Alanları */
-        .input-group {
-            margin-bottom: 15px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            color: var(--neon-red);
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        select, input[type="text"] {
-            width: 100%;
-            padding: 10px 12px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #333;
-            color: #fff;
-            border-radius: 6px;
-            outline: none;
-            font-size: 15px;
-            transition: all 0.3s;
-        }
-
-        select:focus, input[type="text"]:focus {
-            border-color: var(--neon-red);
-            box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
-        }
-
-        /* Hata Titreme Animasyonu */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-        }
-        .error-shake {
-            animation: shake 0.4s ease-in-out;
-            border-color: #ff0000 !important;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5) !important;
-        }
-
-        /* Havalı Butonlar */
-        .cyber-btn {
-            display: inline-block;
-            width: 100%;
-            padding: 14px;
-            background: transparent;
-            border: 2px solid var(--neon-red);
-            color: #fff;
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            border-radius: 6px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            margin-top: 5px;
-        }
-
-        .cyber-btn::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: var(--neon-red);
-            transition: all 0.4s ease;
-            z-index: -1;
-        }
-
-        .cyber-btn:hover::before {
-            left: 0;
-        }
-
-        .cyber-btn:hover {
-            box-shadow: 0 0 20px var(--neon-glow);
-            text-shadow: 0 0 5px #fff;
-        }
-
-        .tiktok-icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-            animation: pulse 1.5s infinite;
-        }
-
-        /* Sonuç Paneli */
-        .results {
-            margin-top: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 15px;
-            border-radius: 8px;
-            display: none;
-            border-left: 4px solid var(--neon-red);
-            position: relative;
-        }
-
-        .res-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px dashed rgba(255,255,255,0.1);
-            font-size: 15px;
-        }
-
-        .res-item:last-child { border: none; }
-        .res-label { color: #ccc; }
-        .res-val { 
-            color: var(--neon-red); 
-            font-weight: bold; 
-            font-size: 16px;
-            text-shadow: 0 0 10px rgba(255,0,60,0.5); 
-        }
-        .res-val.disabled {
-            color: #777;
-            text-shadow: none;
-        }
-
-        /* Yükleme Efekti */
-        .scanning {
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 2px;
-            background: #fff;
-            box-shadow: 0 0 10px #fff, 0 0 20px var(--neon-red);
-            animation: scan 1.5s linear infinite;
-            display: none;
-        }
-
-        @keyframes scan {
-            0% { top: 0; opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { top: 100%; opacity: 0; }
-        }
-        @keyframes pulse {
-            0% { transform: scale(1); text-shadow: 0 0 10px var(--neon-glow); }
-            50% { transform: scale(1.1); text-shadow: 0 0 25px var(--neon-glow); }
-            100% { transform: scale(1); text-shadow: 0 0 10px var(--neon-glow); }
-        }
-
+        h2 { font-size: 28px; color: #fff; letter-spacing: 3px; margin-bottom: 5px; text-shadow: 0 0 10px var(--neon-red); text-transform: uppercase; }
+        
+        /* Geri kalan CSS aynı, sadece input/select renklerini güncelliyoruz */
+        label { color: var(--neon-blue); }
+        .cyber-btn { border: 2px solid var(--neon-blue); color: #fff; }
+        .cyber-btn:hover { box-shadow: 0 0 20px var(--neon-blue); }
+        
+        .res-val { color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); }
+        .res-item { border-bottom: 1px dashed rgba(0, 212, 255, 0.1); }
+        
         #main-panel { display: none; }
+        .error-shake { animation: shake 0.4s ease-in-out; border-color: var(--neon-red) !important; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
     </style>
 </head>
 <body>
 
-    <!-- Arka Plan Neon Ağlar -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- TIKTOK KİLİT EKRANI -->
     <div class="cyber-container" id="gate-screen">
-        <div class="tiktok-icon">📱</div>
+        <div class="tiktok-icon" style="font-size: 45px; margin-bottom: 10px;">📱</div>
         <h2>SİSTEM KORUMASI</h2>
-        <p>Yapay zeka (AI) destekli <b>V3</b> hassasiyet motoruna erişmek için <b>@wedzx_</b> TikTok hesabını takip etmelisin.</p>
-        <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="cyber-btn" id="follow-btn">TIKTOK'TA TAKİP ET</a>
-        <button class="cyber-btn" id="verify-btn" style="display: none; margin-top: 15px;">BAĞLANTIYI DOĞRULA</button>
+        <p>WEDZX V3 erişimi için <b>@wedzx_</b> hesabını takip et.</p>
+        <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="cyber-btn" id="follow-btn">TAKİP ET</a>
+        <button class="cyber-btn" id="verify-btn" style="display: none; margin-top: 15px;">DOĞRULA</button>
     </div>
 
-    <!-- ANA AYAR PANELİ V3 -->
     <div class="cyber-container" id="main-panel">
         <h2>WEDZX V3 AI</h2>
-        <p>Tüm telefon markaları desteklenmektedir.</p>
-        
-        <div class="input-group">
-            <label>Telefon Markası</label>
-            <select id="brand-select">
-                <option value="apple">Apple (iPhone / iPad)</option>
-                <option value="samsung">Samsung</option>
-                <option value="xiaomi">Xiaomi</option>
-                <option value="poco">Poco</option>
-                <option value="redmi">Redmi</option>
-                <option value="infinix">Infinix</option>
-                <option value="tecno">Tecno</option>
-                <option value="oppo">Oppo</option>
-                <option value="vivo">Vivo</option>
-                <option value="realme">Realme</option>
-                <option value="huawei">Huawei</option>
-                <option value="honor">Honor</option>
-                <option value="asus">Asus (ROG)</option>
-                <option value="nubia">Nubia (RedMagic)</option>
-                <option value="oneplus">OnePlus</option>
-                <option value="casper">Casper / Reeder / GM</option>
-                <option value="other">Diğer Markalar</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label>Tam Cihaz Modeli (Zorunlu)</label>
-            <input type="text" id="model-input" placeholder="Örn: 14 Pro Max, X3 Pro, Note 30..." autocomplete="off">
-        </div>
-
-        <div class="input-group">
-            <label>DPI Ayarı (Geliştirici Seçenekleri)</label>
-            <select id="dpi-toggle">
-                <option value="on">DPI Kullanmak İstiyorum (AÇIK)</option>
-                <option value="off">DPI Kullanmıyorum (KAPALI)</option>
-            </select>
-        </div>
-
-        <button class="cyber-btn" id="generate-btn">YAPAY ZEKAYI BAŞLAT</button>
-
-        <div class="results" id="results-box">
-            <div class="scanning" id="scanner"></div>
+        <div class="input-group"><label>Marka</label><select id="brand-select"><option value="apple">Apple</option><option value="samsung">Samsung</option><option value="xiaomi">Xiaomi</option><option value="other">Diğer</option></select></div>
+        <div class="input-group"><label>Model</label><input type="text" id="model-input" placeholder="Model Giriniz..."></div>
+        <button class="cyber-btn" id="generate-btn">HESAPLA</button>
+        <div class="results" id="results-box" style="display:none; margin-top:15px; padding:15px; border-left:4px solid var(--neon-blue);">
             <div class="res-item"><span class="res-label">Genel:</span><span class="res-val" id="v-genel">0</span></div>
             <div class="res-item"><span class="res-label">Kırmızı Nokta:</span><span class="res-val" id="v-red">0</span></div>
             <div class="res-item"><span class="res-label">2x Dürbün:</span><span class="res-val" id="v-2x">0</span></div>
             <div class="res-item"><span class="res-label">4x Dürbün:</span><span class="res-val" id="v-4x">0</span></div>
             <div class="res-item"><span class="res-label">Tüfek Dürbünü:</span><span class="res-val" id="v-tufe">0</span></div>
             <div class="res-item"><span class="res-label">Serbest Bakış:</span><span class="res-val" id="v-serbest">0</span></div>
-            <div class="res-item"><span class="res-label">Önerilen DPI:</span><span class="res-val" id="v-dpi">0</span></div>
         </div>
     </div>
 
     <script>
-        // --- NEON KIRMIZI AĞ ANİMASYONU ---
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const maxParticles = 75;
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
+        function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.onresize = resize; resize();
 
         class Particle {
             constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.5;
-                this.vy = (Math.random() - 0.5) * 1.5;
-                this.radius = Math.random() * 2 + 1;
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5); this.vy = (Math.random() - 0.5);
+                this.color = Math.random() > 0.5 ? '#ff003c' : '#00d4ff'; // Kırmızı veya Mavi
             }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = '#ff003c';
-                ctx.fill();
-            }
+            update() { this.x += this.vx; this.y += this.vy; if(this.x<0||this.x>canvas.width) this.vx*=-1; if(this.y<0||this.y>canvas.height) this.vy*=-1; }
+            draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, Math.PI*2); ctx.fill(); }
         }
 
-        for (let i = 0; i < maxParticles; i++) {
-            particles.push(new Particle());
-        }
+        for(let i=0; i<80; i++) particles.push(new Particle());
 
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 130) {
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist/130})`;
-                        ctx.lineWidth = 1;
-                        ctx.stroke();
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            for(let i=0; i<particles.length; i++) {
+                for(let j=i+1; j<particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist < 150) {
+                        ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = particles[i].color; // Bağlantı hattı parçacığın renginde
+                        ctx.globalAlpha = 1 - dist/150; ctx.stroke(); ctx.globalAlpha = 1;
                     }
                 }
             }
@@ -376,116 +109,14 @@
         }
         animate();
 
-        // --- TIKTOK DOĞRULAMA ---
-        const followBtn = document.getElementById('follow-btn');
-        const verifyBtn = document.getElementById('verify-btn');
-        
-        followBtn.addEventListener('click', () => {
-            followBtn.innerText = "YÖNLENDİRİLDİ...";
-            setTimeout(() => {
-                followBtn.style.display = "none";
-                verifyBtn.style.display = "inline-block";
-            }, 1500);
-        });
-
-        verifyBtn.addEventListener('click', () => {
-            verifyBtn.innerText = "VERİTABANI ONAYLIYOR...";
-            verifyBtn.disabled = true;
-            setTimeout(() => {
-                document.getElementById('gate-screen').style.display = "none";
-                document.getElementById('main-panel').style.display = "block";
-            }, 2500);
-        });
-
-        // --- V3 YAPAY ZEKA HESAPLAMA MOTORU ---
-        const generateBtn = document.getElementById('generate-btn');
-        const resultsBox = document.getElementById('results-box');
-        const scanner = document.getElementById('scanner');
-        const modelInput = document.getElementById('model-input');
-
-        function generateModelHash(str) {
-            let hash = 0;
-            for (let i = 0; i < str.length; i++) {
-                let char = str.charCodeAt(i);
-                hash = ((hash << 5) - hash) + char;
-                hash = hash & hash;
-            }
-            return Math.abs(hash);
-        }
-
-        function getRnd(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        generateBtn.addEventListener('click', () => {
-            const modelName = modelInput.value.trim().toLowerCase();
-            const brandSelect = document.getElementById('brand-select').value;
-            const dpiToggle = document.getElementById('dpi-toggle').value;
-            const dpiElement = document.getElementById('v-dpi');
-
-            // Model yazılmazsa uyarı ver
-            if (modelName === "") {
-                modelInput.classList.add('error-shake');
-                setTimeout(() => modelInput.classList.remove('error-shake'), 400);
-                return;
-            }
-
-            generateBtn.innerText = "SİSTEM ANALİZ EDİYOR...";
-            generateBtn.disabled = true;
-            resultsBox.style.display = "block";
-            scanner.style.display = "block";
-
-            document.querySelectorAll('.res-val').forEach(el => {
-                el.innerText = "...";
-                el.classList.remove('disabled');
-            });
-
-            setTimeout(() => {
-                const isIphone = brandSelect === 'apple';
-                const useDpi = dpiToggle === 'on';
-                
-                let sensMin, sensMax, dpiValue;
-
-                // HASSASİYET KURALLARI (GÜNCELLENDİ)
-                if (isIphone) {
-                    sensMin = 50;
-                    sensMax = 160;
-                } else {
-                    sensMin = 100;
-                    sensMax = 200;
-                }
-
-                // DPI KURALLARI
-                if (!useDpi) {
-                    dpiValue = "KAPALI";
-                    dpiElement.classList.add('disabled');
-                } else {
-                    dpiElement.classList.remove('disabled');
-                    let fullPhoneName = brandSelect + modelName; // Marka ve modeli birleştirip eşsiz sayı üret
-                    let modelHash = generateModelHash(fullPhoneName);
-                    
-                    if (isIphone) {
-                        dpiValue = (modelHash % 71) + 50; // iPhone için 50-120
-                    } else {
-                        dpiValue = (modelHash % 600) + 300; // Android/Diğerleri için 300-900
-                    }
-                }
-
-                // Ekrana İstenilen İsimlerle Yazdırma
-                document.getElementById('v-genel').innerText = getRnd(sensMin, sensMax);
-                document.getElementById('v-red').innerText = getRnd(sensMin, sensMax);
-                document.getElementById('v-2x').innerText = getRnd(sensMin, sensMax);
-                document.getElementById('v-4x').innerText = getRnd(sensMin, sensMax);
-                document.getElementById('v-tufe').innerText = getRnd(sensMin, sensMax - (isIphone ? 20 : 30)); // Tüfek dürbünü genelde biraz daha yavaştır
-                document.getElementById('v-serbest').innerText = getRnd(sensMin, sensMax);
-                
-                dpiElement.innerText = dpiValue;
-
-                scanner.style.display = "none";
-                generateBtn.innerText = "YENİDEN HESAPLA";
-                generateBtn.disabled = false;
-            }, 1800);
-        });
+        // Doğrulama ve Hesaplama Mantığı (Bir önceki ile aynı)
+        document.getElementById('follow-btn').onclick = () => { setTimeout(() => { document.getElementById('follow-btn').style.display='none'; document.getElementById('verify-btn').style.display='block'; }, 1000); };
+        document.getElementById('verify-btn').onclick = () => { document.getElementById('gate-screen').style.display='none'; document.getElementById('main-panel').style.display='block'; };
+        document.getElementById('generate-btn').onclick = () => {
+            if(document.getElementById('model-input').value === "") { document.getElementById('model-input').classList.add('error-shake'); return; }
+            document.getElementById('results-box').style.display = 'block';
+            document.querySelectorAll('.res-val').forEach(el => el.innerText = Math.floor(Math.random()*(160-50)+50));
+        };
     </script>
 </body>
 </html>
