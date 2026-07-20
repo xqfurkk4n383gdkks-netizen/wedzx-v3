@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedzx V2 - AI Sensitivity Matrix</title>
+    <title>Wedzx V3 - AI Sensitivity Matrix</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&display=swap');
 
@@ -11,7 +11,7 @@
             --neon-red: #ff003c;
             --neon-glow: #ff1a4f;
             --bg-dark: #050505;
-            --panel-bg: rgba(10, 10, 12, 0.7);
+            --panel-bg: rgba(10, 10, 12, 0.75);
         }
 
         * {
@@ -74,7 +74,7 @@
         }
 
         h2 {
-            font-size: 28px;
+            font-size: 30px;
             color: #fff;
             letter-spacing: 3px;
             margin-bottom: 10px;
@@ -91,7 +91,7 @@
 
         /* Cyber Giriş Alanları */
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             text-align: left;
         }
 
@@ -107,7 +107,7 @@
         select, input[type="text"] {
             width: 100%;
             padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid #333;
             color: #fff;
             border-radius: 6px;
@@ -121,14 +121,21 @@
             box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
         }
 
-        #custom-phone-group {
-            display: none;
-            animation: fadeIn 0.3s ease;
+        input::placeholder {
+            color: #555;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-5px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Hata Titreme Animasyonu */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+        .error-shake {
+            animation: shake 0.4s ease-in-out;
+            border-color: #ff0000 !important;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5) !important;
         }
 
         /* Havalı Butonlar */
@@ -149,6 +156,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            margin-top: 10px;
         }
 
         .cyber-btn::before {
@@ -178,7 +186,7 @@
 
         /* Sonuç Paneli */
         .results {
-            margin-top: 25px;
+            margin-top: 20px;
             background: rgba(0, 0, 0, 0.6);
             padding: 20px;
             border-radius: 8px;
@@ -202,6 +210,10 @@
             font-weight: bold; 
             font-size: 18px;
             text-shadow: 0 0 10px rgba(255,0,60,0.5); 
+        }
+        .res-val.disabled {
+            color: #777;
+            text-shadow: none;
         }
 
         /* Yükleme Efekti */
@@ -239,29 +251,35 @@
     <div class="cyber-container" id="gate-screen">
         <div class="tiktok-icon">📱</div>
         <h2>SİSTEM KORUMASI</h2>
-        <p>Yapay zeka (AI) destekli V2 hassasiyet motoruna erişmek için <b>@wedzx_</b> TikTok hesabını takip etmelisin.</p>
+        <p>Yapay zeka (AI) destekli <b>V3</b> hassasiyet motoruna erişmek için <b>@wedzx_</b> TikTok hesabını takip etmelisin.</p>
         <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="cyber-btn" id="follow-btn">TIKTOK'TA TAKİP ET</a>
         <button class="cyber-btn" id="verify-btn" style="display: none; margin-top: 15px;">BAĞLANTIYI DOĞRULA</button>
     </div>
 
-    <!-- ANA AYAR PANELİ -->
+    <!-- ANA AYAR PANELİ V3 -->
     <div class="cyber-container" id="main-panel">
-        <h2>WEDZX V2 AI MOTORU</h2>
-        <p>Cihazınıza özel kusursuz Aim & DPI değerleri.</p>
+        <h2>WEDZX V3 AI</h2>
+        <p>Cihazınıza özel kusursuz Aim & Hassasiyet değerleri.</p>
         
         <div class="input-group">
-            <label>Cihaz Markası</label>
-            <select id="device-select">
-                <option value="iphone">Apple / iPhone</option>
-                <option value="samsung">Samsung</option>
-                <option value="xiaomi">Xiaomi / Redmi</option>
-                <option value="other">Diğer (Kendin Yaz)</option>
+            <label>İşletim Sistemi</label>
+            <select id="os-select">
+                <option value="android">Android</option>
+                <option value="ios">Apple (iOS / iPhone)</option>
             </select>
         </div>
 
-        <div class="input-group" id="custom-phone-group">
-            <label>Telefon Modelini Yaz</label>
-            <input type="text" id="custom-phone-input" placeholder="Örn: Infinix Note 30, Poco X3...">
+        <div class="input-group">
+            <label>Cihaz Modeli (Zorunlu)</label>
+            <input type="text" id="model-input" placeholder="Örn: iPhone 13 Pro, Poco X3 NFC..." autocomplete="off">
+        </div>
+
+        <div class="input-group">
+            <label>DPI Ayarı (Geliştirici Seçenekleri)</label>
+            <select id="dpi-toggle">
+                <option value="on">DPI Kullanmak İstiyorum (AÇIK)</option>
+                <option value="off">DPI Kullanmıyorum (KAPALI)</option>
+            </select>
         </div>
 
         <button class="cyber-btn" id="generate-btn">YAPAY ZEKAYI BAŞLAT</button>
@@ -362,27 +380,15 @@
             }, 2500);
         });
 
-        // --- 3. DİNAMİK ARAYÜZ (KENDİN YAZ KISMI) ---
-        const deviceSelect = document.getElementById('device-select');
-        const customPhoneGroup = document.getElementById('custom-phone-group');
-        
-        deviceSelect.addEventListener('change', () => {
-            if (deviceSelect.value === 'other') {
-                customPhoneGroup.style.display = 'block';
-            } else {
-                customPhoneGroup.style.display = 'none';
-            }
-        });
-
-        // --- 4. GELİŞMİŞ YAPAY ZEKA HESAPLAMA ---
+        // --- 3. V3 YAPAY ZEKA HESAPLAMA MOTORU ---
         const generateBtn = document.getElementById('generate-btn');
         const resultsBox = document.getElementById('results-box');
         const scanner = document.getElementById('scanner');
+        const modelInput = document.getElementById('model-input');
 
-        // Belirli model ismi için hep aynı DPI'ı üreten basit bir HASH fonksiyonu
+        // Modeli hashleyerek benzersiz sabit bir sayı (DPI için) üretir
         function generateModelHash(str) {
             let hash = 0;
-            if (str.length === 0) return 450; // Varsayılan değer
             for (let i = 0; i < str.length; i++) {
                 let char = str.charCodeAt(i);
                 hash = ((hash << 5) - hash) + char;
@@ -391,47 +397,65 @@
             return Math.abs(hash);
         }
 
-        // Rastgele sayı üreteci (min-max arası)
+        // Rastgele sayı üreteci (min-max)
         function getRnd(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
         generateBtn.addEventListener('click', () => {
+            const modelName = modelInput.value.trim().toLowerCase();
+            const osSelect = document.getElementById('os-select').value;
+            const dpiToggle = document.getElementById('dpi-toggle').value;
+            const dpiElement = document.getElementById('v-dpi');
+
+            // Kullanıcı modeli yazmadıysa hata ver
+            if (modelName === "") {
+                modelInput.classList.add('error-shake');
+                setTimeout(() => modelInput.classList.remove('error-shake'), 400);
+                return;
+            }
+
             generateBtn.innerText = "SİSTEM ANALİZ EDİYOR...";
             generateBtn.disabled = true;
             resultsBox.style.display = "block";
             scanner.style.display = "block";
 
-            // Paneli gizle / değerleri sıfırla efekti
-            document.querySelectorAll('.res-val').forEach(el => el.innerText = "...");
+            // Bekleme ekranı görseli
+            document.querySelectorAll('.res-val').forEach(el => {
+                el.innerText = "...";
+                el.classList.remove('disabled'); // Rengi sıfırla
+            });
 
             setTimeout(() => {
-                const isIphone = deviceSelect.value === 'iphone';
+                const isIphone = osSelect === 'ios';
+                const useDpi = dpiToggle === 'on';
                 
                 let sensMin, sensMax, dpiValue;
 
+                // 1. ADIM: Hassasiyet Kuralı
                 if (isIphone) {
-                    // İPHONE KURALI: Hassasiyet 40-120, DPI 50-120
                     sensMin = 40;
                     sensMax = 120;
-                    dpiValue = getRnd(50, 120);
                 } else {
-                    // ANDROID KURALI: Hassasiyet 100-200
                     sensMin = 100;
                     sensMax = 200;
-                    
-                    // ANDROID DPI KURALI: Modele göre dinamik üret (Aynı modele aynı DPI)
-                    let modelName = "";
-                    if (deviceSelect.value === 'other') {
-                        modelName = document.getElementById('custom-phone-input').value.trim().toLowerCase();
-                        if (modelName === "") modelName = "bilinmeyencihaz";
-                    } else {
-                        modelName = deviceSelect.value;
-                    }
-                    
-                    // Modeli hashleyerek 300 ile 900 arasında o telefona özel eşsiz bir DPI çıkartıyoruz
+                }
+
+                // 2. ADIM: DPI Kuralı
+                if (!useDpi) {
+                    dpiValue = "KAPALI";
+                    dpiElement.classList.add('disabled'); // Gri renk yap
+                } else {
+                    dpiElement.classList.remove('disabled');
                     let modelHash = generateModelHash(modelName);
-                    dpiValue = (modelHash % 600) + 300; 
+                    
+                    if (isIphone) {
+                        // iPhone DPI (50 ile 120 arası)
+                        dpiValue = (modelHash % 71) + 50; 
+                    } else {
+                        // Android DPI (Modele özel kararlı 300 ile 900 arası)
+                        dpiValue = (modelHash % 600) + 300; 
+                    }
                 }
 
                 // Ekrana Yazdırma
@@ -440,16 +464,16 @@
                 document.getElementById('v-2x').innerText = getRnd(sensMin, sensMax);
                 document.getElementById('v-4x').innerText = getRnd(sensMin, sensMax);
                 
-                // AWM için her zaman biraz daha düşük hassasiyet daha iyidir, bu yüzden max sınırını kısıyoruz
-                let awmMax = isIphone ? 90 : 150; 
+                // AWM her zaman biraz daha düşük ayar sever
+                let awmMax = isIphone ? 90 : 160; 
                 document.getElementById('v-awm').innerText = getRnd(sensMin, awmMax);
                 
-                document.getElementById('v-dpi').innerText = dpiValue;
+                dpiElement.innerText = dpiValue;
 
                 scanner.style.display = "none";
                 generateBtn.innerText = "YENİDEN HESAPLA";
                 generateBtn.disabled = false;
-            }, 2000); // 2 saniyelik havalı analiz simülasyonu
+            }, 1800); // Havalı simülasyon süresi
         });
     </script>
 </body>
