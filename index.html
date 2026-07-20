@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedzx V2 | Free Fire AI Sensitivity</title>
+    <!-- Google Fonts üzerinden şık bir oyuncu yazı tipi ekleyelim -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon-red: #ff003c;
+            --neon-glow: rgba(255, 0, 60, 0.6);
+            --bg-dark: #0a0a0c;
+            --card-bg: rgba(15, 15, 20, 0.8);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Arka Plandaki Canlı Neon Ağ Yapısı */
+        #network-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Cam Efektli Arayüz Kartları */
+        .panel {
+            position: relative;
+            z-index: 2;
+            background: var(--card-bg);
+            border: 2px solid var(--neon-red);
+            border-radius: 12px;
+            padding: 30px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 0 25px var(--neon-glow), inset 0 0 15px rgba(255, 0, 60, 0.2);
+            backdrop-filter: blur(10px);
+            font-family: 'Orbitron', sans-serif;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-red);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        p {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            color: var(--neon-red);
+            font-weight: bold;
+        }
+
+        /* Buton Tasarımları */
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-tiktok {
+            background: #000000;
+            color: #ffffff;
+            border: 1px solid #00f2fe;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+        }
+
+        .btn-tiktok:hover {
+            box-shadow: 0 0 20px #00f2fe, 0 0 10px #fe0979;
+            transform: scale(1.02);
+        }
+
+        .btn-enter {
+            background: var(--neon-red);
+            color: white;
+            box-shadow: 0 0 15px var(--neon-glow);
+            opacity: 0.6;
+            pointer-events: none; /* İlk başta tıklanamaz */
+        }
+
+        .btn-enter.active {
+            opacity: 1;
+            pointer-events: auto;
+            animation: pulse 1.5s infinite alternate;
+        }
+
+        /* Yapay Zeka Sonuç Ekranı Modelleri */
+        .ai-status {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .slider-group {
+            text-align: left;
+            margin: 15px 0;
+        }
+
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .slider-bar {
+            height: 8px;
+            background: #222;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .slider-fill {
+            height: 100%;
+            background: var(--neon-red);
+            box-shadow: 0 0 8px var(--neon-red);
+            width: 0%;
+            transition: width 2s cubic-bezier(0.1, 1, 0.1, 1);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 10px var(--neon-glow); }
+            100% { box-shadow: 0 0 25px var(--neon-red); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Arka planda hareket edecek neon kırmızı ağ yapısı -->
+    <canvas id="network-canvas"></canvas>
+
+    <!-- GİRİŞ KAPISI (TIKTOK TAKİP ETME EKRANI) -->
+    <div id="gate-panel" class="panel">
+        <h1>WEDZX V2 AI</h1>
+        <p>Garena Free Fire Özel Yapay Zeka Hassasiyet Ayarlarına erişmek için önce <span class="highlight">@wedzx_</span> TikTok hesabını takip etmelisin.</p>
+        
+        <!-- TikTok Profil Linkin -->
+        <a href="https://www.tiktok.com/@wedzx_" target="_blank" id="tiktok-btn" class="btn btn-tiktok">
+            🎵 TİKTOK'TA TAKİP ET
+        </a>
+        
+        <div id="status-text" class="ai-status">Sistem Durumu: Takip bekleniyor...</div>
+        
+        <button id="enter-btn" class="btn btn-enter">SİTEYE GİRİŞ YAP</button>
+    </div>
+
+    <!-- ANA İÇERİK SİTESİ (KİLİT AÇILINCA GÖSTERİLECEK) -->
+    <div id="main-panel" class="panel" style="display: none;">
+        <h1>AI CONFIG LOADED</h1>
+        <p style="margin-bottom: 10px;">Cihazınız için en ideal Free Fire hassasiyet ayarları optimize edildi.</p>
+        
+        <div class="slider-group">
+            <label>Genel (General) <span>98%</span></label>
+            <div class="slider-bar"><div class="slider-fill" data-width="98%"></div></div>
+        </div>
+        <div class="slider-group">
+            <label>Kırmızı Nokta (Red Dot) <span>95%</span></label>
+            <div class="slider-bar"><div class="slider-fill" data-width="95%"></div></div>
+        </div>
+        <div class="slider-group">
+            <label>2x Dürbün (2x Scope) <span>92%</span></label>
+            <div class="slider-bar"><div class="slider-fill" data-width="92%"></div></div>
+        </div>
+        <div class="slider-group">
+            <label>4x Dürbün (4x Scope) <span>89%</span></label>
+            <div class="slider-bar"><div class="slider-fill" data-width="89%"></div></div>
+        </div>
+        
+        <div class="ai-status" style="color: #00ff66; text-shadow: 0 0 5px #00ff66;">
+            ✓ Yapay Zeka Yazılımı Aktif (Wedzx V2)
+        </div>
+    </div>
+
+    <script>
+        // --- 1. NEON KIRMIZI AĞ SİMÜLASYONU (CANVAS) ---
+        const canvas = document.getElementById('network-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const particleCount = 65;
+        const maxDistance = 110;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.radius = Math.random() * 2 + 1.5;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff003c';
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#ff003c';
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Parçacıkları güncelle ve çiz
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            // Parçacıklar arasındaki ağ çizgilerini çiz
+            ctx.shadowBlur = 0; // Çizgilerde kasma yapmaması için gölgeyi sıfırlıyoruz
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxDistance) {
+                        const alpha = (1 - dist / maxDistance) * 0.4;
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${alpha})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+
+        // --- 2. TİKTOK KİLİT MEKANİZMASI KODLARI ---
+        const tiktokBtn = document.getElementById('tiktok-btn');
+        const enterBtn = document.getElementById('enter-btn');
+        const statusText = document.getElementById('status-text');
+        const gatePanel = document.getElementById('gate-panel');
+        const mainPanel = document.getElementById('main-panel');
+
+        tiktokBtn.addEventListener('click', () => {
+            statusText.innerHTML = "Takip durumu doğrulanıyor... (3)";
+            statusText.style.color = "#ffcc00";
+            
+            let countdown = 3;
+            const interval = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    statusText.innerHTML = `Takip durumu doğrulanıyor... (${countdown})`;
+                } else {
+                    clearInterval(interval);
+                    statusText.innerHTML = "✓ Takip Onaylandı! Giriş yapabilirsiniz.";
+                    statusText.style.color = "#00ff66";
+                    
+                    // Giriş butonunu aktif yapıyoruz
+                    enterBtn.classList.add('active');
+                }
+            }, 1000);
+        });
+
+        enterBtn.addEventListener('click', () => {
+            if (enterBtn.classList.contains('active')) {
+                // Giriş kapısını gizle ve ana paneli göster
+                gatePanel.style.display = 'none';
+                mainPanel.style.display = 'block';
+
+                // Hassasiyet slider çubuklarını animasyonla doldur
+                setTimeout(() => {
+                    const fills = document.querySelectorAll('.slider-fill');
+                    fills.forEach(fill => {
+                        fill.style.width = fill.getAttribute('data-width');
+                    });
+                }, 300);
+            }
+        });
+    </script>
+</body>
+</html>
