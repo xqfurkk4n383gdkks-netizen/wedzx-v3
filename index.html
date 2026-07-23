@@ -3,16 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEDZX V3 - Free Fire Ultra Sensitivity 2026</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <title>WEDZX V4 ULTRA - Free Fire Headshot Engine 2026</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
   <style>
+    /* ==========================================================================
+       1. DEĞİŞKENLER VE SIFIRLAMA
+       ========================================================================== */
     :root {
       --primary: #ff003c;
-      --primary-glow: rgba(255, 0, 60, 0.6);
-      --bg-dark: #080205;
-      --card-bg: rgba(20, 5, 10, 0.75);
-      --text: #ffffff;
-      --text-muted: #a0a0a0;
+      --primary-glow: rgba(255, 0, 60, 0.7);
+      --secondary: #00f0ff;
+      --secondary-glow: rgba(0, 240, 255, 0.5);
+      --dark-bg: #030105;
+      --panel-bg: rgba(12, 3, 8, 0.85);
+      --card-border: rgba(255, 0, 60, 0.35);
+      --text-main: #ffffff;
+      --text-dim: #a0a0b0;
+      --success: #00ff88;
     }
 
     * {
@@ -21,374 +33,515 @@
       padding: 0;
       font-family: 'Rajdhani', sans-serif;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
-      background-color: var(--bg-dark);
-      color: var(--text);
-      overflow-x: hidden;
+      background-color: var(--dark-bg);
+      color: var(--text-main);
       min-height: 100vh;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      padding-bottom: 50px;
     }
 
-    /* Arka Plan Canvas (Kırmızı Neon Ağlar) */
-    #particle-canvas {
+    /* Arka Plan Efekti */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      background: radial-gradient(circle at center, #180008 0%, #030004 100%);
+    }
+
+    /* Scanline (Siber Tarama Çizgisi) */
+    .scanline {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -1;
-      background: radial-gradient(circle at center, #1a0008 0%, #050002 100%);
+      pointer-events: none;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0),
+        rgba(255,255,255,0) 50%,
+        rgba(0, 0, 0, 0.3) 50%,
+        rgba(0, 0, 0, 0.3)
+      );
+      background-size: 100% 4px;
+      z-index: 99;
+      opacity: 0.6;
     }
 
-    .container {
+    /* ==========================================================================
+       2. LAYOUT & CONTAINER
+       ========================================================================== */
+    .app-container {
       width: 100%;
-      max-width: 650px;
+      max-width: 750px;
       padding: 20px;
-      margin-top: 20px;
-      z-index: 2;
+      z-index: 10;
     }
 
     header {
       text-align: center;
       margin-bottom: 25px;
+      position: relative;
     }
 
     header h1 {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.2rem;
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 3px;
       color: #fff;
-      text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary);
-      letter-spacing: 2px;
+      text-shadow: 0 0 15px var(--primary-glow), 0 0 30px var(--primary);
+    }
+
+    header h1 span {
+      color: var(--primary);
     }
 
     header p {
-      color: var(--text-muted);
-      font-size: 1rem;
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      letter-spacing: 1px;
       margin-top: 5px;
     }
 
-    .badge-2026 {
-      display: inline-block;
-      background: var(--primary);
-      color: #fff;
-      padding: 3px 10px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-weight: bold;
-      box-shadow: 0 0 10px var(--primary);
-      margin-top: 8px;
-    }
-
-    /* Canlı Sayaç Kartı */
-    .stats-bar {
+    .badge-bar {
       display: flex;
-      justify-content: space-between;
-      background: var(--card-bg);
-      border: 1px solid rgba(255, 0, 60, 0.3);
-      border-radius: 12px;
-      padding: 12px 20px;
-      margin-bottom: 20px;
-      backdrop-filter: blur(10px);
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
     }
 
-    .stat-item {
-      text-align: center;
+    .badge {
+      background: rgba(255, 0, 60, 0.15);
+      border: 1px solid var(--primary);
+      color: #fff;
+      font-family: 'Share Tech Mono', monospace;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      box-shadow: 0 0 10px rgba(255, 0, 60, 0.2);
     }
 
-    .stat-value {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.3rem;
-      color: var(--primary);
-      font-weight: bold;
-    }
-
-    .stat-label {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    /* Card Stilleri */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid rgba(255, 0, 60, 0.3);
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 0 25px rgba(255, 0, 60, 0.15);
-      backdrop-filter: blur(10px);
+    /* İstatistik Çubuğu */
+    .status-dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
       margin-bottom: 25px;
     }
 
-    /* Takip Kilidi Alanı */
-    .gate-overlay {
+    .dash-box {
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 15px 10px;
       text-align: center;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     }
 
-    .gate-overlay h2 {
+    .dash-val {
       font-family: 'Orbitron', sans-serif;
-      color: #fff;
-      margin-bottom: 10px;
       font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
     }
 
-    .btn {
-      display: inline-block;
+    .dash-lbl {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-top: 4px;
+    }
+
+    /* Kart Yapıları */
+    .cyber-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 30px;
+      margin-bottom: 25px;
+      backdrop-filter: blur(15px);
+      box-shadow: 0 0 30px rgba(255, 0, 60, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cyber-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 14px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title::before {
+      content: '//';
+      color: var(--primary);
+    }
+
+    /* ==========================================================================
+       3. BUTONLAR VE İNPUTLAR
+       ========================================================================== */
+    .btn-cyber {
+      width: 100%;
+      padding: 16px;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(135deg, #ff003c, #990024);
-      color: white;
+      background: linear-gradient(135deg, #ff003c 0%, #a00028 100%);
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
       font-size: 1.1rem;
-      font-weight: bold;
-      cursor: pointer;
-      text-transform: uppercase;
+      font-weight: 700;
       letter-spacing: 1px;
-      box-shadow: 0 0 15px var(--primary-glow);
-      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 0 20px var(--primary-glow);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-decoration: none;
+      display: inline-block;
+      text-align: center;
       margin-top: 10px;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 25px var(--primary);
+    .btn-cyber:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 0 35px var(--primary);
     }
 
-    .input-field {
+    .btn-cyber:active {
+      transform: translateY(1px);
+    }
+
+    .cyber-input {
       width: 100%;
-      padding: 12px 15px;
-      background: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(255, 0, 60, 0.4);
-      border-radius: 8px;
-      color: white;
-      font-size: 1rem;
-      margin-top: 10px;
-      margin-bottom: 15px;
+      padding: 14px 18px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1.05rem;
       outline: none;
-    }
-
-    .input-field:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 10px var(--primary-glow);
-    }
-
-    /* Form Seçenekleri */
-    .form-group {
+      margin-top: 8px;
       margin-bottom: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .cyber-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px var(--primary-glow);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
     }
 
     .form-group label {
       display: block;
-      margin-bottom: 6px;
       font-weight: 700;
-      color: #ddd;
-    }
-
-    select, input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      background: rgba(10, 0, 5, 0.8);
-      border: 1px solid rgba(255, 0, 60, 0.3);
-      border-radius: 8px;
-      color: white;
+      color: #e0e0e0;
+      margin-bottom: 6px;
       font-size: 1rem;
-      outline: none;
     }
 
-    /* Hassasiyet Sonuçları */
-    .result-grid {
+    select {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(5, 1, 3, 0.9);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      color: #fff;
+      font-size: 1.05rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       4. HASSASİYET VE SONUÇ EKRANI
+       ========================================================================== */
+    .results-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 20px;
+      gap: 15px;
+      margin-top: 25px;
     }
 
-    .result-box {
-      background: rgba(0, 0, 0, 0.6);
+    .res-card {
+      background: rgba(0, 0, 0, 0.5);
       border-left: 4px solid var(--primary);
-      padding: 12px;
-      border-radius: 6px;
-    }
-
-    .result-title {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .result-value {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.4rem;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    .highlight-box {
-      grid-column: span 2;
-      background: rgba(255, 0, 60, 0.15);
-      border: 1px solid var(--primary);
-      text-align: center;
       padding: 15px;
-      border-radius: 10px;
+      border-radius: 8px;
+      position: relative;
     }
 
+    .res-label {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+    }
+
+    .res-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 5px;
+    }
+
+    .res-highlight {
+      grid-column: span 2;
+      background: rgba(255, 0, 60, 0.12);
+      border: 1px solid var(--primary);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .res-highlight .val-big {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      color: var(--success);
+      font-weight: 900;
+      text-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+    }
+
+    /* ==========================================================================
+       5. ADMİN VE YARDIMCI BİLEŞENLER
+       ========================================================================== */
     .hidden {
       display: none !important;
     }
 
-    /* Admin Paneli Stilleri */
-    .admin-toggle {
+    .admin-trigger {
       text-align: center;
-      margin-top: 20px;
-      font-size: 0.8rem;
-      color: #555;
+      color: #444;
+      font-size: 0.85rem;
       cursor: pointer;
+      margin-top: 20px;
+      transition: color 0.3s;
     }
 
-    .admin-list {
-      max-height: 200px;
+    .admin-trigger:hover {
+      color: var(--primary);
+    }
+
+    .admin-log-box {
+      max-height: 220px;
       overflow-y: auto;
-      background: rgba(0, 0, 0, 0.7);
-      padding: 10px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid #333;
       border-radius: 8px;
-      font-size: 0.9rem;
+      padding: 12px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
     }
 
-    .admin-item {
+    .log-item {
       padding: 6px 0;
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid #1a1a1a;
       display: flex;
       justify-content: space-between;
+      color: #aaa;
+    }
+
+    .log-item span.user {
+      color: var(--secondary);
     }
   </style>
 </head>
 <body>
 
-  <canvas id="particle-canvas"></canvas>
+  <!-- Arka Plan Ağ Efekti & Scanline -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="scanline"></div>
 
-  <div class="container">
+  <div class="app-container">
+
+    <!-- Header -->
     <header>
-      <h1>WEDZX V3</h1>
-      <p>Free Fire 2026 Headshot Hassasiyet Motoru</p>
-      <span class="badge-2026">2026 AUTO-AIM ALGORİTMASI</span>
+      <h1>WEDZX <span>V4</span></h1>
+      <p>Free Fire Ultra Headshot Engine 2026</p>
+      <div class="badge-bar">
+        <span class="badge">AURA-AIM v2.6</span>
+        <span class="badge">120 FPS SUPPORT</span>
+        <span class="badge">NO LAG</span>
+      </div>
     </header>
 
-    <!-- Canlı İstatistik Paneli -->
-    <div class="stats-bar">
-      <div class="stat-item">
-        <div class="stat-value" id="visit-count">1,842</div>
-        <div class="stat-label">Toplam Giriş</div>
+    <!-- Canlı Sayaç Tablosu -->
+    <div class="status-dashboard">
+      <div class="dash-box">
+        <div class="dash-val" id="total-visits">3,280</div>
+        <div class="dash-lbl">Toplam Giriş</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-value" style="color: #00ff88;">CANLI</div>
-        <div class="stat-label">Sistem Durumu</div>
+      <div class="dash-box">
+        <div class="dash-val" style="color: var(--success);" id="active-count">58</div>
+        <div class="dash-lbl">Canlı Kullanıcı</div>
       </div>
-      <div class="stat-item">
-        <div class="stat-value" id="active-users">47</div>
-        <div class="stat-label">Aktif Kullanıcı</div>
+      <div class="dash-box">
+        <div class="dash-val" style="color: var(--secondary);">%99.4</div>
+        <div class="dash-lbl">HS Oranı</div>
       </div>
     </div>
 
-    <!-- AŞAMA 1: TikTok Takip Doğrulama Adımı -->
-    <div class="card" id="gate-card">
-      <div class="gate-overlay">
-        <h2>SİSTEME GİRİŞ KİLİTLİ</h2>
-        <p style="color: #ccc; margin-bottom: 15px;">Hassasiyet kodlarına erişebilmek için <strong>@wedzx_</strong> TikTok hesabını takip etmeli ve kullanıcı adını girmelisin.</p>
+    <!-- 1. KISIM: TikTok Doğrulama Kilit Ekranı -->
+    <div class="cyber-card" id="gate-card">
+      <div class="card-title">GİRİŞ KİLİDİ</div>
+      <p style="color: var(--text-dim); margin-bottom: 20px; line-height: 1.5;">
+        2026 Özel Headshot hassasiyet algoritmalarını açmak için <strong>@wedzx_</strong> TikTok hesabını takip etmeli ve kullanıcı adınızı doğrulamalısınız.
+      </p>
+
+      <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn-cyber" id="tiktok-link" onclick="handleTikTokClick()">
+        1. @WEDZX_ TAKİP ET
+      </a>
+
+      <div style="margin-top: 25px;">
+        <label style="font-weight:700; color:#ccc;">TikTok Kullanıcı Adın:</label>
+        <input type="text" id="tiktok-user-input" class="cyber-input" placeholder="@kullanici_adiniz">
         
-        <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn" id="tiktok-btn" onclick="registerClick()">
-          1. @WEDZX_ TAKİP ET
-        </a>
-
-        <div style="margin-top: 20px;">
-          <label style="font-size:0.9rem; color:#aaa;">TikTok Kullanıcı Adın (@kullanici):</label>
-          <input type="text" id="user-tiktok" class="input-field" placeholder="@kullanici_adiniz">
-          <button class="btn" style="background: #222; border: 1px solid var(--primary);" onclick="unlockSystem()">2. KİLİDİ AÇ VE GİRİŞ YAP</button>
-        </div>
+        <button class="btn-cyber" style="background: linear-gradient(135deg, #1f1f2e, #0a0a14); border: 1px solid var(--primary);" onclick="verifyAndEnter()">
+          2. SİSTEME GİRİŞ YAP
+        </button>
       </div>
     </div>
 
-    <!-- AŞAMA 2: Telefon Seçimi ve Hassasiyet Alma -->
-    <div class="card hidden" id="app-card">
-      <h2 style="font-family:'Orbitron'; margin-bottom:15px; font-size:1.3rem;">CIHAZ AYARLARI</h2>
-      
+    <!-- 2. KISIM: Hassasiyet Hesaplayıcı (Giriş Yapınca Açılır) -->
+    <div class="cyber-card hidden" id="main-card">
+      <div class="card-title">CIHAZ SEÇİMİ VE YAPILANDIRMA</div>
+
       <div class="form-group">
-        <label>Cihaz Markası:</label>
-        <select id="brand-select" onchange="updateModels()">
-          <option value="iphone">Apple (iPhone)</option>
-          <option value="samsung">Samsung</option>
+        <label>Cihaz Tipi / Marka:</label>
+        <select id="brand-select" onchange="onBrandChange()">
+          <option value="iphone">Apple (iPhone / iPad)</option>
+          <option value="samsung">Samsung Galaxy</option>
           <option value="xiaomi">Xiaomi / POCO / Redmi</option>
-          <option value="other">Diğer / Manuel Model</option>
+          <option value="realme">Realme / Oppo / Vivo</option>
+          <option value="pc">PC / Emülatör (BlueStacks / MSI)</option>
+          <option value="custom">Diğer / Özel Model</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Telefon Modeli:</label>
         <select id="model-select">
-          <!-- JS ile doldurulacak -->
+          <!-- JS Tarafından Doldurulacak -->
         </select>
-        <input type="text" id="custom-model" class="input-field hidden" placeholder="Model adını yazın (örn: Realme GT Neo 3)" style="margin-top:8px;">
+        <input type="text" id="custom-model-input" class="cyber-input hidden" placeholder="Model adınızı yazın (Örn: Infinix GT 10 Pro)" style="margin-top:10px;">
       </div>
 
-      <button class="btn" onclick="generateSensitivity()">EN GÜÇLÜ HASSASİYETİ HESAPLA</button>
+      <div class="form-group">
+        <label>Ekran Yenileme Hızı (Hz):</label>
+        <select id="hz-select">
+          <option value="60">60 Hz (Standart)</option>
+          <option value="90">90 Hz (Akıcı)</option>
+          <option value="120" selected>120 Hz (Ultra Akıcı)</option>
+          <option value="144">144 Hz - 240 Hz (Pro / PC)</option>
+        </select>
+      </div>
 
-      <!-- Sonuç Paneli -->
-      <div id="results" class="hidden" style="margin-top:25px;">
-        <h3 style="font-family:'Orbitron'; color:var(--primary); text-align:center; margin-bottom:15px;">2026 ÖZEL HASSASİYET KODLARI</h3>
-        
-        <div class="result-grid">
-          <div class="result-box">
-            <div class="result-title">Genel Hassasiyet</div>
-            <div class="result-value" id="val-genel">98</div>
+      <button class="btn-cyber" onclick="calculateSens()">HASSASİYETİ HESAPLA</button>
+
+      <!-- Sonuç Ekranı -->
+      <div id="results-panel" class="hidden" style="margin-top: 30px;">
+        <div class="card-title" style="color: var(--secondary);">2026 EN GÜÇLÜ AYARLAR</div>
+
+        <div class="results-grid">
+          <div class="res-card">
+            <div class="res-label">Genel Hassasiyet</div>
+            <div class="res-value" id="res-genel">99</div>
           </div>
-          <div class="result-box">
-            <div class="result-title">Kırmızı Nokta (Red Dot)</div>
-            <div class="result-value" id="val-reddot">100</div>
+          <div class="res-card">
+            <div class="res-label">Kırmızı Nokta (Red Dot)</div>
+            <div class="res-value" id="res-reddot">100</div>
           </div>
-          <div class="result-box">
-            <div class="result-title">2x Dürbün</div>
-            <div class="result-value" id="val-2x">95</div>
+          <div class="res-card">
+            <div class="res-label">2x Dürbün</div>
+            <div class="res-value" id="res-2x">96</div>
           </div>
-          <div class="result-box">
-            <div class="result-title">4x Dürbün</div>
-            <div class="result-value" id="val-4x">92</div>
+          <div class="res-card">
+            <div class="res-label">4x Dürbün</div>
+            <div class="res-value" id="res-4x">94</div>
           </div>
-          <div class="result-box">
-            <div class="result-title">AWM Dürbünü</div>
-            <div class="result-value" id="val-awm">50</div>
+          <div class="res-card">
+            <div class="res-label">AWM Dürbünü</div>
+            <div class="res-value" id="res-awm">50</div>
           </div>
-          <div class="result-box">
-            <div class="result-title">Serbest Bakış</div>
-            <div class="result-value" id="val-free">65</div>
+          <div class="res-card">
+            <div class="res-label">Serbest Bakış</div>
+            <div class="res-value" id="res-free">65</div>
           </div>
 
           <!-- Ateş Butonu ve DPI -->
-          <div class="highlight-box">
-            <div style="font-size:0.9rem; color:#aaa;">KRİTİK ATEŞ BUTONU BOYUTU</div>
-            <div class="result-value" id="val-fire" style="font-size:2rem; color:#00ff88;">48%</div>
-            <div style="font-size:0.8rem; color:#ccc; margin-top:5px;">Önerilen DPI: <span id="val-dpi" style="color:var(--primary); font-weight:bold;">560</span></div>
+          <div class="res-highlight">
+            <div style="font-size:0.95rem; color:#ccc; letter-spacing:1px;">ÖNERİLEN ATEŞ BUTONU</div>
+            <div class="val-big" id="res-fire">44%</div>
+            <div style="font-size:0.9rem; color:#aaa; margin-top:8px;">
+              Geliştirilmiş DPI: <strong id="res-dpi" style="color:var(--primary);">580 DPI</strong>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Admin Paneli Giriş Tetikleyicisi -->
-    <div class="admin-toggle" onclick="toggleAdmin()">• Admin Girişi •</div>
-    <div class="card hidden" id="admin-card" style="margin-top:15px;">
-      <h3 style="font-family:'Orbitron'; font-size:1rem; margin-bottom:10px;">Giriş Yapan TikTok Hesapları (Gizli Admin Kaydı)</h3>
-      <div class="admin-list" id="admin-logs">
-        <!-- Giriş verileri buraya eklenecek -->
+    <!-- Admin Paneli Tetikleyici -->
+    <div class="admin-trigger" onclick="openAdminPanel()">• Admin Paneli Girişi •</div>
+
+    <div class="cyber-card hidden" id="admin-card" style="margin-top: 15px;">
+      <div class="card-title" style="font-size: 1.1rem; color: var(--secondary);">GİZLİ ADMİN KAYITLARI</div>
+      <div class="admin-log-box" id="admin-log-container">
+        <!-- Ziyaretçi verileri buraya akar -->
       </div>
+      <button class="btn-cyber" style="font-size:0.85rem; padding:8px; margin-top:10px; background:#333;" onclick="clearAdminLogs()">Kayıtları Temizle</button>
     </div>
 
   </div>
 
+  <!-- Script Bölümü -->
   <script>
-    // --- 1. Neon Kırmızı Ağ (Canvas Particle) Efekti ---
-    const canvas = document.getElementById('particle-canvas');
+    /* ==========================================================================
+       1. SES EFEKTLERİ (Web Audio API - Harici Dosya Gerektirmez)
+       ========================================================================== */
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playBeep(freq = 440, type = 'sine', duration = 0.08) {
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    /* ==========================================================================
+       2. CANLI CANVAS AĞ (PARTICLE) ANIMASYONU
+       ========================================================================== */
+    const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
 
@@ -403,9 +556,9 @@
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 1.2;
-        this.vy = (Math.random() - 0.5) * 1.2;
-        this.radius = Math.random() * 2 + 1;
+        this.vx = (Math.random() - 0.5) * 1.5;
+        this.vy = (Math.random() - 0.5) * 1.5;
+        this.size = Math.random() * 2 + 1;
       }
       update() {
         this.x += this.vx;
@@ -415,19 +568,19 @@
       }
       draw() {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fillStyle = '#ff003c';
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 10;
         ctx.shadowColor = '#ff003c';
         ctx.fill();
       }
     }
 
-    for (let i = 0; i < 65; i++) {
+    for (let i = 0; i < 70; i++) {
       particles.push(new Particle());
     }
 
-    function animate() {
+    function renderCanvas() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       for (let i = 0; i < particles.length; i++) {
         particles[i].update();
@@ -438,171 +591,172 @@
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 120) {
+          if (dist < 130) {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 120})`;
-            ctx.lineWidth = 0.6;
+            ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 130})`;
+            ctx.lineWidth = 0.7;
             ctx.stroke();
           }
         }
       }
-      requestAnimationFrame(animate);
+      requestAnimationFrame(renderCanvas);
     }
-    animate();
+    renderCanvas();
 
-    // --- 2. Ziyaretçi Sayacı & Admin Veri Kaydı ---
-    let baseVisits = parseInt(localStorage.getItem('wedzx_visits') || '2410');
-    baseVisits += 1;
-    localStorage.setItem('wedzx_visits', baseVisits);
-    document.getElementById('visit-count').innerText = baseVisits.toLocaleString();
+    /* ==========================================================================
+       3. SAYAÇLAR VE KULLANICI DOĞRULAMA
+       ========================================================================== */
+    let visitCount = parseInt(localStorage.getItem('wedzx_visits_v4') || '3280');
+    visitCount += 1;
+    localStorage.setItem('wedzx_visits_v4', visitCount);
+    document.getElementById('total-visits').innerText = visitCount.toLocaleString();
 
-    // Rastgele Aktif Kullanıcı Simülasyonu
     setInterval(() => {
-      document.getElementById('active-users').innerText = Math.floor(Math.random() * 20) + 35;
-    }, 4000);
+      const active = Math.floor(Math.random() * 25) + 45;
+      document.getElementById('active-count').innerText = active;
+    }, 3500);
 
-    let hasClickedFollow = false;
-    function registerClick() {
-      hasClickedFollow = true;
+    function handleTikTokClick() {
+      playBeep(600, 'triangle', 0.1);
     }
 
-    function unlockSystem() {
-      const tiktokInput = document.getElementById('user-tiktok').value.trim();
-      if (!tiktokInput) {
+    function verifyAndEnter() {
+      const username = document.getElementById('tiktok-user-input').value.trim();
+      if (!username) {
         alert("Lütfen TikTok kullanıcı adınızı girin!");
+        playBeep(200, 'sawtooth', 0.2);
         return;
       }
 
-      // Veriyi yerel depolamaya (Admin Paneline) kaydet
-      let logs = JSON.parse(localStorage.getItem('wedzx_logs') || '[]');
+      playBeep(800, 'sine', 0.15);
+
+      // Veriyi kaydet
+      let logs = JSON.parse(localStorage.getItem('wedzx_logs_v4') || '[]');
       logs.push({
-        user: tiktokInput,
-        time: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+        user: username,
+        date: new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
       });
-      localStorage.setItem('wedzx_logs', JSON.stringify(logs));
+      localStorage.setItem('wedzx_logs_v4', JSON.stringify(logs));
 
       document.getElementById('gate-card').classList.add('hidden');
-      document.getElementById('app-card').classList.remove('hidden');
-      updateModels();
-      renderAdminLogs();
+      document.getElementById('main-card').classList.remove('hidden');
+      onBrandChange();
+      renderLogs();
     }
 
-    // --- 3. Cihaz / Model Listeleri ve Dinamik Ayarlar ---
-    const phoneData = {
-      iphone: ["iPhone 11", "iPhone 12 / 12 Pro", "iPhone 13 / 13 Pro", "iPhone 14 / 14 Pro Max", "iPhone 15 / 15 Pro Max", "iPhone X / XS / XR"],
-      samsung: ["Samsung A54 / A55", "Samsung S21 / S22 / S23 Ultra", "Samsung S24 Ultra", "Samsung A34 / A24"],
-      xiaomi: ["POCO X3 / X5 / X6 Pro", "POCO F3 / F4 / F5", "Redmi Note 12 / 13 Pro", "Xiaomi 13 / 14"],
-      other: ["Diğer Model (Manuel)"]
+    /* ==========================================================================
+       4. MODEL VE HASSASİYET HESAPLAMA
+       ========================================================================== */
+    const models = {
+      iphone: ["iPhone 11", "iPhone 12 / Pro Max", "iPhone 13 / Pro Max", "iPhone 14 Pro Max", "iPhone 15 Pro Max", "iPad Pro / Air"],
+      samsung: ["Samsung A54 / A55", "Samsung S21 / S22 Ultra", "Samsung S23 Ultra", "Samsung S24 Ultra", "Samsung S20 FE"],
+      xiaomi: ["POCO X3 Pro / X5 Pro / X6 Pro", "POCO F3 / F4 / F5", "Redmi Note 11 / 12 / 13 Pro", "Xiaomi 13 / 14"],
+      realme: ["Realme GT Neo 3 / 5", "Oppo Reno 8 / 10", "Vivo V29 / Y36"],
+      pc: ["BlueStacks 5 (4 Cores / 4GB)", "MSI App Player", "LDPlayer 9"],
+      custom: ["Özel Model Girişi"]
     };
 
-    function updateModels() {
+    function onBrandChange() {
       const brand = document.getElementById('brand-select').value;
       const modelSelect = document.getElementById('model-select');
-      const customInput = document.getElementById('custom-model');
+      const customInput = document.getElementById('custom-model-input');
 
       modelSelect.innerHTML = "";
-      
-      if (brand === 'other') {
+
+      if (brand === 'custom') {
         modelSelect.classList.add('hidden');
         customInput.classList.remove('hidden');
       } else {
         modelSelect.classList.remove('hidden');
         customInput.classList.add('hidden');
-        
-        phoneData[brand].forEach(model => {
+
+        models[brand].forEach(m => {
           const opt = document.createElement('option');
-          opt.value = model;
-          opt.innerText = model;
+          opt.value = m;
+          opt.innerText = m;
           modelSelect.appendChild(opt);
         });
       }
     }
 
-    // --- 4. 2026 Hassasiyet Algoritması ---
-    function generateSensitivity() {
+    function calculateSens() {
+      playBeep(1000, 'sine', 0.1);
       const brand = document.getElementById('brand-select').value;
-      
+      const hz = parseInt(document.getElementById('hz-select').value);
+
       let genel, reddot, scope2, scope4, awm, free, fireBtn, dpi;
 
       if (brand === 'iphone') {
-        genel = Math.floor(Math.random() * 4) + 96; // 96-99
-        reddot = 100;
-        scope2 = 94;
-        scope4 = 98;
-        awm = 45;
-        free = 70;
-        fireBtn = "42%";
-        dpi = "Standart (Varsayılan)";
+        genel = 98; reddot = 100; scope2 = 95; scope4 = 97; awm = 45; free = 70;
+        fireBtn = "42%"; dpi = "Varsayılan (120Hz)";
+      } else if (brand === 'pc') {
+        genel = 85; reddot = 90; scope2 = 82; scope4 = 80; awm = 35; free = 50;
+        fireBtn = "10%"; dpi = "1600 Mouse DPI";
       } else if (brand === 'xiaomi') {
-        genel = 99;
-        reddot = 98;
-        scope2 = 92;
-        scope4 = 95;
-        awm = 50;
-        free = 60;
-        fireBtn = "46%";
-        dpi = "580 DPI";
-      } else if (brand === 'samsung') {
-        genel = 100;
-        reddot = 95;
-        scope2 = 90;
-        scope4 = 93;
-        awm = 52;
-        free = 65;
-        fireBtn = "48%";
-        dpi = "600 DPI";
+        genel = 99; reddot = 98; scope2 = 94; scope4 = 96; awm = 50; free = 60;
+        fireBtn = "45%"; dpi = "580 DPI";
       } else {
-        genel = 98;
-        reddot = 97;
-        scope2 = 93;
-        scope4 = 91;
-        awm = 48;
-        free = 55;
-        fireBtn = "45%";
-        dpi = "540 DPI";
+        genel = 100; reddot = 96; scope2 = 92; scope4 = 94; awm = 48; free = 65;
+        fireBtn = "46%"; dpi = "540 DPI";
       }
 
-      document.getElementById('val-genel').innerText = genel;
-      document.getElementById('val-reddot').innerText = reddot;
-      document.getElementById('val-2x').innerText = scope2;
-      document.getElementById('val-4x').innerText = scope4;
-      document.getElementById('val-awm').innerText = awm;
-      document.getElementById('val-free').innerText = free;
-      document.getElementById('val-fire').innerText = fireBtn;
-      document.getElementById('val-dpi').innerText = dpi;
+      if (hz > 90 && brand !== 'pc') {
+        genel = Math.min(100, genel + 1);
+        reddot = 100;
+      }
 
-      document.getElementById('results').classList.remove('hidden');
+      document.getElementById('res-genel').innerText = genel;
+      document.getElementById('res-reddot').innerText = reddot;
+      document.getElementById('res-2x').innerText = scope2;
+      document.getElementById('res-4x').innerText = scope4;
+      document.getElementById('res-awm').innerText = awm;
+      document.getElementById('res-free').innerText = free;
+      document.getElementById('res-fire').innerText = fireBtn;
+      document.getElementById('res-dpi').innerText = dpi;
+
+      document.getElementById('results-panel').classList.remove('hidden');
     }
 
-    // --- 5. Yönetici (Admin) Paneli Mantığı ---
-    function toggleAdmin() {
-      const pass = prompt("Yönetici Şifresi:");
-      if (pass === "wedzx2026" || pass === "admin") {
+    /* ==========================================================================
+       5. ADMİN PANEL MANTIĞI
+       ========================================================================== */
+    function openAdminPanel() {
+      const pwd = prompt("Admin Şifresi:");
+      if (pwd === "wedzx2026" || pwd === "admin") {
+        playBeep(1200, 'sine', 0.15);
         document.getElementById('admin-card').classList.toggle('hidden');
-        renderAdminLogs();
-      } else if(pass !== null) {
+        renderLogs();
+      } else if (pwd !== null) {
+        playBeep(200, 'sawtooth', 0.2);
         alert("Hatalı Şifre!");
       }
     }
 
-    function renderAdminLogs() {
-      const logContainer = document.getElementById('admin-logs');
-      let logs = JSON.parse(localStorage.getItem('wedzx_logs') || '[]');
-      
-      if(logs.length === 0) {
-        logContainer.innerHTML = "<div style='color:#777;'>Henüz kayıtlı kullanıcı yok.</div>";
+    function renderLogs() {
+      const container = document.getElementById('admin-log-container');
+      const logs = JSON.parse(localStorage.getItem('wedzx_logs_v4') || '[]');
+
+      if (logs.length === 0) {
+        container.innerHTML = "<div style='color:#666;'>Henüz kayıtlı kullanıcı yok.</div>";
         return;
       }
 
-      logContainer.innerHTML = "";
-      logs.reverse().forEach(item => {
-        const div = document.createElement('div');
-        div.className = "admin-item";
-        div.innerHTML = `<span>${item.user}</span> <span style="color:#777;">${item.time}</span>`;
-        logContainer.appendChild(div);
+      container.innerHTML = "";
+      logs.slice().reverse().forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'log-item';
+        row.innerHTML = `<span class="user">${item.user}</span> <span>${item.date}</span>`;
+        container.appendChild(row);
       });
+    }
+
+    function clearAdminLogs() {
+      if (confirm("Tüm kayıtlar silinsin mi?")) {
+        localStorage.removeItem('wedzx_logs_v4');
+        renderLogs();
+      }
     }
   </script>
 </body>
