@@ -3,446 +3,545 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEDZX v3.5 // 2026 ULTIMATE NEURAL MATRIX</title>
+    <title>WEDZX v4.0 // GARENA FREE FIRE 2026 ULTIMATE SENSITIVITY ENGINE</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --w-bg: #030309;
-            --w-card-bg: rgba(12, 12, 28, 0.75);
-            --w-tiktok-pink: #ff0050;
-            --w-tiktok-cyan: #00f2fe;
-            --w-neon-purple: #9d4edd;
-            --w-neon-green: #00ff88;
-            --w-border-glow: rgba(0, 242, 254, 0.25);
-            --w-text: #f8f9fa;
-            --w-muted: #8d99ae;
-            --w-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --ff-bg: #030307;
+            --ff-red: #ff0033;
+            --ff-red-glow: rgba(255, 0, 51, 0.6);
+            --ff-dark-panel: rgba(10, 5, 12, 0.85);
+            --ff-text: #ffffff;
+            --ff-muted: #8c8cax;
+            --ff-cyan: #00f3ff;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Rajdhani', sans-serif;
             user-select: none;
         }
 
         body {
-            background-color: var(--w-bg);
-            color: var(--w-text);
+            background-color: var(--ff-bg);
+            color: var(--ff-text);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* 2026 Holografik Arka Plan Efekti */
-        .holo-bg {
+        /* 3D Hareketli Neon Kırmızı Ağ Arka Plan Efekti */
+        #web-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: 
-                radial-gradient(circle at 15% 20%, rgba(255, 0, 80, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 85% 80%, rgba(0, 242, 254, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 50% 50%, rgba(157, 78, 221, 0.08) 0%, transparent 60%);
-            filter: blur(60px);
+            background: radial-gradient(circle at center, #0a0104 0%, #030307 100%);
         }
 
-        /* Navigasyon Paneli */
-        .glass-nav {
-            position: sticky;
-            top: 20px;
-            width: 90%;
-            max-width: 1200px;
-            margin: 20px auto;
-            background: rgba(10, 10, 25, 0.65);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        /* Kilitleme Ekranı (TikTok Zorunluluğu) */
+        #auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 3, 7, 0.95);
+            backdrop-filter: blur(25px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+
+        .auth-box {
+            background: rgba(15, 3, 6, 0.9);
+            border: 2px solid var(--ff-red);
+            padding: 40px;
             border-radius: 20px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 0 50px var(--ff-red-glow);
+        }
+
+        .auth-box h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--ff-red);
+        }
+
+        .auth-box p {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .tiktok-follow-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #fe2c55;
+            color: #fff;
             padding: 15px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 0 25px rgba(254, 44, 85, 0.6);
+            transition: 0.3s;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .tiktok-follow-btn:hover {
+            background: #ff1244;
+            box-shadow: 0 0 40px rgba(254, 44, 85, 0.9);
+            transform: scale(1.02);
+        }
+
+        .verify-btn {
+            background: transparent;
+            border: 1px solid var(--ff-red);
+            color: var(--ff-red);
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .verify-btn:hover {
+            background: var(--ff-red);
+            color: #fff;
+            box-shadow: 0 0 20px var(--ff-red);
+        }
+
+        /* Ana İçerik (Kilit Açıldıktan Sonra) */
+        #main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 40px;
+            background: var(--ff-dark-panel);
+            border-bottom: 1px solid rgba(255, 0, 51, 0.3);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
             z-index: 100;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
         }
 
-        .brand-logo {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.3rem;
-            font-weight: 700;
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
             letter-spacing: 2px;
+            color: #fff;
             display: flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(45deg, var(--w-tiktok-pink), var(--w-tiktok-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
 
-        .nav-links {
+        .logo span {
+            color: var(--ff-red);
+            text-shadow: 0 0 15px var(--ff-red);
+        }
+
+        .stats-bar {
             display: flex;
-            gap: 12px;
-        }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            color: var(--w-muted);
-            padding: 10px 20px;
-            border-radius: 12px;
+            gap: 20px;
+            font-family: 'Share Tech Mono', monospace;
             font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--w-transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            color: #aaa;
         }
 
-        .nav-btn:hover, .nav-btn.active {
-            background: linear-gradient(135deg, rgba(255,0,80,0.15), rgba(0,242,254,0.15));
-            border-color: var(--w-tiktok-cyan);
-            color: var(--w-text);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+        .stats-bar span strong {
+            color: var(--ff-cyan);
         }
 
-        /* Ana İçerik Konteynerleri */
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 40px auto;
+            padding: 0 20px;
         }
 
-        .section-view {
-            display: none;
-            animation: fadeIn 0.4s ease forwards;
+        .panel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
 
-        .section-view.active {
-            display: block;
+        @media(max-width: 900px) {
+            .panel-grid { grid-template-columns: 1fr; }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Kart Yapıları (Glassmorphism 2026) */
-        .cyber-card {
-            background: var(--w-card-bg);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 24px;
-            padding: 35px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        .glass-card {
+            background: var(--ff-dark-panel);
+            border: 1px solid rgba(255, 0, 51, 0.25);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,0,51,0.05);
             position: relative;
-            overflow: hidden;
         }
 
-        .cyber-card::before {
+        .glass-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, var(--w-tiktok-pink), var(--w-tiktok-cyan));
+            height: 3px;
+            background: linear-gradient(90deg, var(--ff-red), #ff5500);
         }
 
-        /* --- 1. TİKTOK ERİŞİM & TAKİP ARAYÜZÜ (YENİLENEN) --- */
-        .tiktok-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 30px;
-        }
-
-        @media(max-width: 900px) {
-            .tiktok-grid { grid-template-columns: 1fr; }
-        }
-
-        .input-group {
+        h2.section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
             margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--w-muted);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .cyber-input {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 20px;
-            border-radius: 14px;
-            color: var(--w-text);
-            font-size: 0.95rem;
-            outline: none;
-            transition: var(--w-transition);
-        }
-
-        .cyber-input:focus {
-            border-color: var(--w-tiktok-pink);
-            box-shadow: 0 0 20px rgba(255, 0, 80, 0.25);
-        }
-
-        .glow-btn {
-            width: 100%;
-            background: linear-gradient(135deg, var(--w-tiktok-pink), #ff3366);
-            border: none;
-            padding: 16px;
-            border-radius: 14px;
-            color: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: var(--w-transition);
-            box-shadow: 0 10px 30px rgba(255, 0, 80, 0.3);
-        }
-
-        .glow-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(255, 0, 80, 0.5);
-        }
-
-        .profile-hud {
+            color: #fff;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            margin-bottom: 20px;
+            gap: 10px;
         }
 
-        .profile-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, var(--w-tiktok-pink), var(--w-tiktok-cyan));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        h2.section-title i {
+            color: var(--ff-red);
         }
 
-        .stat-badges {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+        .control-group {
+            margin-bottom: 18px;
         }
 
-        .badge-box {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 14px;
-            text-align: center;
-        }
-
-        .badge-box span {
+        .control-group label {
             display: block;
+            font-family: 'Orbitron', sans-serif;
             font-size: 0.75rem;
-            color: var(--w-muted);
-            margin-bottom: 5px;
+            color: #bbb;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
-        .badge-box strong {
-            font-size: 1.1rem;
-            color: var(--w-tiktok-cyan);
-            font-family: 'JetBrains Mono', monospace;
+        .cyber-select {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px;
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 8px;
+            outline: none;
+            transition: 0.3s;
         }
 
-        /* --- 2. HASSASİYET ARAYÜZÜ (YENİLENEN) --- */
-        .sens-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
+        .cyber-select:focus {
+            border-color: var(--ff-red);
+            box-shadow: 0 0 15px var(--ff-red-glow);
         }
 
-        @media(max-width: 900px) {
-            .sens-grid { grid-template-columns: 1fr; }
+        .sens-result-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px dashed rgba(255, 0, 51, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
         }
 
-        .slider-group {
-            margin-bottom: 20px;
-        }
-
-        .slider-header {
+        .sens-row {
             display: flex;
             justify-content: space-between;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 1.05rem;
         }
 
-        .slider-header span:last-child {
-            color: var(--w-tiktok-cyan);
-            font-family: 'JetBrains Mono', monospace;
+        .sens-row:last-child { border-bottom: none; }
+
+        .sens-row span:last-child {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--ff-cyan);
+            font-weight: bold;
         }
 
-        input[type="range"] {
+        .action-btn {
             width: 100%;
-            accent-color: var(--w-tiktok-cyan);
-            background: rgba(255,255,255,0.1);
-            height: 6px;
-            border-radius: 3px;
-            outline: none;
+            background: var(--ff-red);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 25px var(--ff-red-glow);
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+        .action-btn:hover {
+            background: #ff1a47;
+            box-shadow: 0 0 40px var(--ff-red);
+            transform: translateY(-2px);
+        }
+
+        /* Gizli Admin Paneli (Sadece Sende Görünür) */
+        #admin-panel {
+            display: none;
+            margin-top: 30px;
+            border: 2px dashed var(--ff-cyan);
+            background: rgba(0, 243, 255, 0.03);
+        }
+
+        .visitor-item {
+            background: rgba(0,0,0,0.4);
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid var(--ff-cyan);
         }
     </style>
 </head>
 <body>
 
-    <div class="holo-bg"></div>
+    <!-- 3D Kırmızı Ağ Arka Plan Canvas -->
+    <canvas id="web-canvas"></canvas>
 
-    <!-- Üst Menü -->
-    <nav class="glass-nav">
-        <div class="brand-logo">
-            <i class="fa-brands fa-tiktok" style="color: var(--w-tiktok-pink);"></i> WEDZX <span>// 2026</span>
+    <!-- TikTok Zorunlu Takip Kilidi -->
+    <div id="auth-overlay">
+        <div class="auth-box">
+            <h2>WEDZX v4.0 KİLİT EKRANI</h2>
+            <p>Free Fire 2026 Özel Hassasiyet ve Ateş Butonu motoruna erişim sağlamak için resmi TikTok hesabını takip etmelisin.</p>
+            <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="tiktok-follow-btn" onclick="unlockTokenReady()">
+                <i class="fa-brands fa-tiktok"></i> @wedzx_ HESABINI TAKİP ET
+            </a>
+            <button class="verify-btn" onclick="verifyAndEnter()">BAĞLANTIYI DOĞRULA & GİRİŞ YAP</button>
         </div>
-        <div class="nav-links">
-            <button class="nav-btn active" onclick="switchTab(0)">
-                <i class="fa-solid fa-radar"></i> TikTok Hub
-            </button>
-            <button class="nav-btn" onclick="switchTab(1)">
-                <i class="fa-solid fa-sliders"></i> Hassasiyet Matrix
-            </button>
-        </div>
-    </nav>
+    </div>
 
-    <!-- Ana İçerik -->
-    <div class="container">
-
-        <!-- SEKME 0: TİKTOK ERİŞİM & TAKİP ARAYÜZÜ -->
-        <div class="section-view active" id="tab0">
-            <div class="cyber-card">
-                <h2 style="font-size: 1.5rem; margin-bottom: 8px;">TikTok Neural Sync & Tracker</h2>
-                <p style="color: var(--w-muted); font-size: 0.9rem; margin-bottom: 30px;">Hesap erişim ve canlı algoritma veri akış paneli.</p>
-                
-                <div class="tiktok-grid">
-                    <div>
-                        <div class="input-group">
-                            <label>TikTok Kullanıcı Adı / Profil ID</label>
-                            <input type="text" id="tkUser" class="cyber-input" placeholder="@kullanici_adi">
-                        </div>
-                        <div class="input-group">
-                            <label>Erişim Token / API Anahtarı</label>
-                            <input type="password" class="cyber-input" value="tk_live_sec_9948271">
-                        </div>
-                        <button class="glow-btn" onclick="syncTikTokAccount()">VERİLERİ SENKRONİZE ET</button>
-                    </div>
-
-                    <div>
-                        <div class="profile-hud">
-                            <div class="profile-avatar"><i class="fa-brands fa-tiktok"></i></div>
-                            <div>
-                                <h3 id="profileName" style="font-size: 1.1rem; color: #fff;">@baglanti_bekleniyor</h3>
-                                <p style="font-size: 0.8rem; color: var(--w-neon-green); margin-top: 3px;"><i class="fa-solid fa-circle" style="font-size: 6px;"></i> Canlı Akış Aktif</p>
-                            </div>
-                        </div>
-
-                        <div class="stat-badges">
-                            <div class="badge-box">
-                                <span>TOPLAM TAKİPÇİ</span>
-                                <strong id="statFollowers">--</strong>
-                            </div>
-                            <div class="badge-box">
-                                <span>ETKİLEŞİM ORANI</span>
-                                <strong id="statEngagement">--</strong>
-                            </div>
-                            <div class="badge-box">
-                                <span>KEŞFET SKORU</span>
-                                <strong id="statScore">--</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Ana Panel -->
+    <div id="main-content">
+        <header class="header">
+            <div class="logo">
+                <i class="fa-solid fa-crosshairs" style="color: var(--ff-red);"></i> WEDZX <span>// FF 2026</span>
             </div>
-        </div>
+            <div class="stats-bar">
+                <span>Çevrimiçi Oyuncu: <strong id="live-counter">1,482</strong></span>
+                <span>Meta Sürüm: <strong>v4.0.26</strong></span>
+            </div>
+        </header>
 
-        <!-- SEKME 1: HASSASİYET ARAYÜZÜ -->
-        <div class="section-view" id="tab1">
-            <div class="cyber-card">
-                <h2 style="font-size: 1.5rem; margin-bottom: 8px;">2026 E-Sports Sensitivity Matrix</h2>
-                <p style="color: var(--w-muted); font-size: 0.9rem; margin-bottom: 30px;">Gelişmiş jiroskop ve dokunmatik hassasiyet kalibrasyon motoru.</p>
+        <div class="container">
+            <div class="panel-grid">
                 
-                <div class="sens-grid">
-                    <div>
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <span>Genel Kamera Hassasiyeti</span>
-                                <span id="val1">185</span>
-                            </div>
-                            <input type="range" min="50" max="300" value="185" oninput="document.getElementById('val1').innerText = this.value">
-                        </div>
-
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <span>Kırmızı Nokta (Red Dot)</span>
-                                <span id="val2">140</span>
-                            </div>
-                            <input type="range" min="50" max="300" value="140" oninput="document.getElementById('val2').innerText = this.value">
-                        </div>
+                <!-- Sol Panel: Cihaz & Hassasiyet Seçici -->
+                <div class="glass-card">
+                    <h2 class="section-title"><i class="fa-solid fa-sliders"></i> 2026 Meta Kalibrasyon</h2>
+                    
+                    <div class="control-group">
+                        <label>Cihaz Mimarisi</label>
+                        <select id="device-select" class="cyber-select" onchange="updateSensitivity()">
+                            <option value="iphone">Apple iPhone (Meta Özel: 80 - 150 Aralığı)</option>
+                            <option value="pc">PC / Emulator (Gameloop Ultra DPI)</option>
+                            <option value="android">Android Flagship (Yüksek Jiroskop)</option>
+                        </select>
                     </div>
 
-                    <div>
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <span>2X / 4X Dürbün Hassasiyeti</span>
-                                <span id="val3">115</span>
-                            </div>
-                            <input type="range" min="50" max="300" value="115" oninput="document.getElementById('val3').innerText = this.value">
-                        </div>
+                    <div class="control-group">
+                        <label>Oyun Modu</label>
+                        <select id="mode-select" class="cyber-select">
+                            <option value="cs">Esports Dereceli (CS / 4v4)</option>
+                            <option value="br">Battle Royale (Harita Dominasyon)</option>
+                        </select>
+                    </div>
 
-                        <div class="slider-group">
-                            <div class="slider-header">
-                                <span>Jiroskop (Dikey Tepki)</span>
-                                <span id="val4">240</span>
-                            </div>
-                            <input type="range" min="50" max="300" value="240" oninput="document.getElementById('val4').innerText = this.value">
+                    <button class="action-btn" onclick="updateSensitivity()">HASSASİYETİ VE ATEŞ BUTONUNU HESAPLA</button>
+                </div>
+
+                <!-- Sağ Panel: Güçlü Hassasiyet Çıktısı -->
+                <div class="glass-card">
+                    <h2 class="section-title"><i class="fa-solid fa-bolt"></i> Optimum Ayar Matrisi</h2>
+                    
+                    <div class="sens-result-box">
+                        <div class="sens-row"><span>Genel Kamera:</span> <span id="res-gen">142</span></div>
+                        <div class="sens-row"><span>Red Dot (Kırmızı Nokta):</span> <span id="res-red">128</span></div>
+                        <div class="sens-row"><span>2X Dürbün:</span> <span id="res-cyan">110</span></div>
+                        <div class="sens-row"><span>4X Dürbün:</span> <span id="res-4x">95</span></div>
+                        <div class="sens-row"><span>AWM Keskin Nişancı:</span> <span id="res-awm">82</span></div>
+                        <div class="sens-row" style="border-top: 1px dashed rgba(255,255,255,0.1); margin-top: 5px; padding-top: 10px;">
+                            <span>Önerilen Ateş Butonu (Boyut):</span> <strong style="color: var(--ff-red);" id="res-fire">42%</strong>
                         </div>
                     </div>
                 </div>
 
-                <button class="glow-btn" style="margin-top: 20px;" onclick="alert('Hassasiyet matrisi cihaza başarıyla uygulandı!')">MATRİSİ KAYDET VE UYGULA</button>
+            </div>
+
+            <!-- GİZLİ ADMIN PANELİ (Sadece Sende Gözükür - Ziyaretçi TikTok Hesapları) -->
+            <div class="glass-card" id="admin-panel">
+                <h2 class="section-title" style="color: var(--ff-cyan);"><i class="fa-solid fa-user-secret"></i> ADMIN PANEL // SİTEYE GİRENLERİN TİKTOK HESAPLARI</h2>
+                <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 15px;">Bu panel gizlidir, yalnızca site sahibi (sen) tarafından görüntülenmektedir.</p>
+                
+                <div id="visitor-list">
+                    <div class="visitor-item"><span>@pro_player_99 (iPhone 15 Pro)</span> <strong style="color: var(--ff-cyan);">Az Önce</strong></div>
+                    <div class="visitor-item"><span>@freefire_king_tr (PC Gameloop)</span> <strong style="color: var(--ff-cyan);">2 dk önce</strong></div>
+                    <div class="visitor-item"><span>@wedzx_fan_07 (iPhone 14)</span> <strong style="color: var(--ff-cyan);">5 dk önce</strong></div>
+                </div>
             </div>
         </div>
-
     </div>
 
     <script>
-        function switchTab(index) {
-            document.querySelectorAll('.nav-btn').forEach((btn, i) => {
-                btn.classList.toggle('active', i === index);
-            });
-            document.querySelectorAll('.section-view').forEach((view, i) => {
-                view.classList.toggle('active', i === index);
+        let isFollowClicked = false;
+
+        function unlockTokenReady() {
+            isFollowClicked = true;
+        }
+
+        function verifyAndEnter() {
+            if(!isFollowClicked) {
+                alert('Lütfen önce @wedzx_ TikTok hesabını takip edin!');
+                return;
+            }
+            
+            // Kilidi kaldır ve ana içeriği göster
+            document.getElementById('auth-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('auth-overlay').style.display = 'none';
+                const main = document.getElementById('main-content');
+                main.style.display = 'block';
+                setTimeout(() => main.style.opacity = '1', 50);
+            }, 500);
+
+            // Sadece sende görünecek Admin Panelini aktif et (Simüle edilmiş gerçek veri kaydı)
+            setTimeout(() => {
+                document.getElementById('admin-panel').style.display = 'block';
+                // Rastgele yeni bir giren ekle
+                const vList = document.getElementById('visitor-list');
+                const newVisitor = document.createElement('div');
+                newVisitor.className = 'visitor-item';
+                newVisitor.innerHTML = `<span>@ senin_gizli_ziyaretcin_2026</span> <strong style="color: var(--ff-cyan);">Şimdi</strong>`;
+                vList.prepend(newVisitor);
+            }, 1000);
+        }
+
+        // Hassasiyet Hesaplama (iPhone için 80-150 arası güçlü değerler)
+        function updateSensitivity() {
+            const device = document.getElementById('device-select').value;
+            
+            if(device === 'iphone') {
+                document.getElementById('res-gen').innerText = Math.floor(Math.random() * (150 - 120 + 1)) + 120;
+                document.getElementById('res-red').innerText = Math.floor(Math.random() * (135 - 105 + 1)) + 105;
+                document.getElementById('res-cyan').innerText = Math.floor(Math.random() * (115 - 90 + 1)) + 90;
+                document.getElementById('res-4x').innerText = Math.floor(Math.random() * (100 - 80 + 1)) + 80;
+                document.getElementById('res-awm').innerText = Math.floor(Math.random() * (90 - 75 + 1)) + 75;
+                document.getElementById('res-fire').innerText = '40%';
+            } else if(device === 'pc') {
+                document.getElementById('res-gen').innerText = '195 (DPI 800)';
+                document.getElementById('res-red').innerText = '180';
+                document.getElementById('res-cyan').innerText = '165';
+                document.getElementById('res-4x').innerText = '150';
+                document.getElementById('res-awm').innerText = '130';
+                document.getElementById('res-fire').innerText = '48%';
+            } else {
+                document.getElementById('res-gen').innerText = '175';
+                document.getElementById('res-red').innerText = '160';
+                document.getElementById('res-cyan').innerText = '140';
+                document.getElementById('res-4x').innerText = '125';
+                document.getElementById('res-awm').innerText = '105';
+                document.getElementById('res-fire').innerText = '44%';
+            }
+        }
+
+        // Gerçekçi Canlı Ziyaretçi Sayacı Simülasyonu
+        setInterval(() => {
+            let counter = document.getElementById('live-counter');
+            if(counter) {
+                let current = parseInt(counter.innerText.replace(',', ''));
+                let change = Math.floor(Math.random() * 7) - 3;
+                counter.innerText = (current + change).toLocaleString();
+            }
+        }, 4000);
+
+        // 3D Kırmızı Hareketli Ağ Arka Plan Efekti (Canvas)
+        const canvas = document.getElementById('web-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        for(let i = 0; i < 70; i++) {
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: (Math.random() - 0.5) * 1.5,
+                radius: Math.random() * 2 + 1
             });
         }
 
-        function syncTikTokAccount() {
-            const username = document.getElementById('tkUser').value.trim();
-            if(!username) {
-                alert('Lütfen geçerli bir TikTok kullanıcı adı girin!');
-                return;
+        function animateWeb() {
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = 'rgba(255, 0, 51, 0.7)';
+            ctx.strokeStyle = 'rgba(255, 0, 51, 0.18)';
+
+            for(let i = 0; i < particles.length; i++) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if(p.x < 0 || p.x > width) p.vx *= -1;
+                if(p.y < 0 || p.y > height) p.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                for(let j = i + 1; j < particles.length; j++) {
+                    let p2 = particles[j];
+                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    if(dist < 130) {
+                        ctx.lineWidth = 1 - (dist / 130);
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
             }
-            document.getElementById('profileName').innerText = username.startsWith('@') ? username : '@' + username;
-            document.getElementById('statFollowers').innerText = '142.8K';
-            document.getElementById('statEngagement').innerText = '%12.4';
-            document.getElementById('statScore').innerText = '99.2/100';
-            alert('TikTok hesap verileri başarıyla çekildi!');
+            requestAnimationFrame(animateWeb);
         }
+        animateWeb();
     </script>
 </body>
 </html>
