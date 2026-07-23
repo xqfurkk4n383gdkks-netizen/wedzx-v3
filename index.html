@@ -3,269 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEDZX V2 - Free Fire 2026 VIP Hassasiyet Paneli</title>
+    <title>WEDZX 2026 // ELITE ESPOR SENS</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            --bg-deep: #030305;
             --primary: #ff003c;
-            --primary-glow: rgba(255, 0, 60, 0.8);
-            --bg-dark: #050507;
-            --card-bg: rgba(14, 14, 20, 0.75);
-            --text-light: #f3f3f7;
+            --primary-glow: rgba(255, 0, 60, 0.6);
+            --accent: #00f0ff;
+            --glass-bg: rgba(12, 12, 18, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f4f4f8;
+            --text-muted: #8c8c9e;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             user-select: none;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-deep);
+            color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            position: relative;
         }
 
-        /* High-End Neon Red Network Canvas Background */
-        #particle-canvas {
+        /* Ambient Background Glow */
+        .ambient-glow {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 0, 60, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 0;
             pointer-events: none;
         }
 
-        .container {
-            position: relative;
-            z-index: 1;
-            width: 90%;
-            max-width: 620px;
-            margin: 40px auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px var(--primary-glow), 0 0 40px rgba(255, 0, 60, 0.4);
-            font-weight: 800;
-        }
-
-        header h1 span {
-            color: var(--primary);
-            text-shadow: 0 0 20px var(--primary);
-        }
-
-        header p {
-            font-size: 0.95rem;
-            color: #b0b0c0;
-            margin-top: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Main Form Glass Card */
-        .card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 0, 60, 0.4);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 0, 60, 0.15);
-            backdrop-filter: blur(15px);
-            margin-bottom: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--primary));
-            animation: scanline 4s linear infinite;
-        }
-
-        @keyframes scanline {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .input-group {
-            margin-bottom: 22px;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            color: #d0d0e0;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .input-group select, .input-group input {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(5, 5, 10, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .input-group select:focus, .input-group input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 15px var(--primary-glow);
-            background: rgba(10, 5, 15, 0.9);
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #ff003c, #b3002a);
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 1.05rem;
-            font-weight: bold;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            box-shadow: 0 0 20px var(--primary-glow);
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 35px var(--primary-glow), 0 0 10px #fff;
-            background: linear-gradient(135deg, #ff1a4f, #cc0033);
-        }
-
-        /* Result Panel */
-        .results-container {
-            display: none;
-            margin-top: 25px;
-            background: rgba(8, 8, 12, 0.95);
-            border-radius: 16px;
-            padding: 22px;
-            border: 1px solid var(--primary);
-            box-shadow: inset 0 0 20px rgba(255, 0, 60, 0.2);
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .results-container h3 {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 18px;
-            font-size: 1.25rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px var(--primary-glow);
-        }
-
-        .sens-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .sens-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 3.5px solid var(--primary);
-            transition: background 0.2s;
-        }
-
-        .sens-card:hover {
-            background: rgba(255, 0, 60, 0.08);
-        }
-
-        .sens-card span {
-            font-size: 0.85rem;
-            color: #aaa;
-        }
-
-        .sens-card strong {
-            font-size: 1.15rem;
-            color: #fff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-        }
-
-        /* TikTok Access Modal Gating */
-        .modal-overlay {
+        /* Canvas Network */
+        #esports-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(2, 2, 5, 0.95);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .main-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 92%;
+            max-width: 540px;
+            padding: 20px 0;
+        }
+
+        /* Cyberpunk Header */
+        .esports-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 0, 60, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
+            text-transform: uppercase;
+        }
+
+        .esports-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .esports-header h1 span {
+            color: var(--primary);
+            text-shadow: 0 0 25px var(--primary-glow);
+        }
+
+        .esports-header p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* Main Glass Card */
+        .esports-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .esports-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+        }
+
+        .form-control-group {
+            margin-bottom: 22px;
+        }
+
+        .form-control-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .form-control-group label i {
+            color: var(--primary);
+        }
+
+        .form-control-group select, 
+        .form-control-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-control-group select:focus, 
+        .form-control-group input:focus {
+            border-color: var(--primary);
+            background: rgba(10, 5, 10, 0.6);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        /* Action Button */
+        .btn-generate {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff003c 0%, #a80027 100%);
+            border: none;
+            border-radius: 14px;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            box-shadow: 0 0 25px var(--primary-glow);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 35px var(--primary-glow), 0 0 10px #fff;
+            background: linear-gradient(135deg, #ff1a4f 0%, #c4002e 100%);
+        }
+
+        /* Results Panel */
+        .results-panel {
+            display: none;
+            margin-top: 25px;
+            background: rgba(6, 6, 10, 0.85);
+            border: 1px solid rgba(255, 0, 60, 0.4);
+            border-radius: 18px;
+            padding: 22px;
+            box-shadow: inset 0 0 25px rgba(255, 0, 60, 0.15);
+            animation: panelIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes panelIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .grid-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid var(--primary);
+            transition: 0.2s;
+        }
+
+        .stat-box:hover {
+            background: rgba(255, 0, 60, 0.06);
+            border-color: rgba(255, 0, 60, 0.3);
+        }
+
+        .stat-box span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .stat-box strong {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.05rem;
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        }
+
+        /* TikTok Gating Modal */
+        .cyber-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(2, 2, 4, 0.94);
             z-index: 999;
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
         }
 
-        .modal-box {
-            background: var(--card-bg);
+        .modal-content-box {
+            background: var(--glass-bg);
             border: 2px solid var(--primary);
-            box-shadow: 0 0 40px var(--primary-glow);
-            border-radius: 20px;
+            box-shadow: 0 0 50px var(--primary-glow), inset 0 0 20px rgba(255, 0, 60, 0.2);
+            border-radius: 24px;
             padding: 35px 25px;
             text-align: center;
-            max-width: 420px;
+            max-width: 400px;
             width: 90%;
         }
 
-        .modal-box i.tiktok-icon {
+        .modal-content-box i.tiktok-symbol {
             font-size: 3.5rem;
             color: var(--primary);
             margin-bottom: 15px;
             filter: drop-shadow(0 0 15px var(--primary));
         }
 
-        .modal-box h2 {
-            font-size: 1.5rem;
+        .modal-content-box h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
             margin-bottom: 10px;
             letter-spacing: 1px;
         }
 
-        .modal-box p {
-            font-size: 0.92rem;
-            color: #b0b0c0;
+        .modal-content-box p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
             margin-bottom: 22px;
             line-height: 1.5;
         }
 
-        .btn-tiktok {
-            display: inline-block;
+        .btn-tk-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             width: 100%;
             padding: 14px;
             background: #000;
@@ -273,74 +331,78 @@
             color: #fff;
             text-decoration: none;
             border-radius: 12px;
-            font-weight: bold;
+            font-weight: 700;
             margin-bottom: 12px;
             box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
             transition: 0.3s;
         }
 
-        .btn-tiktok:hover {
+        .btn-tk-action:hover {
             background: #111;
             box-shadow: 0 0 25px var(--primary-glow);
         }
 
-        .btn-verify {
+        .btn-tk-verify {
             width: 100%;
             padding: 14px;
             background: var(--primary);
             border: none;
             color: #fff;
             border-radius: 12px;
-            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
             cursor: pointer;
-            box-shadow: 0 0 15px var(--primary-glow);
+            box-shadow: 0 0 20px var(--primary-glow);
             transition: 0.3s;
         }
 
-        .btn-verify:hover {
+        .btn-tk-verify:hover {
             background: #ff1a4f;
-            box-shadow: 0 0 25px var(--primary-glow);
+            box-shadow: 0 0 30px var(--primary-glow);
         }
 
-        .admin-footer {
+        /* Copyright Footer */
+        .secret-footer {
             margin-top: 25px;
             text-align: center;
-            font-size: 0.78rem;
-            color: #333;
+            font-size: 0.72rem;
+            color: #2a2a38;
             cursor: pointer;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-    <!-- High-End Red Neon Network Background Canvas -->
-    <canvas id="particle-canvas"></canvas>
+    <div class="ambient-glow"></div>
+    <canvas id="esports-canvas"></canvas>
 
-    <!-- TikTok Unlock Gate Modal -->
-    <div class="modal-overlay" id="tiktokModal">
-        <div class="modal-box">
-            <i class="fa-brands fa-tiktok tiktok-icon"></i>
-            <h2>Kilitli İçerik!</h2>
-            <p>Sisteme tam giriş yapabilmek ve 2026 VIP hassasiyet motorunu kilitlemek için <strong>@wedzx_</strong> TikTok hesabını takip etmeniz gerekmektedir.</p>
-            <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn-tiktok" onclick="markFollowed()">
+    <!-- TikTok Verification Modal -->
+    <div class="cyber-modal" id="tiktokModal">
+        <div class="modal-content-box">
+            <i class="fa-brands fa-tiktok tiktok-symbol"></i>
+            <h2>ERİŞİM KİLİTLİ</h2>
+            <p>2026 E-Spor Meta Hassasiyet Paneline giriş yapmak için <strong>@wedzx_</strong> TikTok hesabını takip etmeniz gerekmektedir.</p>
+            <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn-tk-action" onclick="markFollowed()">
                 <i class="fa-brands fa-tiktok"></i> @wedzx_ Takip Et
             </a>
-            <button class="btn-verify" onclick="checkVerification()">Takip Ettim, Kilidi Aç</button>
+            <button class="btn-tk-verify" onclick="checkVerification()">TAKİP ETTİM, GİRİŞ YAP</button>
         </div>
     </div>
 
     <!-- Main Container -->
-    <div class="container">
-        <header>
-            <h1>WEDZX <span>2026 VIP</span></h1>
-            <p>Garena Free Fire One-Tap & Headshot Hassasiyet Motoru</p>
-        </header>
+    <div class="main-wrapper">
+        <div class="esports-header">
+            <div class="badge-tag">Free Fire 2026 Engine</div>
+            <h1>WEDZX <span>VIP</span></h1>
+            <p>Profesyonel E-Spor Headshot & One-Tap Hassasiyet Algoritması</p>
+        </div>
 
-        <!-- Form Card -->
-        <div class="card">
-            <div class="input-group">
-                <label><i class="fa-solid fa-mobile-screen"></i> Telefon Markanız</label>
+        <div class="esports-card">
+            <div class="form-control-group">
+                <label><i class="fa-solid fa-mobile-screen-button"></i> Telefon Markası</label>
                 <select id="brandSelect">
                     <option value="">Marka Seçiniz...</option>
                     <option value="iphone">Apple / iPhone</option>
@@ -348,58 +410,60 @@
                     <option value="xiaomi">Xiaomi / Redmi / POCO</option>
                     <option value="realme">Realme</option>
                     <option value="infinix">Infinix / Tecno</option>
-                    <option value="other">Diğer / Manuel Model</option>
+                    <option value="other">Diğer / Özel Cihaz</option>
                 </select>
             </div>
 
-            <div class="input-group">
-                <label><i class="fa-solid fa-microchip"></i> Telefon Modeli</label>
-                <input type="text" id="modelInput" placeholder="Örn: iPhone 13 / Redmi Note 12 Pro">
+            <div class="form-control-group">
+                <label><i class="fa-solid fa-microchip"></i> Cihaz Modeli</label>
+                <input type="text" id="modelInput" placeholder="Örn: iPhone 14 Pro / Note 12">
             </div>
 
-            <div class="input-group">
-                <label><i class="fa-solid fa-memory"></i> RAM Miktarı (GB)</label>
+            <div class="form-control-group">
+                <label><i class="fa-solid fa-memory"></i> Cihaz RAM Kapasitesi</label>
                 <select id="ramSelect">
                     <option value="2-3">2 GB - 3 GB (Düşük Segment)</option>
                     <option value="4-6" selected>4 GB - 6 GB (Orta Segment)</option>
                     <option value="8-12">8 GB - 12 GB (Üst Segment)</option>
-                    <option value="16+">16 GB+ (Gaming / Flagship)</option>
+                    <option value="16+">16 GB+ (Esports Flagship)</option>
                 </select>
             </div>
 
-            <button class="btn-submit" onclick="generateSensitivity()">
-                <i class="fa-solid fa-crosshair"></i> 2026 VIP HASSASİYETİ ÜRET
+            <button class="btn-generate" onclick="generateSensitivity()">
+                <i class="fa-solid fa-crosshair"></i> HASSASİYETİ HESAPLA
             </button>
 
-            <!-- Results Section -->
-            <div class="results-container" id="resultsPanel">
-                <h3><i class="fa-solid fa-fire"></i> Mükemmel 2026 Ayarları</h3>
-                <div class="sens-grid">
-                    <div class="sens-card"><span>Genel:</span> <strong id="resGenel">195</strong></div>
-                    <div class="sens-card"><span>Kırmızı Nokta:</span> <strong id="resRedDot">185</strong></div>
-                    <div class="sens-card"><span>2X Dürbün:</span> <strong id="res2x">175</strong></div>
-                    <div class="sens-card"><span>4X Dürbün:</span> <strong id="res4x">160</strong></div>
-                    <div class="sens-card"><span>AWM Dürbünü:</span> <strong id="resAwm">110</strong></div>
-                    <div class="sens-card"><span>Serbest Bakış:</span> <strong id="resFree">180</strong></div>
-                    <div class="sens-card" style="grid-column: span 2; border-left-color: #00ff88;">
-                        <span>🔥 Ateş Butonu Boyutu:</span> <strong id="resFireButton">48%</strong>
+            <!-- Results Output Grid -->
+            <div class="results-panel" id="resultsPanel">
+                <div class="results-header">
+                    <i class="fa-solid fa-fire"></i> 2026 Meta Ayarları Hazır
+                </div>
+                <div class="grid-stats">
+                    <div class="stat-box"><span>Genel</span> <strong id="resGenel">195</strong></div>
+                    <div class="stat-box"><span>Kırmızı Nokta</span> <strong id="resRedDot">185</strong></div>
+                    <div class="stat-box"><span>2X Dürbün</span> <strong id="res2x">175</strong></div>
+                    <div class="stat-box"><span>4X Dürbün</span> <strong id="res4x">160</strong></div>
+                    <div class="stat-box"><span>AWM Dürbün</span> <strong id="resAwm">110</strong></div>
+                    <div class="stat-box"><span>Serbest Bakış</span> <strong id="resFree">180</strong></div>
+                    <div class="stat-box" style="grid-column: span 2; border-left-color: #00ff88;">
+                        <span>🔥 Ateş Butonu</span> <strong id="resFireButton">48%</strong>
                     </div>
-                    <div class="sens-card" style="grid-column: span 2; border-left-color: #00e1ff;">
-                        <span>⚡ Önerilen DPI:</span> <strong id="resDpi">480 DPI</strong>
+                    <div class="stat-box" style="grid-column: span 2; border-left-color: #00f0ff;">
+                        <span>⚡ Önerilen DPI</span> <strong id="resDpi">480 DPI</strong>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Gizli Admin Tetikleyicisi -->
-        <div class="admin-footer" id="copyrightText" onclick="handleSecretClick()">
-            Tüm hakları saklıdır &copy; 2026 WEDZX_ VIP
+        <!-- Secret Admin Trigger -->
+        <div class="secret-footer" id="copyrightText" onclick="handleSecretClick()">
+            WEDZX ESPOR SYSTEMS &copy; 2026
         </div>
     </div>
 
     <script>
-        // --- 1. High-End Neon Red Network Particles Canvas ---
-        const canvas = document.getElementById('particle-canvas');
+        // --- 1. Cyberpunk Network Canvas Animation ---
+        const canvas = document.getElementById('esports-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
 
@@ -414,9 +478,9 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.5;
-                this.vy = (Math.random() - 0.5) * 1.5;
-                this.radius = Math.random() * 1.5 + 1;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.radius = Math.random() * 1.5 + 0.8;
             }
 
             update() {
@@ -431,13 +495,13 @@
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = '#ff003c';
-                ctx.shadowBlur = 12;
+                ctx.shadowBlur = 10;
                 ctx.shadowColor = '#ff003c';
                 ctx.fill();
             }
         }
 
-        for (let i = 0; i < 70; i++) {
+        for (let i = 0; i < 60; i++) {
             particles.push(new Particle());
         }
 
@@ -453,12 +517,12 @@
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < 140) {
+                    if (dist < 130) {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 140})`;
-                        ctx.lineWidth = 0.7;
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 130})`;
+                        ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
                 }
@@ -467,7 +531,7 @@
         }
         animate();
 
-        // --- 2. TikTok Lock & Real Visitor Counter ---
+        // --- 2. TikTok Gate & Real Visitor Counter ---
         let hasVisitedTikTok = false;
 
         function markFollowed() {
@@ -498,7 +562,7 @@
             }
         }
 
-        // --- 3. Sensitivity Generator & Automatic Analytics Log ---
+        // --- 3. Sensitivity Generator & Analytics ---
         function generateSensitivity() {
             const brand = document.getElementById('brandSelect').value;
             const model = document.getElementById('modelInput').value.trim();
@@ -513,7 +577,6 @@
                 return;
             }
 
-            // Automatically Log User Device Analytics for Admin View
             let logs = JSON.parse(localStorage.getItem('wedzx_device_logs') || '[]');
             logs.push({ 
                 device: `${brand.toUpperCase()} - ${model}`, 
@@ -550,7 +613,7 @@
             document.getElementById('resultsPanel').style.display = 'block';
         }
 
-        // --- 4. Secret Admin Panel Trigger (Click 3 Times) ---
+        // --- 4. Secret Admin Panel (Click 3 Times on Footer) ---
         let clickCount = 0;
         let clickTimer = null;
 
@@ -574,9 +637,9 @@
                 let realVisits = localStorage.getItem('wedzx_real_visits') || '0';
                 let logs = JSON.parse(localStorage.getItem('wedzx_device_logs') || '[]');
                 
-                let msg = `=== WEDZX GİZLİ ANALİZ PANELİ ===\n\n`;
+                let msg = `=== WEDZX E-SPOR ADMIN PANELİ ===\n\n`;
                 msg += `📊 Gerçek Toplam Ziyaretçi: ${realVisits}\n\n`;
-                msg += `--- SİTEYİ KULLANAN CİHAZLAR VE ANALİZLER ---\n`;
+                msg += `--- SİTEYİ KULLANAN CİHAZ ANALİZLERİ ---\n`;
 
                 if (logs.length === 0) {
                     msg += 'Henüz analiz verisi yok.';
