@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wedzx v3 - Garena Free Fire Sensitivity & Utilities</title>
+    <title>wedzx v3 - Free Fire Sensitivity & Utilities</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --bg-color: #080204;
-            --card-bg: rgba(20, 5, 8, 0.75);
-            --border-color: rgba(255, 0, 60, 0.3);
+            --card-bg: rgba(20, 5, 8, 0.85);
+            --border-color: rgba(255, 0, 60, 0.35);
             --primary-neon: #ff003c;
             --secondary-neon: #ff3300;
             --glow-color: rgba(255, 0, 60, 0.6);
             --text-color: #ffffff;
             --text-muted: #b0a0a5;
-            --nav-bg: rgba(15, 3, 6, 0.9);
+            --nav-bg: rgba(15, 3, 6, 0.95);
         }
 
         [data-theme="light"] {
             --bg-color: #fcebeb;
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.92);
             --border-color: rgba(255, 0, 60, 0.4);
             --primary-neon: #d60033;
             --secondary-neon: #e62e00;
@@ -48,7 +48,7 @@
             min-height: 100vh;
         }
 
-        /* Neon Red Web/Grid Background Canvas */
+        /* Neon Red Web Background Canvas */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -59,7 +59,74 @@
             pointer-events: none;
         }
 
-        /* Header & Nav */
+        /* TikTok Access Lock Overlay */
+        #access-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 1, 2, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .lock-card {
+            background: var(--card-bg);
+            border: 2px solid var(--primary-neon);
+            border-radius: 16px;
+            padding: 2.5rem;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 0 30px var(--glow-color);
+        }
+
+        .lock-card i.fa-tiktok {
+            font-size: 3.5rem;
+            color: var(--primary-neon);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px var(--primary-neon);
+        }
+
+        .lock-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .lock-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-tiktok {
+            display: inline-block;
+            width: 100%;
+            padding: 14px;
+            background: #000;
+            border: 1px solid var(--primary-neon);
+            color: #fff;
+            font-weight: 700;
+            border-radius: 8px;
+            text-decoration: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--glow-color);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .btn-tiktok:hover {
+            background: var(--primary-neon);
+            color: #fff;
+        }
+
+        /* Header */
         header {
             position: sticky;
             top: 0;
@@ -79,7 +146,7 @@
             font-size: 1.8rem;
             font-weight: 900;
             color: #fff;
-            text-shadow: 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon);
+            text-shadow: 0 0 10px var(--primary-neon);
             letter-spacing: 2px;
         }
 
@@ -110,12 +177,11 @@
         .btn-control:hover {
             background: var(--primary-neon);
             color: #fff;
-            box-shadow: 0 0 15px var(--primary-neon);
         }
 
-        /* Layout Main Grid */
+        /* Layout Container */
         .container {
-            max-width: 1250px;
+            max-width: 1100px;
             margin: 2rem auto;
             padding: 0 1.5rem;
         }
@@ -127,9 +193,10 @@
         }
 
         .hero-title h1 {
-            font-size: 2.5rem;
-            text-shadow: 0 0 12px var(--glow-color);
+            font-size: 2.8rem;
+            text-shadow: 0 0 15px var(--glow-color);
             color: var(--text-color);
+            letter-spacing: 2px;
         }
 
         .hero-title p {
@@ -180,7 +247,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Glassmorphism Cards */
+        /* Cards & Forms */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -203,7 +270,6 @@
             gap: 10px;
         }
 
-        /* Form elements */
         .form-group {
             margin-bottom: 1.2rem;
         }
@@ -217,7 +283,7 @@
         select, input {
             width: 100%;
             padding: 12px;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             color: var(--text-color);
@@ -250,16 +316,16 @@
             transform: scale(1.01);
         }
 
-        /* Results Display */
+        /* Results Display Grid */
         .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
             margin-top: 1.5rem;
         }
 
         .result-box {
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 1rem;
@@ -267,7 +333,7 @@
         }
 
         .result-box h4 {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 0.3rem;
         }
@@ -279,7 +345,6 @@
             font-weight: bold;
         }
 
-        /* Leaderboard & Lists */
         .list-item {
             display: flex;
             justify-content: space-between;
@@ -288,15 +353,6 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .fav-btn {
-            background: none;
-            border: none;
-            color: #ff003c;
-            cursor: pointer;
-            font-size: 1.2rem;
-        }
-
-        /* Grid layouts for news & comparison */
         .two-col {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -305,22 +361,7 @@
 
         @media (max-width: 768px) {
             .two-col { grid-template-columns: 1fr; }
-            .hero-title h1 { font-size: 1.8rem; }
-        }
-
-        /* TikTok Video Embed Mock */
-        .tiktok-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-
-        .tiktok-card {
-            background: #000;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 1rem;
-            text-align: center;
+            .hero-title h1 { font-size: 2rem; }
         }
 
         /* FAQ Accordion */
@@ -352,11 +393,28 @@
 
     <canvas id="particle-canvas"></canvas>
 
-    <!-- Navigation Header -->
+    <!-- TikTok Access Lock Modal -->
+    <div id="access-overlay">
+        <div class="lock-card">
+            <i class="fa-brands fa-tiktok"></i>
+            <h2>wedzx v3 Kilitli</h2>
+            <p>Siteye ve yapay zeka paneline erişmek için TikTok <strong>@wedzx_</strong> hesabını takip etmeniz gerekmektedir.</p>
+            
+            <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn-tiktok" id="follow-link" onclick="registerFollowClick()">
+                <i class="fa-brands fa-tiktok"></i> @wedzx_ Takip Et
+            </a>
+            
+            <button class="btn-action" id="unlock-btn" onclick="verifyAccess()" style="opacity: 0.5; cursor: not-allowed;" disabled>
+                Giriş Yap
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Navigation Header -->
     <header>
         <div class="logo">wedzx <span>v3</span></div>
         <div class="nav-controls">
-            <button class="btn-control" id="lang-toggle"><i class="fa-solid font-globe"></i> <span id="lang-text">TR</span></button>
+            <button class="btn-control" id="lang-toggle"><i class="fa-solid fa-globe"></i> <span id="lang-text">TR</span></button>
             <button class="btn-control" id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
         </div>
     </header>
@@ -364,168 +422,121 @@
     <div class="container">
         <!-- Hero Section -->
         <div class="hero-title">
-            <h1 data-tr="🎯 Garena Free Fire Yapay Zeka Hassasiyet Paneli" data-en="🎯 Garena Free Fire AI Sensitivity Panel">🎯 Garena Free Fire Yapay Zeka Hassasiyet Paneli</h1>
-            <p data-tr="Telefon modelinize özel optimize edilmiş en yüksek headshot oranlı ayarlar." data-en="Optimized high headshot settings tailored for your phone model.">Telefon modelinize özel optimize edilmiş en yüksek headshot oranlı ayarlar.</p>
+            <h1>wedzx</h1>
+            <p data-tr="Özel Algoritmalı Garena Free Fire Hassasiyet ve Oyun İçi İpuçları" data-en="Custom Algorithm Garena Free Fire Sensitivity & Utility Panel">Özel Algoritmalı Garena Free Fire Hassasiyet ve Oyun İçi İpuçları</p>
         </div>
 
         <!-- Navigation Tabs -->
         <div class="tabs">
-            <button class="tab-btn active" onclick="openTab('ai-panel')"><i class="fa-solid fa-robot"></i> <span data-tr="Yapay Zeka Önerisi" data-en="AI Recommendation">Yapay Zeka Önerisi</span></button>
-            <button class="tab-btn" onclick="openTab('compare')"><i class="fa-solid fa-code-compare"></i> <span data-tr="Karşılaştırma" data-en="Comparison">Karşılaştırma</span></button>
+            <button class="tab-btn active" onclick="openTab('ai-panel')"><i class="fa-solid fa-robot"></i> <span data-tr="Hassasiyet Paneli" data-en="Sensitivity Panel">Hassasiyet Paneli</span></button>
             <button class="tab-btn" onclick="openTab('leaderboard')"><i class="fa-solid fa-trophy"></i> <span data-tr="Sıralama" data-en="Leaderboard">Sıralama</span></button>
-            <button class="tab-btn" onclick="openTab('news')"><i class="fa-solid fa-newspaper"></i> <span data-tr="Haberler & Kodlar" data-en="News & Codes">Haberler & Kodlar</span></button>
-            <button class="tab-btn" onclick="openTab('tiktok')"><i class="fa-brands fa-tiktok"></i> <span data-tr="TikTok" data-en="TikTok">TikTok</span></button>
+            <button class="tab-btn" onclick="openTab('news')"><i class="fa-solid fa-newspaper"></i> <span data-tr="Haberler" data-en="News">Haberler</span></button>
             <button class="tab-btn" onclick="openTab('faq')"><i class="fa-solid fa-circle-question"></i> <span data-tr="SSS" data-en="FAQ">SSS</span></button>
         </div>
 
-        <!-- TAB 1: AI Recommendation -->
+        <!-- TAB 1: Sensitivity Panel -->
         <div id="ai-panel" class="tab-content active">
             <div class="card">
-                <div class="card-header"><i class="fa-solid fa-mobile-screen-button"></i> <span data-tr="Cihaz Seçimi" data-en="Device Selection">Cihaz Seçimi</span></div>
+                <div class="card-header"><i class="fa-solid fa-mobile-screen-button"></i> <span data-tr="Cihaz Bilgisi Girin" data-en="Enter Device Information">Cihaz Bilgisi Girin</span></div>
+                
                 <div class="two-col">
                     <div class="form-group">
-                        <label data-tr="Telefon Markası" data-en="Phone Brand">Telefon Markası</label>
-                        <select id="brand-select" onchange="updateModels()">
-                            <option value="">-- Marka Seçin --</option>
-                            <option value="iPhone">Apple (iPhone)</option>
-                            <option value="Samsung">Samsung</option>
-                            <option value="Xiaomi">Xiaomi / Poco / Redmi</option>
-                            <option value="Realme">Realme / Oppo</option>
+                        <label data-tr="Cihaz Türü" data-en="Device Type">Cihaz Türü</label>
+                        <select id="device-type">
+                            <option value="iphone">iPhone (iOS)</option>
+                            <option value="samsung">Samsung</option>
+                            <option value="android">Diğer Android Cihazlar</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label data-tr="Telefon Modeli" data-en="Phone Model">Telefon Modeli</label>
-                        <select id="model-select">
-                            <option value="">-- Önce Marka Seçin --</option>
-                        </select>
+                        <input type="text" id="custom-model" placeholder="Örn: iPhone 13 Pro veya Samsung S21">
                     </div>
                 </div>
-                <button class="btn-action" onclick="generateSensitivity()"><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-tr="Hassasiyet & HUD Oluştur" data-en="Generate Sensitivity & HUD">Hassasiyet & HUD Oluştur</span></button>
+
+                <button class="btn-action" onclick="generateSensitivity()"><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-tr="Hassasiyet & HUD Hesapla" data-en="Calculate Sensitivity & HUD">Hassasiyet & HUD Hesapla</span></button>
             </div>
 
-            <!-- AI Output Results -->
+            <!-- Results Section -->
             <div id="results-card" class="card" style="display: none;">
-                <div class="card-header"><i class="fa-solid fa-sliders"></i> <span data-tr="Önerilen Optimal Ayarlar" data-en="Recommended Optimal Settings">Önerilen Optimal Ayarlar</span></div>
+                <div class="card-header"><i class="fa-solid fa-sliders"></i> <span data-tr="Önerilen Ayarlar" data-en="Recommended Settings">Önerilen Ayarlar</span></div>
+                
                 <div class="results-grid">
-                    <div class="result-box"><h4>Genel</h4><div class="val" id="res-genel">98</div></div>
-                    <div class="result-box"><h4>Kırmızı Nokta</h4><div class="val" id="res-reddot">95</div></div>
-                    <div class="result-box"><h4>2x Dürbün</h4><div class="val" id="res-2x">92</div></div>
-                    <div class="result-box"><h4>4x Dürbün</h4><div class="val" id="res-4x">88</div></div>
-                    <div class="result-box"><h4>AWM Dürbünü</h4><div class="val" id="res-awm">50</div></div>
-                    <div class="result-box"><h4>Serbest Bakış</h4><div class="val" id="res-free">65</div></div>
-                    <div class="result-box"><h4>DPI Önerisi</h4><div class="val" id="res-dpi">580</div></div>
-                    <div class="result-box"><h4>Ateş Butonu</h4><div class="val" id="res-fire">48%</div></div>
+                    <div class="result-box"><h4>Genel</h4><div class="val" id="res-genel">0</div></div>
+                    <div class="result-box"><h4>Kırmızı Nokta</h4><div class="val" id="res-reddot">0</div></div>
+                    <div class="result-box"><h4>2x Dürbün</h4><div class="val" id="res-2x">0</div></div>
+                    <div class="result-box"><h4>4x Dürbün</h4><div class="val" id="res-4x">0</div></div>
+                    <div class="result-box"><h4>AWM Dürbünü</h4><div class="val" id="res-awm">0</div></div>
+                    <div class="result-box"><h4>Serbest Bakış</h4><div class="val" id="res-free">0</div></div>
+                    <div class="result-box"><h4>DPI Önerisi</h4><div class="val" id="res-dpi">0</div></div>
+                    <div class="result-box"><h4>Ateş Butonu</h4><div class="val" id="res-fire">0%</div></div>
                 </div>
 
-                <div class="two-col" style="margin-top: 1.5rem;">
-                    <div class="result-box">
-                        <h4 data-tr="🎮 Grafik Ayarı" data-en="🎮 Graphics Setting">🎮 Grafik Ayarı</h4>
-                        <div class="val" id="res-graphics" style="font-size: 1.2rem;">Yüksek / 60 FPS</div>
-                    </div>
+                <div style="margin-top: 1.5rem;">
                     <div class="result-box">
                         <h4 data-tr="📈 Cihaz Performans Puanı" data-en="📈 Device Performance Score">📈 Cihaz Performans Puanı</h4>
                         <div class="val" id="res-score" style="color: #00ff88;">88/100</div>
                     </div>
                 </div>
+                
                 <button class="btn-control" style="margin-top: 1rem; width:100%; justify-content:center;" onclick="toggleFavorite()"><i class="fa-solid fa-heart"></i> <span data-tr="Favorilere Ekle" data-en="Add to Favorites">Favorilere Ekle</span></button>
             </div>
         </div>
 
-        <!-- TAB 2: Comparison Tool -->
-        <div id="compare" class="tab-content">
-            <div class="card">
-                <div class="card-header"><i class="fa-solid fa-code-compare"></i> <span data-tr="Hassasiyet Karşılaştırma Aracı" data-en="Sensitivity Comparison Tool">Hassasiyet Karşılaştırma Aracı</span></div>
-                <div class="two-col">
-                    <div>
-                        <h3 style="color:var(--primary-neon); margin-bottom:10px;">Pro Oyuncu Ayarları</h3>
-                        <div class="list-item"><span>Genel:</span> <strong>100</strong></div>
-                        <div class="list-item"><span>Kırmızı Nokta:</span> <strong>98</strong></div>
-                        <div class="list-item"><span>DPI:</span> <strong>600</strong></div>
-                    </div>
-                    <div>
-                        <h3 style="color:var(--secondary-neon); margin-bottom:10px;">Wedzx v3 Önerisi</h3>
-                        <div class="list-item"><span>Genel:</span> <strong>95</strong></div>
-                        <div class="list-item"><span>Kırmızı Nokta:</span> <strong>92</strong></div>
-                        <div class="list-item"><span>DPI:</span> <strong>540</strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 3: Leaderboard -->
+        <!-- TAB 2: Leaderboard & Comments -->
         <div id="leaderboard" class="tab-content">
             <div class="card">
-                <div class="card-header"><i class="fa-solid fa-trophy"></i> <span data-tr="En Çok Kullanılan Top Hassasiyetler" data-en="Most Used Top Sensitivities">En Çok Kullanılan Top Hassasiyetler</span></div>
+                <div class="card-header"><i class="fa-solid fa-trophy"></i> <span data-tr="En Çok Kullanılan Ayarlar" data-en="Most Used Settings">En Çok Kullanılan Ayarlar</span></div>
                 <div class="list-item">
-                    <span>1. iPhone 13 Pro Max - Pro Setup</span>
-                    <span><i class="fa-solid fa-star" style="color:gold;"></i> 4.9 (1,240 Kullanım)</span>
+                    <span>1. iPhone 13 Pro Max - Headshot Config</span>
+                    <span><i class="fa-solid fa-star" style="color:gold;"></i> 4.9 (1,420 Kullanım)</span>
                 </div>
                 <div class="list-item">
-                    <span>2. Poco X3 Pro - Headshot King</span>
-                    <span><i class="fa-solid fa-star" style="color:gold;"></i> 4.8 (980 Kullanım)</span>
+                    <span>2. Samsung S22 Ultra - Fast Drag</span>
+                    <span><i class="fa-solid fa-star" style="color:gold;"></i> 4.8 (1,150 Kullanım)</span>
                 </div>
                 <div class="list-item">
-                    <span>3. Samsung S22 Ultra - Smooth DPI</span>
-                    <span><i class="fa-solid fa-star" style="color:gold;"></i> 4.7 (850 Kullanım)</span>
+                    <span>3. Poco X3 Pro - Speed DPI</span>
+                    <span><i class="fa-solid fa-star" style="color:gold;"></i> 4.7 (920 Kullanım)</span>
                 </div>
             </div>
 
-            <!-- Comments Section -->
             <div class="card">
-                <div class="card-header"><i class="fa-solid fa-comments"></i> <span data-tr="Yorum ve Puanlama" data-en="Comments & Ratings">Yorum ve Puanlama</span></div>
+                <div class="card-header"><i class="fa-solid fa-comments"></i> <span data-tr="Yorumlar ve Puanlar" data-en="Comments & Ratings">Yorumlar ve Puanlar</span></div>
                 <div class="form-group">
-                    <input type="text" id="comment-input" placeholder="Yorumunuzu yazın...">
+                    <input type="text" id="comment-input" placeholder="Yorumunuzu girin...">
                 </div>
                 <button class="btn-action" onclick="addComment()" style="width: auto; padding: 8px 20px;">Gönder</button>
                 <div id="comments-list" style="margin-top: 1rem;">
-                    <div class="list-item"><strong>Oyuncu_TR:</strong> wedzx v3 sayesinde kafadan vurma oranım %80 oldu!</div>
+                    <div class="list-item"><strong>Oyuncu_FF:</strong> iPhone ayarları efsane kafa atıyor eyvallah wedzx!</div>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 4: News & Redeem Codes -->
+        <!-- TAB 3: News -->
         <div id="news" class="tab-content">
-            <div class="two-col">
-                <div class="card">
-                    <div class="card-header"><i class="fa-solid fa-gift"></i> <span data-tr="Günlük Resmi Ödül Kodları" data-en="Daily Official Redeem Codes">Günlük Resmi Ödül Kodları</span></div>
-                    <div class="list-item"><code>FF11-NJE5-YS3E</code> <button class="btn-control" onclick="navigator.clipboard.writeText('FF11-NJE5-YS3E')">Kopyala</button></div>
-                    <div class="list-item"><code>MSJX-882A-DM8Y</code> <button class="btn-control" onclick="navigator.clipboard.writeText('MSJX-882A-DM8Y')">Kopyala</button></div>
-                </div>
-                <div class="card">
-                    <div class="card-header"><i class="fa-solid fa-bullhorn"></i> <span data-tr="Etkinlikler & Güncellemeler" data-en="Events & Updates">Etkinlikler & Güncellemeler</span></div>
-                    <p style="color: var(--text-muted);">Yeni OB44 güncellemesi ile silah dengeleri değişti! En güncel ayarlar wedzx v3 paneline eklendi.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- TAB 5: TikTok Embeds -->
-        <div id="tiktok" class="tab-content">
             <div class="card">
-                <div class="card-header"><i class="fa-brands fa-tiktok"></i> TikTok <span data-tr="Öne Çıkan Klip & Vurgular" data-en="Featured Clips & Highlights">Öne Çıkan Klip & Vurgular</span></div>
-                <div class="tiktok-container">
-                    <div class="tiktok-card">
-                        <i class="fa-brands fa-tiktok" style="font-size:3rem; color:var(--primary-neon);"></i>
-                        <p style="margin-top:10px;">@wedzx_official Headshot Montage</p>
-                    </div>
-                    <div class="tiktok-card">
-                        <i class="fa-brands fa-tiktok" style="font-size:3rem; color:var(--primary-neon);"></i>
-                        <p style="margin-top:10px;">Wedzx v3 Sensitivity Showcase</p>
-                    </div>
+                <div class="card-header"><i class="fa-solid fa-bullhorn"></i> <span data-tr="Garena Free Fire Haberleri" data-en="Garena Free Fire News">Garena Free Fire Haberleri</span></div>
+                <div style="padding: 10px 0;">
+                    <h3 style="color: var(--primary-neon); margin-bottom: 8px;">🔥 Yakında: OB54 Güncellemesi</h3>
+                    <p style="color: var(--text-muted); line-height: 1.6;">
+                        Garena Free Fire için beklenen <strong>OB54 güncellemesi</strong> çok yakında oyuna eklenecek! Bu güncelleme ile birlikte silah dengeleri, karakter yetenekleri ve hassasiyet mekaniklerinde yeni düzenlemeler yapılacak. OB54 güncellemesi yayınlandığı anda en yeni ve optimize edilmiş ayarlar wedzx v3 paneline dahil edilecektir.
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 6: FAQ -->
+        <!-- TAB 4: FAQ -->
         <div id="faq" class="tab-content">
             <div class="card">
-                <div class="card-header"><i class="fa-solid fa-circle-question"></i> <span data-tr="Sık Sorulan Sorulan (SSS)" data-en="Frequently Asked Questions">Sık Sorulan Sorular (SSS)</span></div>
+                <div class="card-header"><i class="fa-solid fa-circle-question"></i> <span data-tr="Sık Sorulan Sorular" data-en="Frequently Asked Questions">Sık Sorulan Sorular</span></div>
                 <div class="faq-item">
                     <div class="faq-q" onclick="toggleFaq(this)">DPI değiştirmek ban sebebi midir? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-a">Hayır, DPI telefonunuzun kendi sistem ayarıdır ve oyun ban sebebi değildir.</div>
+                    <div class="faq-a">Hayır, DPI cihazınızın kendi geliştirici ayarıdır ve oyunda ban sebebi oluşturmaz.</div>
                 </div>
                 <div class="faq-item">
-                    <div class="faq-q" onclick="toggleFaq(this)">Ateş butonu boyutu neden önemlidir? <i class="fa-solid fa-chevron-down"></i></div>
-                    <div class="faq-a">Ekran boyutunuza göre ateş butonunu ayarlamak başa nişan alma (headshot) sürükleme rahatlığını doğrudan etkiler.</div>
+                    <div class="faq-q" onclick="toggleFaq(this)">Ateş butonu boyutu hassasiyeti etkiler mi? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-a">Evet, ateş butonunun boyutu ekran büyüklüğüne göre doğru konumlandırıldığında yukarı kaydırma rahatlığını arttırır.</div>
                 </div>
             </div>
         </div>
@@ -533,7 +544,7 @@
     </div>
 
     <script>
-        /* Neon Canvas Particles Background */
+        /* Neon Red Web Particles Canvas */
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -592,52 +603,71 @@
         }
         animate();
 
-        /* Phone Data Mock */
-        const models = {
-            "iPhone": ["iPhone 11", "iPhone 12 / 12 Pro", "iPhone 13 / 13 Pro", "iPhone 14 / 15 Pro Max"],
-            "Samsung": ["Galaxy A52 / A53", "Galaxy S20 / S21 FE", "Galaxy S22 / S23 Ultra", "Galaxy M33"],
-            "Xiaomi": ["Poco X3 Pro / X4 Pro", "Poco F3 / F4", "Redmi Note 10 / 11 / 12", "Xiaomi 12 / 13"],
-            "Realme": ["Realme GT Master", "Realme 8 / 9 Pro", "Oppo Reno 6 / 7"]
-        };
+        /* TikTok Follow Verification Logic */
+        let hasClickedFollow = false;
 
-        function updateModels() {
-            const brand = document.getElementById('brand-select').value;
-            const modelSelect = document.getElementById('model-select');
-            modelSelect.innerHTML = '<option value="">-- Model Seçin --</option>';
+        function registerFollowClick() {
+            hasClickedFollow = true;
+            const unlockBtn = document.getElementById('unlock-btn');
+            unlockBtn.disabled = false;
+            unlockBtn.style.opacity = '1';
+            unlockBtn.style.cursor = 'pointer';
+        }
 
-            if (brand && models[brand]) {
-                models[brand].forEach(m => {
-                    const opt = document.createElement('option');
-                    opt.value = m;
-                    opt.textContent = m;
-                    modelSelect.appendChild(opt);
-                });
+        function verifyAccess() {
+            if (hasClickedFollow) {
+                document.getElementById('access-overlay').style.display = 'none';
+            } else {
+                alert("Lütfen önce TikTok hesabını takip et butonuna tıklayın!");
             }
         }
 
-        /* Generate AI Sensitivity */
+        /* Helper for Random Number in Range */
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        /* Sensitivity Generator with Special Logic */
         function generateSensitivity() {
-            const model = document.getElementById('model-select').value;
-            if (!model) {
-                alert("Lütfen bir model seçin!");
+            const deviceType = document.getElementById('device-type').value;
+            const customModel = document.getElementById('custom-model').value.trim();
+
+            if (!customModel) {
+                alert("Lütfen telefon modelini girin!");
                 return;
             }
 
             document.getElementById('results-card').style.display = 'block';
+
+            let sensMin, sensMax, dpiMin, dpiMax;
+
+            if (deviceType === 'iphone') {
+                // iPhone Rule: Sens 80 - 150, DPI 50 - 120
+                sensMin = 80;  sensMax = 150;
+                dpiMin = 50;   dpiMax = 120;
+            } else if (deviceType === 'samsung') {
+                // Samsung Rule: Sens 150 - 200
+                sensMin = 150; sensMax = 200;
+                dpiMin = 450;  dpiMax = 600;
+            } else {
+                // Other Android Rule: Sens 150 - 200
+                sensMin = 150; sensMax = 200;
+                dpiMin = 400;  dpiMax = 580;
+            }
+
+            document.getElementById('res-genel').innerText = getRandomInt(sensMin, sensMax);
+            document.getElementById('res-reddot').innerText = getRandomInt(sensMin - 5, sensMax);
+            document.getElementById('res-2x').innerText = getRandomInt(sensMin - 10, sensMax);
+            document.getElementById('res-4x').innerText = getRandomInt(sensMin - 15, sensMax);
+            document.getElementById('res-awm').innerText = getRandomInt(40, 80);
+            document.getElementById('res-free').innerText = getRandomInt(50, 100);
             
-            // Random variation generator for realistic values
-            document.getElementById('res-genel').innerText = Math.floor(Math.random() * 8) + 93;
-            document.getElementById('res-reddot').innerText = Math.floor(Math.random() * 10) + 88;
-            document.getElementById('res-2x').innerText = Math.floor(Math.random() * 10) + 85;
-            document.getElementById('res-4x').innerText = Math.floor(Math.random() * 10) + 80;
-            document.getElementById('res-awm').innerText = Math.floor(Math.random() * 20) + 40;
-            document.getElementById('res-free').innerText = 65;
-            document.getElementById('res-dpi').innerText = Math.floor(Math.random() * 120) + 500;
-            document.getElementById('res-fire').innerText = Math.floor(Math.random() * 8) + 42 + '%';
-            document.getElementById('res-score').innerText = (Math.floor(Math.random() * 15) + 83) + '/100';
+            document.getElementById('res-dpi').innerText = getRandomInt(dpiMin, dpiMax);
+            document.getElementById('res-fire').innerText = getRandomInt(40, 52) + '%';
+            document.getElementById('res-score').innerText = getRandomInt(85, 99) + '/100';
         }
 
-        /* Tabs Functionality */
+        /* Tabs Switcher */
         function openTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -645,7 +675,7 @@
             event.currentTarget.classList.add('active');
         }
 
-        /* Theme & Language Toggles */
+        /* Language & Theme Controls */
         let currentLang = 'TR';
         document.getElementById('lang-toggle').addEventListener('click', () => {
             currentLang = currentLang === 'TR' ? 'EN' : 'TR';
@@ -668,7 +698,7 @@
             ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
         }
 
-        /* Comment Add Mock */
+        /* Comments Mock */
         function addComment() {
             const input = document.getElementById('comment-input');
             if (input.value.trim() !== '') {
@@ -682,7 +712,7 @@
         }
 
         function toggleFavorite() {
-            alert("Hassasiyet ayarları favorilerinize eklendi!");
+            alert("Ayarlar başarıyla favorilerinize eklendi!");
         }
     </script>
 </body>
