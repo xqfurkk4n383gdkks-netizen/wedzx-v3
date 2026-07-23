@@ -11,8 +11,8 @@
             --bg-base: #010103;
             --neon-red: #ff003c;
             --neon-glow: rgba(255, 0, 60, 0.7);
-            --card-surface: rgba(10, 10, 16, 0.85);
-            --border-color: rgba(255, 0, 60, 0.25);
+            --card-surface: rgba(10, 10, 16, 0.9);
+            --border-color: rgba(255, 0, 60, 0.3);
             --text-white: #ffffff;
             --text-gray: #9494a0;
         }
@@ -36,7 +36,6 @@
             position: relative;
         }
 
-        /* Neon Red Animated Web Canvas */
         #nexus-canvas {
             position: fixed;
             top: 0;
@@ -51,11 +50,10 @@
             position: relative;
             z-index: 2;
             width: 90%;
-            max-width: 480px;
-            margin: 40px auto;
+            max-width: 500px;
+            margin: 30px auto;
         }
 
-        /* Futuristic Header */
         .nexus-header {
             text-align: center;
             margin-bottom: 25px;
@@ -83,7 +81,6 @@
             text-transform: uppercase;
         }
 
-        /* Holographic Main Container */
         .nexus-card {
             background: var(--card-surface);
             border: 1px solid var(--border-color);
@@ -146,7 +143,6 @@
             background: rgba(10, 2, 5, 0.9);
         }
 
-        /* Sci-Fi Action Button */
         .btn-nexus {
             width: 100%;
             padding: 16px;
@@ -173,14 +169,10 @@
             transform: translateY(-2px);
         }
 
-        /* Results Matrix Panel */
+        /* --- Yenilenmiş Sonuç Paneli (3 Farklı Ayar) --- */
         .nexus-results {
             display: none;
             margin-top: 25px;
-            background: rgba(4, 4, 8, 0.95);
-            border: 1px solid var(--neon-red);
-            padding: 20px;
-            box-shadow: inset 0 0 25px rgba(255, 0, 60, 0.15);
             animation: matrixFade 0.4s ease;
         }
 
@@ -189,14 +181,53 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .nexus-results-title {
-            text-align: center;
+        .results-title {
             font-family: 'Syncopate', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--neon-red);
+            text-align: center;
             margin-bottom: 15px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-shadow: 0 0 10px var(--neon-glow);
+        }
+
+        .config-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-gray);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: rgba(255, 0, 60, 0.15);
+            border-color: var(--neon-red);
+            color: var(--text-white);
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.2);
+        }
+
+        .config-panel {
+            display: none;
+            background: rgba(4, 4, 8, 0.95);
+            border: 1px solid var(--neon-red);
+            padding: 18px;
+            box-shadow: inset 0 0 25px rgba(255, 0, 60, 0.15);
+        }
+
+        .config-panel.active {
+            display: block;
         }
 
         .matrix-grid {
@@ -216,105 +247,133 @@
         }
 
         .matrix-cell span {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-gray);
             text-transform: uppercase;
         }
 
         .matrix-cell strong {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--text-white);
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
         }
 
-        /* TikTok Holographic Modal */
+        /* --- Yenilenmiş Ultra Havalı TikTok Modal Tasarımı --- */
         .nexus-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(1, 1, 3, 0.96);
+            background: rgba(1, 1, 3, 0.98);
             z-index: 999;
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
         }
 
-        .modal-inner {
-            background: var(--card-surface);
-            border: 2px solid var(--neon-red);
-            box-shadow: 0 0 50px var(--neon-glow);
-            padding: 35px 25px;
-            text-align: center;
-            max-width: 380px;
+        .modal-box-glow {
+            position: relative;
             width: 90%;
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+            max-width: 420px;
+            background: linear-gradient(145deg, rgba(15, 15, 25, 0.95), rgba(5, 5, 10, 0.98));
+            border: 1px solid var(--neon-red);
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(255, 0, 60, 0.4), inset 0 0 25px rgba(255, 0, 60, 0.15);
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
         }
 
-        .modal-inner i {
-            font-size: 3.5rem;
-            color: var(--neon-red);
-            margin-bottom: 15px;
-            filter: drop-shadow(0 0 15px var(--neon-red));
+        .modal-avatar-frame {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border: 2px solid var(--neon-red);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 0, 60, 0.1);
+            box-shadow: 0 0 25px var(--neon-glow);
+            animation: pulseAvatar 2s infinite;
         }
 
-        .modal-inner h2 {
+        @keyframes pulseAvatar {
+            0% { box-shadow: 0 0 15px var(--neon-glow); }
+            50% { box-shadow: 0 0 35px var(--neon-glow), 0 0 10px #fff; }
+            100% { box-shadow: 0 0 15px var(--neon-glow); }
+        }
+
+        .modal-avatar-frame i {
+            font-size: 2.2rem;
+            color: var(--text-white);
+            text-shadow: 0 0 10px var(--neon-red);
+        }
+
+        .modal-box-glow h2 {
             font-family: 'Syncopate', sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 12px;
-            letter-spacing: 1px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: var(--text-white);
         }
 
-        .modal-inner p {
-            font-size: 0.95rem;
+        .modal-box-glow p {
+            font-size: 0.92rem;
             color: var(--text-gray);
-            margin-bottom: 22px;
-            line-height: 1.4;
+            margin-bottom: 25px;
+            line-height: 1.5;
         }
 
-        .btn-modal-action {
-            display: block;
+        .modal-box-glow p strong {
+            color: var(--neon-red);
+        }
+
+        .btn-tiktok-cyber {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             width: 100%;
-            padding: 13px;
+            padding: 15px;
             background: #000;
             border: 1px solid var(--neon-red);
             color: var(--text-white);
             text-decoration: none;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
-            transition: 0.3s;
-        }
-
-        .btn-modal-action:hover {
-            background: #111;
-            box-shadow: 0 0 25px var(--neon-glow);
-        }
-
-        .btn-modal-verify {
-            width: 100%;
-            padding: 13px;
-            background: var(--neon-red);
-            border: none;
-            color: var(--text-white);
-            font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 1.5px;
-            cursor: pointer;
-            box-shadow: 0 0 20px var(--neon-glow);
+            margin-bottom: 12px;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
             transition: 0.3s;
         }
 
-        .btn-modal-verify:hover {
-            background: #ff1a4f;
+        .btn-tiktok-cyber:hover {
+            background: rgba(255, 0, 60, 0.2);
             box-shadow: 0 0 30px var(--neon-glow);
         }
 
-        /* Secret Admin Footer */
+        .btn-verify-cyber {
+            width: 100%;
+            padding: 15px;
+            background: var(--neon-red);
+            border: none;
+            color: var(--text-white);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            cursor: pointer;
+            box-shadow: 0 0 25px var(--neon-glow);
+            transition: 0.3s;
+        }
+
+        .btn-verify-cyber:hover {
+            background: #ff1a4f;
+            box-shadow: 0 0 40px var(--neon-glow);
+        }
+
         .nexus-footer {
             margin-top: 20px;
             text-align: center;
@@ -330,16 +389,18 @@
 
     <canvas id="nexus-canvas"></canvas>
 
-    <!-- TikTok Verification Gate Modal -->
+    <!-- Yeni Nesil Cyberpunk TikTok Modal -->
     <div class="nexus-modal" id="nexusModal">
-        <div class="modal-inner">
-            <i class="fa-brands fa-tiktok"></i>
-            <h2>GİRİŞ KİLİTLİ</h2>
-            <p>2026 Nexus Hassasiyet Motorunu aktif etmek için <strong>@wedzx_</strong> TikTok hesabını takip etmelisin.</p>
-            <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn-modal-action" onclick="markFollowed()">
-                <i class="fa-brands fa-tiktok"></i> @wedzx_ Takip Et
+        <div class="modal-box-glow">
+            <div class="modal-avatar-frame">
+                <i class="fa-brands fa-tiktok"></i>
+            </div>
+            <h2>SİSTEM KİLİTLİ</h2>
+            <p>2026 Nexus Hassasiyet Motoruna erişim sağlamak için <strong>@wedzx_</strong> TikTok hesabını takip etmen gerekiyor.</p>
+            <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn-tiktok-cyber" onclick="markFollowed()">
+                <i class="fa-brands fa-tiktok"></i> @wedzx_ TAKİP ET
             </a>
-            <button class="btn-modal-verify" onclick="checkVerification()">TAKİP ETTİM, BAĞLAN</button>
+            <button class="btn-verify-cyber" onclick="checkVerification()">BAĞLANTIYI AÇ</button>
         </div>
     </div>
 
@@ -370,47 +431,82 @@
             </div>
 
             <div class="field-group">
-                <label><i class="fa-solid fa-memory"></i> RAM Miktarı</label>
-                <select id="ramSelect">
-                    <option value="2-3">2 GB - 3 GB (Düşük Segment)</option>
-                    <option value="4-6" selected>4 GB - 6 GB (Orta Segment)</option>
-                    <option value="8-12">8 GB - 12 GB (Üst Segment)</option>
-                    <option value="16+">16 GB+ (Ultimate Flagship)</option>
+                <label><i class="fa-solid fa-gauge-high"></i> Ekran / DPI Hızı</label>
+                <select id="dpiSelect">
+                    <option value="standard">Standart Ekran Akıcılığı (60Hz)</option>
+                    <option value="smooth" selected>Yüksek Akıcılık (90Hz / 120Hz)</option>
+                    <option value="extreme">E-Spor Esport Mode (144Hz+)</option>
                 </select>
             </div>
 
             <button class="btn-nexus" onclick="generateSensitivity()">
-                HASSASİYETİ HESAPLA
+                HASSASİYETLERİ ÜRET
             </button>
 
-            <!-- Results Matrix -->
+            <!-- 3 Farklı Sekmeli Sonuç Paneli -->
             <div class="nexus-results" id="resultsPanel">
-                <div class="nexus-results-title">⚡ Nexus 2026 Meta Ayarları Aktif</div>
-                <div class="matrix-grid">
-                    <div class="matrix-cell"><span>Genel</span> <strong id="resGenel">195</strong></div>
-                    <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="resRedDot">185</strong></div>
-                    <div class="matrix-cell"><span>2X Dürbün</span> <strong id="res2x">175</strong></div>
-                    <div class="matrix-cell"><span>4X Dürbün</span> <strong id="res4x">160</strong></div>
-                    <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="resAwm">110</strong></div>
-                    <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="resFree">180</strong></div>
-                    <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
-                        <span>🔥 Ateş Butonu</span> <strong id="resFireButton">48%</strong>
-                    </div>
-                    <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00f0ff;">
-                        <span>⚡ Önerilen DPI</span> <strong id="resDpi">480 DPI</strong>
+                <div class="results-title">⚡ 3 Farklı Meta Ayar Paketi Hazır</div>
+                
+                <div class="config-tabs">
+                    <button class="tab-btn active" onclick="switchTab(0)">1. Tek Atma</button>
+                    <button class="tab-btn" onclick="switchTab(1)">2. Seri / Uzak</button>
+                    <button class="tab-btn" onclick="switchTab(2)">3. Denge / Pro</button>
+                </div>
+
+                <!-- Config 1: Tek Atma (One-Tap) -->
+                <div class="config-panel active" id="panel0">
+                    <div class="matrix-grid">
+                        <div class="matrix-cell"><span>Genel</span> <strong id="r0_gen">110</strong></div>
+                        <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="r0_red">105</strong></div>
+                        <div class="matrix-cell"><span>2X Dürbün</span> <strong id="r0_2x">98</strong></div>
+                        <div class="matrix-cell"><span>4X Dürbün</span> <strong id="r0_4x">90</strong></div>
+                        <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r0_awm">82</strong></div>
+                        <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r0_free">100</strong></div>
+                        <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
+                            <span>🔥 Ateş Butonu</span> <strong id="r0_fire">44%</strong>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Config 2: Seri / Uzak Mesafe -->
+                <div class="config-panel" id="panel1">
+                    <div class="matrix-grid">
+                        <div class="matrix-cell"><span>Genel</span> <strong id="r1_gen">125</strong></div>
+                        <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="r1_red">120</strong></div>
+                        <div class="matrix-cell"><span>2X Dürbün</span> <strong id="r1_2x">112</strong></div>
+                        <div class="matrix-cell"><span>4X Dürbün</span> <strong id="r1_4x">105</strong></div>
+                        <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r1_awm">90</strong></div>
+                        <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r1_free">115</strong></div>
+                        <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
+                            <span>🔥 Ateş Butonu</span> <strong id="r1_fire">48%</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Config 3: Denge / Turnuva -->
+                <div class="config-panel" id="panel2">
+                    <div class="matrix-grid">
+                        <div class="matrix-cell"><span>Genel</span> <strong id="r2_gen">140</strong></div>
+                        <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="r2_red">135</strong></div>
+                        <div class="matrix-cell"><span>2X Dürbün</span> <strong id="r2_2x">125</strong></div>
+                        <div class="matrix-cell"><span>4X Dürbün</span> <strong id="r2_4x">118</strong></div>
+                        <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r2_awm">98</strong></div>
+                        <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r2_free">130</strong></div>
+                        <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
+                            <span>🔥 Ateş Butonu</span> <strong id="r2_fire">52%</strong>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <!-- Secret Admin Panel Trigger (Click 3 times on copyright) -->
         <div class="nexus-footer" id="copyrightText" onclick="handleSecretClick()">
             WEDZX NEXUS SYSTEMS &copy; 2026
         </div>
     </div>
 
     <script>
-        // --- 1. Neon Red Network Canvas Background ---
         const canvas = document.getElementById('nexus-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -430,15 +526,12 @@
                 this.vy = (Math.random() - 0.5) * 1.3;
                 this.radius = Math.random() * 1.5 + 0.8;
             }
-
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-
                 if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
             }
-
             draw() {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -449,22 +542,17 @@
             }
         }
 
-        for (let i = 0; i < 65; i++) {
-            particles.push(new Particle());
-        }
+        for (let i = 0; i < 65; i++) particles.push(new Particle());
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
             for (let i = 0; i < particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
-
                 for (let j = i + 1; j < particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-
                     if (dist < 130) {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
@@ -479,126 +567,95 @@
         }
         animate();
 
-        // --- 2. TikTok Gate & Real Visitor Counter ---
         let hasVisitedTikTok = false;
-
-        function markFollowed() {
-            hasVisitedTikTok = true;
-        }
+        function markFollowed() { hasVisitedTikTok = true; }
 
         function checkVerification() {
             if (hasVisitedTikTok || localStorage.getItem('nexus_unlocked') === 'true') {
                 localStorage.setItem('nexus_unlocked', 'true');
                 document.getElementById('nexusModal').style.display = 'none';
-                
-                if (!sessionStorage.getItem('counted_visit')) {
-                    let totalVisits = parseInt(localStorage.getItem('nexus_real_visits') || '0') + 1;
-                    localStorage.setItem('nexus_real_visits', totalVisits);
-                    sessionStorage.setItem('counted_visit', 'true');
-                }
             } else {
-                alert('Lütfen önce TikTok ikonuna tıklayıp @wedzx_ hesabını takip edin!');
+                alert('Lütfen önce @wedzx_ TikTok hesabını takip edin!');
             }
         }
 
         if (localStorage.getItem('nexus_unlocked') === 'true') {
             document.getElementById('nexusModal').style.display = 'none';
-            if (!sessionStorage.getItem('counted_visit')) {
-                let totalVisits = parseInt(localStorage.getItem('nexus_real_visits') || '0') + 1;
-                localStorage.setItem('nexus_real_visits', totalVisits);
-                sessionStorage.setItem('counted_visit', 'true');
-            }
         }
 
-        // --- 3. Sensitivity Generator & Analytics Log ---
+        function switchTab(index) {
+            document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === index);
+            });
+            document.querySelectorAll('.config-panel').forEach((panel, idx) => {
+                panel.classList.toggle('active', idx === index);
+            });
+        }
+
         function generateSensitivity() {
             const brand = document.getElementById('brandSelect').value;
             const model = document.getElementById('modelInput').value.trim();
-            const ram = document.getElementById('ramSelect').value;
+            const dpi = document.getElementById('dpiSelect').value;
 
-            if (!brand) {
-                alert('Lütfen telefon markanızı seçiniz!');
-                return;
-            }
-            if (!model) {
-                alert('Lütfen telefon modelinizi yazınız!');
-                return;
-            }
+            if (!brand) { alert('Lütfen telefon markanızı seçiniz!'); return; }
+            if (!model) { alert('Lütfen telefon modelinizi yazınız!'); return; }
 
-            let logs = JSON.parse(localStorage.getItem('nexus_device_logs') || '[]');
-            logs.push({ 
-                device: `${brand.toUpperCase()} - ${model}`, 
-                ram: `${ram} GB RAM`, 
-                date: new Date().toLocaleString() 
-            });
-            localStorage.setItem('nexus_device_logs', JSON.stringify(logs));
+            let baseGen, baseRed, base2x, base4x, baseAwm, baseFree, fireBtn;
 
-            let general, redDot, scope2x, scope4x, awm, freeLook, fireButton, dpi;
-
-            if (ram === '2-3') {
-                general = 198; redDot = 190; scope2x = 180; scope4x = 165; awm = 120; freeLook = 185;
-                fireButton = '44%'; dpi = '480 DPI';
-            } else if (ram === '4-6') {
-                general = 185; redDot = 178; scope2x = 172; scope4x = 160; awm = 110; freeLook = 180;
-                fireButton = '48%'; dpi = '450 DPI';
-            } else if (ram === '8-12') {
-                general = 168; redDot = 160; scope2x = 150; scope4x = 140; awm = 95; freeLook = 165;
-                fireButton = '52%'; dpi = '410 DPI';
+            // iPhone özel kuralı: 80 ile 150 arasında hassasiyetler
+            if (brand === 'iphone') {
+                baseGen = 95; baseRed = 90; base2x = 85; base4x = 80; baseAwm = 80; baseFree = 92; fireBtn = '45%';
+                if (dpi === 'smooth') { baseGen = 110; baseRed = 105; base2x = 98; base4x = 90; baseAwm = 82; baseFree = 100; fireBtn = '47%'; }
+                if (dpi === 'extreme') { baseGen = 135; baseRed = 128; base2x = 118; base4x = 110; baseAwm = 95; baseFree = 125; fireBtn = '50%'; }
             } else {
-                general = 150; redDot = 142; scope2x = 135; scope4x = 125; awm = 85; freeLook = 150;
-                fireButton = '54%'; dpi = 'Orijinal DPI';
+                // Diğer markalar için dinamik hesaplama
+                baseGen = 150; baseRed = 142; base2x = 135; base4x = 125; baseAwm = 85; baseFree = 140; fireBtn = '48%';
+                if (dpi === 'smooth') { baseGen = 175; baseRed = 168; base2x = 160; base4x = 145; baseAwm = 100; baseFree = 165; fireBtn = '52%'; }
+                if (dpi === 'extreme') { baseGen = 195; baseRed = 188; base2x = 178; base4x = 165; baseAwm = 115; baseFree = 185; fireBtn = '55%'; }
             }
 
-            document.getElementById('resGenel').innerText = general;
-            document.getElementById('resRedDot').innerText = redDot;
-            document.getElementById('res2x').innerText = scope2x;
-            document.getElementById('res4x').innerText = scope4x;
-            document.getElementById('resAwm').innerText = awm;
-            document.getElementById('resFree').innerText = freeLook;
-            document.getElementById('resFireButton').innerText = fireButton;
-            document.getElementById('resDpi').innerText = dpi;
+            // 3 Farklı Ayar Paketini Doldur (Tek Atma, Seri, Denge)
+            // 1. Paket (Tek Atma)
+            document.getElementById('r0_gen').innerText = baseGen;
+            document.getElementById('r0_red').innerText = baseRed;
+            document.getElementById('r0_2x').innerText = base2x;
+            document.getElementById('r0_4x').innerText = base4x;
+            document.getElementById('r0_awm').innerText = baseAwm;
+            document.getElementById('r0_free').innerText = baseFree;
+            document.getElementById('r0_fire').innerText = fireBtn;
+
+            // 2. Paket (Seri / Uzak)
+            document.getElementById('r1_gen').innerText = Math.min(198, baseGen + 15);
+            document.getElementById('r1_red').innerText = Math.min(195, baseRed + 15);
+            document.getElementById('r1_2x').innerText = Math.min(190, base2x + 14);
+            document.getElementById('r1_4x').innerText = Math.min(180, base4x + 12);
+            document.getElementById('r1_awm').innerText = Math.min(140, baseAwm + 8);
+            document.getElementById('r1_free').innerText = Math.min(195, baseFree + 15);
+            document.getElementById('r1_fire').innerText = (parseInt(fireBtn) + 2) + '%';
+
+            // 3. Paket (Denge / Pro)
+            document.getElementById('r2_gen').innerText = Math.min(199, baseGen + 30);
+            document.getElementById('r2_red').innerText = Math.min(196, baseRed + 28);
+            document.getElementById('r2_2x').innerText = Math.min(192, base2x + 25);
+            document.getElementById('r2_4x').innerText = Math.min(185, base4x + 22);
+            document.getElementById('r2_awm').innerText = Math.min(150, baseAwm + 16);
+            document.getElementById('r2_free').innerText = Math.min(198, baseFree + 28);
+            document.getElementById('r2_fire').innerText = (parseInt(fireBtn) + 5) + '%';
 
             document.getElementById('resultsPanel').style.display = 'block';
         }
 
-        // --- 4. Secret Admin Panel (Click 3 Times on Footer) ---
         let clickCount = 0;
         let clickTimer = null;
-
         function handleSecretClick() {
             clickCount++;
             clearTimeout(clickTimer);
-            
-            clickTimer = setTimeout(() => {
-                clickCount = 0;
-            }, 1000);
-
+            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
             if (clickCount >= 3) {
                 clickCount = 0;
-                openAdminPanel();
-            }
-        }
-
-        function openAdminPanel() {
-            const pass = prompt('Admin Şifresini Giriniz:');
-            if (pass === 'wedzx2026') {
-                let realVisits = localStorage.getItem('nexus_real_visits') || '0';
-                let logs = JSON.parse(localStorage.getItem('nexus_device_logs') || '[]');
-                
-                let msg = `=== NEXUS ADMIN PANELİ ===\n\n`;
-                msg += `📊 Gerçek Ziyaretçi Sayısı: ${realVisits}\n\n`;
-                msg += `--- KULLANICI CİHAZ ANALİZLERİ ---\n`;
-
-                if (logs.length === 0) {
-                    msg += 'Henüz analiz verisi yok.';
-                } else {
-                    logs.forEach((item, index) => {
-                        msg += `${index + 1}. Cihaz: ${item.device} | RAM: ${item.ram} | Zaman: ${item.date}\n`;
-                    });
-                }
-                alert(msg);
-            } else if (pass !== null) {
-                alert('Hatalı şifre!');
+                const pass = prompt('Admin Şifresi:');
+                if (pass === 'wedzx2026') alert('Sistem Durumu: Aktif ve Güvenli (2026)');
+                else if (pass !== null) alert('Hatalı şifre!');
             }
         }
     </script>
