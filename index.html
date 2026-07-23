@@ -8,10 +8,10 @@
     <style>
         :root {
             --primary: #ff003c;
-            --primary-glow: rgba(255, 0, 60, 0.6);
-            --bg-dark: #0a0a0c;
-            --card-bg: rgba(18, 18, 24, 0.85);
-            --text-light: #f1f1f5;
+            --primary-glow: rgba(255, 0, 60, 0.8);
+            --bg-dark: #050507;
+            --card-bg: rgba(14, 14, 20, 0.75);
+            --text-light: #f3f3f7;
         }
 
         * {
@@ -32,7 +32,7 @@
             align-items: center;
         }
 
-        /* Neon Red Animated Network Canvas Background */
+        /* High-End Neon Red Network Canvas Background */
         #particle-canvas {
             position: fixed;
             top: 0;
@@ -47,7 +47,7 @@
             position: relative;
             z-index: 1;
             width: 90%;
-            max-width: 650px;
+            max-width: 620px;
             margin: 40px auto;
         }
 
@@ -57,99 +57,133 @@
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: #fff;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 12px var(--primary-glow);
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px var(--primary-glow), 0 0 40px rgba(255, 0, 60, 0.4);
+            font-weight: 800;
         }
 
         header h1 span {
             color: var(--primary);
+            text-shadow: 0 0 20px var(--primary);
         }
 
         header p {
             font-size: 0.95rem;
-            color: #aaa;
-            margin-top: 5px;
+            color: #b0b0c0;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
         }
 
-        /* Main Form Card */
+        /* Main Form Glass Card */
         .card {
             background: var(--card-bg);
-            border: 1px solid rgba(255, 0, 60, 0.3);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            margin-bottom: 25px;
+            border: 1px solid rgba(255, 0, 60, 0.4);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 0, 60, 0.15);
+            backdrop-filter: blur(15px);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary));
+            animation: scanline 4s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .input-group label {
             display: block;
             font-size: 0.85rem;
             margin-bottom: 8px;
-            color: #ddd;
+            color: #d0d0e0;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .input-group select, .input-group input {
             width: 100%;
-            padding: 12px 15px;
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #333;
-            border-radius: 8px;
+            padding: 14px 16px;
+            background: rgba(5, 5, 10, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             color: #fff;
-            font-size: 0.95rem;
+            font-size: 1rem;
             outline: none;
             transition: all 0.3s ease;
         }
 
         .input-group select:focus, .input-group input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 10px var(--primary-glow);
+            box-shadow: 0 0 15px var(--primary-glow);
+            background: rgba(10, 5, 15, 0.9);
         }
 
         .btn-submit {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(45deg, #ff003c, #990024);
+            padding: 16px;
+            background: linear-gradient(135deg, #ff003c, #b3002a);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             color: #fff;
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             cursor: pointer;
-            box-shadow: 0 0 15px var(--primary-glow);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 20px var(--primary-glow);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
 
         .btn-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--primary-glow);
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px var(--primary-glow), 0 0 10px #fff;
+            background: linear-gradient(135deg, #ff1a4f, #cc0033);
         }
 
         /* Result Panel */
         .results-container {
             display: none;
             margin-top: 25px;
-            background: rgba(10, 10, 15, 0.9);
-            border-radius: 12px;
-            padding: 20px;
+            background: rgba(8, 8, 12, 0.95);
+            border-radius: 16px;
+            padding: 22px;
             border: 1px solid var(--primary);
+            box-shadow: inset 0 0 20px rgba(255, 0, 60, 0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .results-container h3 {
             text-align: center;
             color: var(--primary);
-            margin-bottom: 15px;
-            font-size: 1.2rem;
+            margin-bottom: 18px;
+            font-size: 1.25rem;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px var(--primary-glow);
         }
 
         .sens-grid {
@@ -159,23 +193,29 @@
         }
 
         .sens-card {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 8px;
-            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 3px solid var(--primary);
+            border-left: 3.5px solid var(--primary);
+            transition: background 0.2s;
+        }
+
+        .sens-card:hover {
+            background: rgba(255, 0, 60, 0.08);
         }
 
         .sens-card span {
             font-size: 0.85rem;
-            color: #bbb;
+            color: #aaa;
         }
 
         .sens-card strong {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
         }
 
         /* TikTok Access Modal Gating */
@@ -185,80 +225,96 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.92);
+            background: rgba(2, 2, 5, 0.95);
             z-index: 999;
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
         }
 
         .modal-box {
             background: var(--card-bg);
             border: 2px solid var(--primary);
-            box-shadow: 0 0 30px var(--primary-glow);
-            border-radius: 16px;
-            padding: 30px;
+            box-shadow: 0 0 40px var(--primary-glow);
+            border-radius: 20px;
+            padding: 35px 25px;
             text-align: center;
             max-width: 420px;
             width: 90%;
         }
 
         .modal-box i.tiktok-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--primary);
             margin-bottom: 15px;
+            filter: drop-shadow(0 0 15px var(--primary));
         }
 
         .modal-box h2 {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
         .modal-box p {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-bottom: 20px;
-            line-height: 1.4;
+            font-size: 0.92rem;
+            color: #b0b0c0;
+            margin-bottom: 22px;
+            line-height: 1.5;
         }
 
         .btn-tiktok {
             display: inline-block;
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: #000;
-            border: 1px solid #ff003c;
+            border: 1px solid var(--primary);
             color: #fff;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: bold;
             margin-bottom: 12px;
-            box-shadow: 0 0 10px rgba(255, 0, 60, 0.4);
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-tiktok:hover {
+            background: #111;
+            box-shadow: 0 0 25px var(--primary-glow);
         }
 
         .btn-verify {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: var(--primary);
             border: none;
             color: #fff;
-            border-radius: 8px;
+            border-radius: 12px;
             font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 0 15px var(--primary-glow);
+            transition: 0.3s;
+        }
+
+        .btn-verify:hover {
+            background: #ff1a4f;
+            box-shadow: 0 0 25px var(--primary-glow);
         }
 
         .admin-footer {
-            margin-top: 20px;
+            margin-top: 25px;
             text-align: center;
-            font-size: 0.8rem;
-            color: #444;
+            font-size: 0.78rem;
+            color: #333;
             cursor: pointer;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Red Neon Background Canvas -->
+    <!-- High-End Red Neon Network Background Canvas -->
     <canvas id="particle-canvas"></canvas>
 
     <!-- TikTok Unlock Gate Modal -->
@@ -266,11 +322,11 @@
         <div class="modal-box">
             <i class="fa-brands fa-tiktok tiktok-icon"></i>
             <h2>Kilitli İçerik!</h2>
-            <p>Sisteme giriş yapabilmek için <strong>@wedzx_</strong> TikTok hesabını takip etmeniz gerekmektedir.</p>
+            <p>Sisteme tam giriş yapabilmek ve 2026 VIP hassasiyet motorunu kilitlemek için <strong>@wedzx_</strong> TikTok hesabını takip etmeniz gerekmektedir.</p>
             <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn-tiktok" onclick="markFollowed()">
                 <i class="fa-brands fa-tiktok"></i> @wedzx_ Takip Et
             </a>
-            <button class="btn-verify" onclick="checkVerification()">Takip Ettim, Giriş Yap</button>
+            <button class="btn-verify" onclick="checkVerification()">Takip Ettim, Kilidi Aç</button>
         </div>
     </div>
 
@@ -307,13 +363,8 @@
                     <option value="2-3">2 GB - 3 GB (Düşük Segment)</option>
                     <option value="4-6" selected>4 GB - 6 GB (Orta Segment)</option>
                     <option value="8-12">8 GB - 12 GB (Üst Segment)</option>
-                    <option value="16+">16 GB+ (Gaming/Flagship)</option>
+                    <option value="16+">16 GB+ (Gaming / Flagship)</option>
                 </select>
-            </div>
-
-            <div class="input-group">
-                <label><i class="fa-brands fa-tiktok"></i> TikTok Kullanıcı Adınız</label>
-                <input type="text" id="userTiktok" placeholder="@kullanici_adiniz">
             </div>
 
             <button class="btn-submit" onclick="generateSensitivity()">
@@ -347,7 +398,7 @@
     </div>
 
     <script>
-        // --- 1. Neon Red Network Particles Canvas ---
+        // --- 1. High-End Neon Red Network Particles Canvas ---
         const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -363,9 +414,9 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.2;
-                this.vy = (Math.random() - 0.5) * 1.2;
-                this.radius = 2;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.radius = Math.random() * 1.5 + 1;
             }
 
             update() {
@@ -380,13 +431,13 @@
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fillStyle = '#ff003c';
-                ctx.shadowBlur = 8;
+                ctx.shadowBlur = 12;
                 ctx.shadowColor = '#ff003c';
                 ctx.fill();
             }
         }
 
-        for (let i = 0; i < 55; i++) {
+        for (let i = 0; i < 70; i++) {
             particles.push(new Particle());
         }
 
@@ -402,12 +453,12 @@
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
 
-                    if (dist < 120) {
+                    if (dist < 140) {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 120})`;
-                        ctx.lineWidth = 0.6;
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 140})`;
+                        ctx.lineWidth = 0.7;
                         ctx.stroke();
                     }
                 }
@@ -416,7 +467,7 @@
         }
         animate();
 
-        // --- 2. TikTok Lock Logic ---
+        // --- 2. TikTok Lock & Real Visitor Counter ---
         let hasVisitedTikTok = false;
 
         function markFollowed() {
@@ -428,7 +479,6 @@
                 localStorage.setItem('wedzx_unlocked', 'true');
                 document.getElementById('tiktokModal').style.display = 'none';
                 
-                // Gerçek Ziyaretçi Sayacını Arttır (Sadece ilk girişte)
                 if (!sessionStorage.getItem('counted_visit')) {
                     let totalVisits = parseInt(localStorage.getItem('wedzx_real_visits') || '0') + 1;
                     localStorage.setItem('wedzx_real_visits', totalVisits);
@@ -448,23 +498,29 @@
             }
         }
 
-        // --- 3. Sensitivity Generator ---
+        // --- 3. Sensitivity Generator & Automatic Analytics Log ---
         function generateSensitivity() {
+            const brand = document.getElementById('brandSelect').value;
             const model = document.getElementById('modelInput').value.trim();
             const ram = document.getElementById('ramSelect').value;
-            const tiktok = document.getElementById('userTiktok').value.trim();
 
+            if (!brand) {
+                alert('Lütfen telefon markanızı seçiniz!');
+                return;
+            }
             if (!model) {
                 alert('Lütfen telefon modelinizi yazınız!');
                 return;
             }
 
-            // Save visitor data
-            if (tiktok) {
-                let logs = JSON.parse(localStorage.getItem('wedzx_admin_logs') || '[]');
-                logs.push({ tiktok: tiktok, model: model, date: new Date().toLocaleString() });
-                localStorage.setItem('wedzx_admin_logs', JSON.stringify(logs));
-            }
+            // Automatically Log User Device Analytics for Admin View
+            let logs = JSON.parse(localStorage.getItem('wedzx_device_logs') || '[]');
+            logs.push({ 
+                device: `${brand.toUpperCase()} - ${model}`, 
+                ram: `${ram} GB RAM`, 
+                date: new Date().toLocaleString() 
+            });
+            localStorage.setItem('wedzx_device_logs', JSON.stringify(logs));
 
             let general, redDot, scope2x, scope4x, awm, freeLook, fireButton, dpi;
 
@@ -476,7 +532,7 @@
                 fireButton = '48%'; dpi = '450 DPI';
             } else if (ram === '8-12') {
                 general = 168; redDot = 160; scope2x = 150; scope4x = 140; awm = 95; freeLook = 165;
-                fireButton = '52%'; dpi = '410 DPI (Varsayılan)';
+                fireButton = '52%'; dpi = '410 DPI';
             } else {
                 general = 150; redDot = 142; scope2x = 135; scope4x = 125; awm = 85; freeLook = 150;
                 fireButton = '54%'; dpi = 'Orijinal DPI';
@@ -516,17 +572,17 @@
             const pass = prompt('Admin Şifresini Giriniz:');
             if (pass === 'wedzx2026') {
                 let realVisits = localStorage.getItem('wedzx_real_visits') || '0';
-                let logs = JSON.parse(localStorage.getItem('wedzx_admin_logs') || '[]');
+                let logs = JSON.parse(localStorage.getItem('wedzx_device_logs') || '[]');
                 
-                let msg = `=== WEDZX GİZLİ ADMIN PANELİ ===\n\n`;
+                let msg = `=== WEDZX GİZLİ ANALİZ PANELİ ===\n\n`;
                 msg += `📊 Gerçek Toplam Ziyaretçi: ${realVisits}\n\n`;
-                msg += `--- SİTEYE GİREN TİKTOK HESAPLARI ---\n`;
+                msg += `--- SİTEYİ KULLANAN CİHAZLAR VE ANALİZLER ---\n`;
 
                 if (logs.length === 0) {
-                    msg += 'Henüz kayıtlı kullanıcı verisi yok.';
+                    msg += 'Henüz analiz verisi yok.';
                 } else {
                     logs.forEach((item, index) => {
-                        msg += `${index + 1}. TikTok: ${item.tiktok} | Cihaz: ${item.model} | Tarih: ${item.date}\n`;
+                        msg += `${index + 1}. Cihaz: ${item.device} | Özellik: ${item.ram} | Tarih: ${item.date}\n`;
                     });
                 }
                 alert(msg);
