@@ -1,450 +1,333 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WEDZX V5 - Free Fire Performance & Sensitivity Tool</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Teko:wght@600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WEDZX V3 - Free Fire Hassasiyet Motoru (2026)</title>
+    <style>
+        :root {
+            --bg-color: #0b0e14;
+            --card-bg: #151a23;
+            --accent-color: #00ffcc;
+            --danger-color: #ff0055;
+            --text-color: #ffffff;
+            --subtext-color: #94a3b8;
+        }
 
-  <style>
-    :root {
-      --bg: #090a0f;
-      --card-bg: #12151e;
-      --accent: #ff2a5f;
-      --accent-glow: rgba(255, 42, 95, 0.4);
-      --cyan: #00f2fe;
-      --text: #ffffff;
-      --text-dim: #8a8d9b;
-      --border: #222738;
-    }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Rajdhani', sans-serif;
-      user-select: none;
-    }
+        .container {
+            background-color: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 16px;
+            padding: 25px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+            transition: all 0.3s ease;
+        }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding: 30px 15px;
-      background-image: 
-        radial-gradient(circle at 50% 0%, rgba(255, 42, 95, 0.15) 0%, transparent 70%),
-        radial-gradient(circle at 80% 80%, rgba(0, 242, 254, 0.08) 0%, transparent 50%);
-    }
+        h2 {
+            text-align: center;
+            color: var(--accent-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+        }
 
-    .wrapper {
-      width: 100%;
-      max-width: 680px;
-    }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-    /* Header */
-    header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: var(--subtext-color);
+        }
 
-    header h1 {
-      font-family: 'Teko', sans-serif;
-      font-size: 3.5rem;
-      letter-spacing: 2px;
-      line-height: 1;
-      background: linear-gradient(180deg, #fff 30%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-transform: uppercase;
-    }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #2a3241;
+            background-color: #0b0e14;
+            color: #fff;
+            font-size: 15px;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
 
-    header p {
-      color: var(--text-dim);
-      font-size: 1rem;
-      letter-spacing: 1px;
-    }
+        select:focus, input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(0, 255, 204, 0.3);
+        }
 
-    /* Gerçek Ziyaretçi Sayacı */
-    .real-counter-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+        .btn-tiktok {
+            width: 100%;
+            padding: 12px;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 2px solid #fe2c55;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
 
-    .counter-info {
-      display: flex;
-      flex-direction: column;
-    }
+        .btn-tiktok.followed {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background-color: rgba(0, 255, 204, 0.1);
+        }
 
-    .counter-title {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      text-transform: uppercase;
-    }
+        .btn-calc {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--accent-color);
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-    .counter-value {
-      font-family: 'Teko', sans-serif;
-      font-size: 2rem;
-      color: var(--cyan);
-      line-height: 1;
-    }
+        .btn-calc:hover {
+            box-shadow: 0 0 15px var(--accent-color);
+            transform: translateY(-2px);
+        }
 
-    .live-tag {
-      background: rgba(0, 242, 254, 0.1);
-      border: 1px solid var(--cyan);
-      color: var(--cyan);
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 700;
-    }
+        .results {
+            margin-top: 25px;
+            border-top: 1px solid #2a3241;
+            padding-top: 15px;
+            display: none;
+        }
 
-    /* Kart Yapıları */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 25px;
-      margin-bottom: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
+        .sens-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #2a3241;
+            font-size: 15px;
+        }
 
-    .card-title {
-      font-family: 'Teko', sans-serif;
-      font-size: 1.8rem;
-      letter-spacing: 1px;
-      color: #fff;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .sens-value {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
 
-    .card-title::before {
-      content: '';
-      display: inline-block;
-      width: 4px;
-      height: 20px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
+        /* Hata / Ulaşım Animasyonu */
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-10px); }
+            40% { transform: translateX(10px); }
+            60% { transform: translateX(-10px); }
+            80% { transform: translateX(10px); }
+            100% { transform: translateX(0); }
+        }
 
-    /* Input & Buton Stilleri */
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.95rem;
-      color: var(--text-dim);
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
-
-    .input-box {
-      width: 100%;
-      padding: 14px;
-      background: #090b11;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      color: #fff;
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .input-box:focus {
-      border-color: var(--accent);
-    }
-
-    .btn {
-      width: 100%;
-      padding: 15px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 20px var(--accent-glow);
-    }
-
-    .btn-secondary {
-      background: #1a1e2d;
-      border: 1px solid var(--border);
-      color: #fff;
-      margin-top: 10px;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--cyan);
-      box-shadow: 0 5px 20px rgba(0, 242, 254, 0.2);
-    }
-
-    /* Hassasiyet Sonuç Grid */
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .res-item {
-      background: #090b11;
-      border: 1px solid var(--border);
-      padding: 12px 15px;
-      border-radius: 8px;
-    }
-
-    .res-label {
-      font-size: 0.8rem;
-      color: var(--text-dim);
-    }
-
-    .res-val {
-      font-family: 'Teko', sans-serif;
-      font-size: 1.8rem;
-      color: #fff;
-      line-height: 1.1;
-    }
-
-    .res-full {
-      grid-column: span 2;
-      background: rgba(255, 42, 95, 0.08);
-      border-color: var(--accent);
-      text-align: center;
-      padding: 15px;
-    }
-
-    .res-full .res-val {
-      color: var(--accent);
-      font-size: 2.5rem;
-    }
-
-    .notice-box {
-      background: rgba(0, 242, 254, 0.05);
-      border: 1px solid rgba(0, 242, 254, 0.2);
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      margin-top: 15px;
-      line-height: 1.4;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-  </style>
+        .shake-element {
+            animation: shake 0.4s ease-in-out;
+            border-color: var(--danger-color) !important;
+            box-shadow: 0 0 15px var(--danger-color) !important;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="wrapper">
+<div class="container" id="mainContainer">
+    <h2>🎯 WEDZX V3 SENSI</h2>
     
-    <header>
-      <h1>WEDZX PERFORMANCE V5</h1>
-      <p>Free Fire Cihaz & Hassasiyet Yapılandırması</p>
-    </header>
+    <button class="btn-tiktok" id="tiktokBtn" onclick="followTikTok()">
+        <span id="tiktokStatus">🎵 TikTok Hesabını Takip Et</span>
+    </button>
 
-    <!-- Gerçek Sayacı Gösteren Panel -->
-    <div class="real-counter-card">
-      <div class="counter-info">
-        <span class="counter-title">Toplam Gerçek Ziyaret</span>
-        <span class="counter-value" id="real-visit-count">1</span>
-      </div>
-      <div class="live-tag">GERÇEK ZAMANLI</div>
-    </div>
-
-    <!-- KİLİT EKRANI (Kullanıcı Adı İstemez, Doğrudan Takip Butonu) -->
-    <div class="card" id="gate-card">
-      <div class="card-title">ERİŞİM KİLİDİ</div>
-      <p style="color: var(--text-dim); margin-bottom: 20px; line-height: 1.5;">
-        Hassasiyet motoruna erişmek için <strong>@wedzx_</strong> TikTok hesabını takip edin. Takip ettikten sonra aşağıdaki butona basarak içeri girebilirsiniz.
-      </p>
-
-      <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn" onclick="markFollowed()">
-        TIKTOK @WEDZX_ HESABINI TAKİP ET
-      </a>
-
-      <button class="btn btn-secondary" onclick="unlockSite()">
-        TAKİP ETTİM, GİRİŞ YAP
-      </button>
-    </div>
-
-    <!-- ANA PANEL (Giriş Yapıldıktan Sonra Görünür) -->
-    <div class="card hidden" id="main-card">
-      <div class="card-title">CİHAZ VE HASSASİYET OLUŞTURUCU</div>
-
-      <!-- Manuel Telefon Modeli Yazma Alanı -->
-      <div class="form-group">
-        <label>Telefon / Cihaz Modeliniz:</label>
-        <input type="text" id="phone-model-input" class="input-box" placeholder="Örn: iPhone 13 Pro Max, Poco X3, Samsung S23...">
-      </div>
-
-      <div class="form-group">
-        <label>Oynanış Tarzı:</label>
-        <select id="playstyle-select" class="input-box">
-          <option value="tek-tik">Tek Tık (One Tap / Desert Eagle)</option>
-          <option value="sprey">Sprey / Taramalı (SMG - AR)</option>
-          <option value="genel" selected>Dengeli (Genel Oyun)</option>
+    <div class="form-group">
+        <label for="device">Cihaz Türü / Ekran Hızı:</label>
+        <select id="device">
+            <option value="android_low">Android (60Hz - Giriş Segment)</option>
+            <option value="android_mid">Android (90Hz - Orta Segment)</option>
+            <option value="android_high">Android (120Hz+ - Gaming / Amiral)</option>
+            <option value="ios_iphone">iPhone (iOS)</option>
+            <option value="ios_ipad">iPad / Tablet</option>
         </select>
-      </div>
-
-      <button class="btn" onclick="generateSens()">HASSASİYET HESAPLA</button>
-
-      <!-- Sonuç Paneli -->
-      <div id="results-area" class="hidden">
-        <div class="results-grid">
-          <div class="res-item">
-            <div class="res-label">Genel</div>
-            <div class="res-val" id="val-genel">98</div>
-          </div>
-          <div class="res-item">
-            <div class="res-label">Kırmızı Nokta</div>
-            <div class="res-val" id="val-reddot">100</div>
-          </div>
-          <div class="res-item">
-            <div class="res-label">2x Dürbün</div>
-            <div class="res-val" id="val-2x">95</div>
-          </div>
-          <div class="res-item">
-            <div class="res-label">4x Dürbün</div>
-            <div class="res-val" id="val-4x">92</div>
-          </div>
-          <div class="res-item">
-            <div class="res-label">AWM Dürbünü</div>
-            <div class="res-val" id="val-awm">50</div>
-          </div>
-          <div class="res-item">
-            <div class="res-label">Serbest Bakış</div>
-            <div class="res-val" id="val-free">65</div>
-          </div>
-
-          <div class="res-item res-full">
-            <div class="res-label">ÖNERİLEN ATEŞ BUTONU BOYUTU</div>
-            <div class="res-val" id="val-fire">45%</div>
-            <div style="font-size:0.85rem; color:#aaa; margin-top:5px;">
-              Tavsiye Edilen DPI: <span id="val-dpi" style="color:var(--cyan); font-weight:bold;">560 DPI</span>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <!-- UID PROFIL BİLGİSİ PANELİ -->
-    <div class="card hidden" id="uid-card">
-      <div class="card-title">OYUNCU UID DOĞRULAMA</div>
-      <div class="form-group">
-        <label>Free Fire Oyuncu UID:</label>
-        <input type="text" id="uid-input" class="input-box" placeholder="Örn: 1234567890">
-      </div>
-      <button class="btn btn-secondary" onclick="checkUID()">UID KAYDET & KONTROL ET</button>
-      
-      <div id="uid-status" class="notice-box hidden"></div>
+    <div class="form-group">
+        <label for="dpi">Mevcut DPI Değeriniz (100 - 1000):</label>
+        <input type="number" id="dpi" value="410" placeholder="Örn: 480">
     </div>
 
-  </div>
+    <button class="btn-calc" onclick="checkAndCalculate()">Hassasiyet Hesapla 🚀</button>
 
-  <script>
-    // --- 1. GERÇEK ZİYARETÇİ SAYACI (LocalStorage Temelli) ---
-    // Her benzersiz tarayıcı girişi veya sayfa yenilemesinde gerçek veriyi 1 artırır
-    let realVisits = parseInt(localStorage.getItem('wedzx_real_visits') || '0');
-    realVisits += 1;
-    localStorage.setItem('wedzx_real_visits', realVisits);
-    document.getElementById('real-visit-count').innerText = realVisits.toLocaleString();
+    <div class="results" id="results">
+        <div class="sens-item"><span>Genel Hassasiyet (0-200):</span> <span class="sens-value" id="genel">0</span></div>
+        <div class="sens-item"><span>Kırmızı Nokta:</span> <span class="sens-value" id="reddot">0</span></div>
+        <div class="sens-item"><span>2x Dürbün:</span> <span class="sens-value" id="scope2x">0</span></div>
+        <div class="sens-item"><span>4x Dürbün:</span> <span class="sens-value" id="scope4x">0</span></div>
+        <div class="sens-item"><span>AWM Dürbünü:</span> <span class="sens-value" id="awm">0</span></div>
+        <div class="sens-item"><span>Önerilen Ateş Butonu:</span> <span class="sens-value" id="firebutton">%0</span></div>
+        <div class="sens-item"><span>Önerilen DPI:</span> <span class="sens-value" id="recDpi">0</span></div>
+    </div>
+</div>
 
-    // --- 2. KİLİT SİSTEMİ ---
-    let followClicked = false;
+<script>
+let isTikTokFollowed = false;
 
-    function markFollowed() {
-      followClicked = true;
-    }
+// Web Audio API ile Ses Üretici
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    function unlockSite() {
-      // Doğrudan geçiş sağlar
-      document.getElementById('gate-card').classList.add('hidden');
-      document.getElementById('main-card').classList.remove('hidden');
-      document.getElementById('uid-card').classList.remove('hidden');
-    }
+function playErrorSound() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(160, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 0.3);
+    
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.3);
+}
 
-    // --- 3. HASSASİYET ALGORİTMASI ---
-    function generateSens() {
-      const modelText = document.getElementById('phone-model-input').value.trim();
-      const style = document.getElementById('playstyle-select').value;
+function playSuccessSound() {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    
+    const notes = [523.25, 659.25, 783.99, 1046.50];
+    notes.forEach((freq, index) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + (index * 0.08));
+        
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime + (index * 0.08));
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (index * 0.08) + 0.2);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start(audioCtx.currentTime + (index * 0.08));
+        osc.stop(audioCtx.currentTime + (index * 0.08) + 0.2);
+    });
+}
 
-      if (!modelText) {
-        alert("Lütfen telefon modelinizi girin!");
+function followTikTok() {
+    isTikTokFollowed = true;
+    const btn = document.getElementById('tiktokBtn');
+    const status = document.getElementById('tiktokStatus');
+    
+    btn.classList.add('followed');
+    status.innerText = "✓ TikTok Takip Edildi";
+    
+    // TikTok linkini buraya koyabilirsin
+    window.open("https://www.tiktok.com/", "_blank");
+}
+
+function checkAndCalculate() {
+    const dpiInput = document.getElementById('dpi');
+    const dpiVal = parseInt(dpiInput.value);
+    const ttBtn = document.getElementById('tiktokBtn');
+
+    // 1. TikTok Takip Kontrolü
+    if (!isTikTokFollowed) {
+        playErrorSound();
+        ttBtn.classList.add('shake-element');
+        setTimeout(() => ttBtn.classList.remove('shake-element'), 400);
+        alert("Lütfen önce TikTok hesabını takip edin!");
         return;
-      }
-
-      let genel = 98, reddot = 97, scope2 = 93, scope4 = 91, awm = 48, free = 60, fire = "45%", dpi = "540 DPI";
-
-      const lowerModel = modelText.toLowerCase();
-
-      // Model adına göre dinamik değerler
-      if (lowerModel.includes('iphone') || lowerModel.includes('ipad')) {
-        genel = 99; reddot = 100; scope2 = 95; scope4 = 98; awm = 42; fire = "41%"; dpi = "Varsayılan (iOS)";
-      } else if (lowerModel.includes('poco') || lowerModel.includes('xiaomi') || lowerModel.includes('redmi')) {
-        genel = 97; reddot = 98; scope2 = 94; scope4 = 92; awm = 50; fire = "46%"; dpi = "580 DPI";
-      } else if (lowerModel.includes('samsung')) {
-        genel = 100; reddot = 96; scope2 = 92; scope4 = 94; awm = 45; fire = "48%"; dpi = "600 DPI";
-      }
-
-      // Oyun tarzına göre ayarlama
-      if (style === 'tek-tik') {
-        genel = Math.min(100, genel + 1);
-        fire = "38%";
-      } else if (style === 'sprey') {
-        fire = "48%";
-      }
-
-      document.getElementById('val-genel').innerText = genel;
-      document.getElementById('val-reddot').innerText = reddot;
-      document.getElementById('val-2x').innerText = scope2;
-      document.getElementById('val-4x').innerText = scope4;
-      document.getElementById('val-awm').innerText = awm;
-      document.getElementById('val-free').innerText = free;
-      document.getElementById('val-fire').innerText = fire;
-      document.getElementById('val-dpi').innerText = dpi;
-
-      document.getElementById('results-area').classList.remove('hidden');
     }
 
-    // --- 4. UID BİLGİ ALANI ---
-    function checkUID() {
-      const uid = document.getElementById('uid-input').value.trim();
-      const statusBox = document.getElementById('uid-status');
-
-      if (!uid || uid.length < 6) {
-        alert("Lütfen geçerli bir Free Fire UID girin.");
+    // 2. Geçerli DPI Kontrolü
+    if (!dpiVal || dpiVal < 100 || dpiVal > 1000) {
+        playErrorSound();
+        dpiInput.classList.add('shake-element');
+        setTimeout(() => dpiInput.classList.remove('shake-element'), 400);
+        alert("Lütfen geçerli bir DPI değeri girin! (100 - 1000 arası)");
         return;
-      }
-
-      statusBox.classList.remove('hidden');
-      statusBox.innerHTML = `<strong>UID Kaydedildi:</strong> ${uid}<br><span style="color:#aaa;">Bu cihaz üzerindeki hassasiyet profili bu UID ile eşleştirildi.</span>`;
     }
-  </script>
+
+    // 3. Hesaplama İşlemi ve Başarı Sesi
+    playSuccessSound();
+    calculateSensitivity(dpiVal);
+}
+
+function calculateSensitivity(dpi) {
+    const device = document.getElementById('device').value;
+    let baseGenel, baseReddot, base2x, base4x, baseAwm, fireButton, recommendedDpi;
+
+    // 0-200 Skalasına göre değerler
+    switch(device) {
+        case 'android_low':
+            baseGenel = 195; baseReddot = 190; base2x = 185; base4x = 175; baseAwm = 120;
+            fireButton = "%42 - %45"; recommendedDpi = 520;
+            break;
+        case 'android_mid':
+            baseGenel = 170; baseReddot = 165; base2x = 155; base4x = 145; baseAwm = 100;
+            fireButton = "%45 - %48"; recommendedDpi = 480;
+            break;
+        case 'android_high':
+            baseGenel = 140; baseReddot = 135; base2x = 125; base4x = 115; baseAwm = 85;
+            fireButton = "%48 - %52"; recommendedDpi = 420;
+            break;
+        case 'ios_iphone':
+            baseGenel = 130; baseReddot = 125; base2x = 115; base4x = 105; baseAwm = 80;
+            fireButton = "%40 - %45"; recommendedDpi = "Varsayılan (120 DXR)";
+            break;
+        case 'ios_ipad':
+            baseGenel = 110; baseReddot = 105; base2x = 95; base4x = 85; baseAwm = 65;
+            fireButton = "%50 - %55"; recommendedDpi = "Varsayılan";
+            break;
+    }
+
+    // Yüksek DPI düzeltmesi
+    if (typeof recommendedDpi === 'number' && dpi > recommendedDpi) {
+        baseGenel = Math.max(80, baseGenel - 10);
+        baseReddot = Math.max(75, baseReddot - 10);
+    }
+
+    // Değerleri Ekrana Yazdır
+    document.getElementById('genel').innerText = baseGenel;
+    document.getElementById('reddot').innerText = baseReddot;
+    document.getElementById('scope2x').innerText = base2x;
+    document.getElementById('scope4x').innerText = base4x;
+    document.getElementById('awm').innerText = baseAwm;
+    document.getElementById('firebutton').innerText = fireButton;
+    document.getElementById('recDpi').innerText = recommendedDpi;
+
+    document.getElementById('results').style.display = 'block';
+}
+</script>
+
 </body>
 </html>
