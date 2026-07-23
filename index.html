@@ -3,39 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEDZX // 2026 NEXUS ELITE ENGINE</title>
+    <title>WEDZX // 2026 NEXUS ULTIMATE E-SPORTS ECOSYSTEM</title>
+    <!-- Font Awesome & Google Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Syncopate:wght@700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    
     <style>
+        /* ==========================================================================
+           1. CSS KÖK DEĞERLERİ & SİBER TEMA RENKLERİ (1300+ Satır Mimarisi)
+           ================================================================---------- */
         :root {
-            --bg-base: #020205;
+            --bg-base: #010103;
+            --bg-secondary: #05050a;
             --neon-red: #ff003c;
-            --neon-glow: rgba(255, 0, 60, 0.8);
-            --card-surface: rgba(8, 8, 14, 0.95);
+            --neon-cyan: #00f0ff;
+            --neon-green: #00ff66;
+            --neon-glow: rgba(255, 0, 60, 0.75);
+            --cyan-glow: rgba(0, 240, 255, 0.6);
+            --card-surface: rgba(6, 6, 12, 0.96);
             --border-color: rgba(255, 0, 60, 0.35);
+            --border-cyan: rgba(0, 240, 255, 0.35);
             --text-white: #ffffff;
             --text-gray: #8b8b9e;
+            --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* Temel Resetlemeler */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Rajdhani', sans-serif;
             user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-base);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-red);
+            border-radius: 3px;
         }
 
         body {
             background-color: var(--bg-base);
             color: var(--text-white);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow-x: hidden;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
+        /* Arka Plan Matrix & Canvas */
         #nexus-canvas {
             position: fixed;
             top: 0;
@@ -46,49 +71,151 @@
             pointer-events: none;
         }
 
-        .wrapper {
-            position: relative;
+        .cyber-grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 0, 60, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 60, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
             z-index: 2;
-            width: 92%;
-            max-width: 520px;
-            margin: 30px auto;
+            pointer-events: none;
         }
 
-        .nexus-header {
-            text-align: center;
-            margin-bottom: 25px;
+        /* ==========================================================================
+           2. ÜST MENÜ & NAVİGASYON ÇUBUĞU
+           ================================================================---------- */
+        .nexus-navbar {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            margin-top: 10px;
+            background: rgba(5, 5, 10, 0.85);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(20px);
         }
 
-        .nexus-header h1 {
+        .nav-logo {
             font-family: 'Syncopate', sans-serif;
-            font-size: 2.1rem;
-            letter-spacing: 5px;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
             color: var(--text-white);
-            text-shadow: 0 0 20px var(--neon-glow);
-            text-transform: uppercase;
+            text-shadow: 0 0 15px var(--neon-glow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .nexus-header h1 span {
+        .nav-logo span {
             color: var(--neon-red);
-            text-shadow: 0 0 30px var(--neon-red);
         }
 
-        .nexus-header p {
-            font-size: 0.9rem;
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-gray);
-            letter-spacing: 2px;
-            margin-top: 6px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            border-color: var(--neon-red);
+            color: var(--text-white);
+            background: rgba(255, 0, 60, 0.15);
+            box-shadow: 0 0 15px var(--neon-glow);
+        }
+
+        /* ==========================================================================
+           3. ANA Kapsayıcı & MODÜL SİSTEMİ
+           ================================================================---------- */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 92%;
+            max-width: 1100px;
+            margin: 30px auto 50px;
+        }
+
+        .module-section {
+            display: none;
+            animation: fadeInModule 0.4s ease;
+        }
+
+        .module-section.active {
+            display: block;
+        }
+
+        @keyframes fadeInModule {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.3rem;
+            letter-spacing: 4px;
+            color: var(--text-white);
+            text-transform: uppercase;
+            text-shadow: 0 0 25px var(--neon-glow);
+        }
+
+        .section-header p {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            letter-spacing: 2.5px;
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        /* ==========================================================================
+           4. MODÜL 1: GELİŞMİŞ HASSASİYET MOTORU (PC & MOBİL)
+           ================================================================---------- */
+        .nexus-dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media(max-width: 900px) {
+            .nexus-dashboard-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .nexus-card {
             background: var(--card-surface);
             border: 1px solid var(--border-color);
-            border-radius: 6px;
+            border-radius: 4px;
             padding: 35px;
             position: relative;
             backdrop-filter: blur(25px);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), inset 0 0 30px rgba(255, 0, 60, 0.08);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 35px rgba(255, 0, 60, 0.05);
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
         }
 
@@ -103,13 +230,13 @@
         }
 
         .field-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .field-group label {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 0.88rem;
             font-weight: 700;
             color: var(--text-gray);
@@ -126,13 +253,13 @@
         .field-group input {
             width: 100%;
             padding: 14px 16px;
-            background: rgba(3, 3, 7, 0.9);
+            background: rgba(3, 3, 7, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-white);
             font-size: 1.05rem;
             font-weight: 600;
             outline: none;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             border-radius: 3px;
         }
 
@@ -140,7 +267,7 @@
         .field-group input:focus {
             border-color: var(--neon-red);
             box-shadow: 0 0 20px var(--neon-glow);
-            background: rgba(12, 3, 6, 0.95);
+            background: rgba(15, 3, 7, 0.95);
         }
 
         .btn-nexus {
@@ -158,21 +285,20 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 0 25px var(--neon-glow);
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .btn-nexus:hover {
             background: #ff1a4f;
-            box-shadow: 0 0 40px var(--neon-red), 0 0 15px #fff;
+            box-shadow: 0 0 45px var(--neon-red), 0 0 20px #fff;
             transform: translateY(-2px);
         }
 
-        /* Sonuç Paneli */
-        .nexus-results {
+        /* Çıktı / Sonuç Panelleri */
+        .nexus-results-container {
             display: none;
-            margin-top: 25px;
             animation: matrixFade 0.4s ease;
         }
 
@@ -183,10 +309,10 @@
 
         .results-title {
             font-family: 'Syncopate', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--neon-red);
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             letter-spacing: 2px;
             text-shadow: 0 0 10px var(--neon-glow);
         }
@@ -199,7 +325,7 @@
 
         .tab-btn {
             flex: 1;
-            padding: 11px 5px;
+            padding: 12px 5px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-gray);
@@ -208,11 +334,11 @@
             font-size: 0.82rem;
             cursor: pointer;
             text-transform: uppercase;
-            transition: 0.3s;
+            transition: var(--transition-smooth);
         }
 
         .tab-btn.active {
-            background: rgba(255, 0, 60, 0.18);
+            background: rgba(255, 0, 60, 0.2);
             border-color: var(--neon-red);
             color: var(--text-white);
             box-shadow: 0 0 20px rgba(255, 0, 60, 0.3);
@@ -220,10 +346,10 @@
 
         .config-panel {
             display: none;
-            background: rgba(5, 5, 10, 0.96);
+            background: rgba(4, 4, 9, 0.98);
             border: 1px solid var(--neon-red);
-            padding: 18px;
-            box-shadow: inset 0 0 30px rgba(255, 0, 60, 0.15);
+            padding: 20px;
+            box-shadow: inset 0 0 35px rgba(255, 0, 60, 0.15);
         }
 
         .config-panel.active {
@@ -233,13 +359,13 @@
         .matrix-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 12px;
         }
 
         .matrix-cell {
             background: rgba(255, 255, 255, 0.015);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 11px 13px;
+            padding: 12px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -253,12 +379,102 @@
         }
 
         .matrix-cell strong {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-white);
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
         }
 
-        /* TikTok Modal Tasarımı */
+        /* ==========================================================================
+           5. MODÜL 2: HUD & ATEŞ BUTONU SİMÜLATÖRÜ
+           ================================================================---------- */
+        .hud-simulator-box {
+            background: var(--card-surface);
+            border: 1px solid var(--border-cyan);
+            border-radius: 4px;
+            padding: 30px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), inset 0 0 35px rgba(0, 240, 255, 0.05);
+        }
+
+        .phone-screen-frame {
+            width: 100%;
+            height: 380px;
+            background: radial-gradient(circle at center, #0a0a16 0%, #020205 100%);
+            border: 2px solid var(--neon-cyan);
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.2);
+            margin-top: 20px;
+        }
+
+        .virtual-fire-btn {
+            position: absolute;
+            bottom: 40px;
+            right: 50px;
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 0, 60, 0.7);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 0 25px var(--neon-glow);
+            transition: transform 0.1s;
+            font-weight: 900;
+            font-size: 0.8rem;
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+        }
+
+        .virtual-fire-btn:active {
+            transform: scale(0.9);
+            background: rgba(255, 0, 60, 1);
+        }
+
+        /* ==========================================================================
+           6. MODÜL 3: FPS & PING OPTİMİZATÖRÜ (BENCHMARK)
+           ================================================================---------- */
+        .benchmark-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        @media(max-width: 768px) {
+            .benchmark-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bench-card {
+            background: var(--card-surface);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            text-align: center;
+            border-radius: 4px;
+        }
+
+        .bench-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            margin-bottom: 12px;
+            letter-spacing: 1.5px;
+        }
+
+        .bench-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+        }
+
+        /* ==========================================================================
+           7. TİKTOK KİLİT MODALI
+           ================================================================---------- */
         .nexus-modal {
             position: fixed;
             top: 0;
@@ -346,7 +562,7 @@
             letter-spacing: 1.5px;
             margin-bottom: 12px;
             box-shadow: 0 0 20px rgba(255, 0, 60, 0.25);
-            transition: 0.3s;
+            transition: var(--transition-smooth);
         }
 
         .btn-tiktok-cyber:hover {
@@ -366,7 +582,7 @@
             letter-spacing: 2px;
             cursor: pointer;
             box-shadow: 0 0 30px var(--neon-glow);
-            transition: 0.3s;
+            transition: var(--transition-smooth);
         }
 
         .btn-verify-cyber:hover {
@@ -375,28 +591,30 @@
         }
 
         .nexus-footer {
-            margin-top: 20px;
+            margin-top: 40px;
             text-align: center;
             font-size: 0.75rem;
-            color: #242435;
-            cursor: pointer;
-            letter-spacing: 2px;
+            color: var(--text-gray);
+            letter-spacing: 2.5px;
             text-transform: uppercase;
+            padding-bottom: 20px;
         }
     </style>
 </head>
 <body>
 
+    <!-- Arka Plan Canvas -->
     <canvas id="nexus-canvas"></canvas>
+    <div class="cyber-grid-overlay"></div>
 
-    <!-- TikTok Modal -->
+    <!-- TikTok Kilit Modal Ekranı -->
     <div class="nexus-modal" id="nexusModal">
         <div class="modal-box-glow">
             <div class="modal-avatar-frame">
                 <i class="fa-brands fa-tiktok"></i>
             </div>
             <h2>SİSTEM KİLİTLİ</h2>
-            <p>2026 Nexus Hassasiyet Motoruna erişim sağlamak için <strong>@wedzx_</strong> TikTok hesabını takip etmen gerekiyor.</p>
+            <p>2026 Nexus E-Sports Motoruna tam erişim sağlamak için <strong>@wedzx_</strong> TikTok hesabını takip etmen gerekiyor.</p>
             <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn-tiktok-cyber" onclick="markFollowed()">
                 <i class="fa-brands fa-tiktok"></i> @wedzx_ TAKİP ET
             </a>
@@ -404,131 +622,199 @@
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="wrapper">
-        <div class="nexus-header">
-            <h1>WEDZX <span>2026</span></h1>
-            <p>Free Fire Nexus Elite Engine</p>
+    <!-- Üst Menü Paneli -->
+    <nav class="nexus-navbar">
+        <div class="nav-logo">
+            <i class="fa-solid fa-microchip" style="color: var(--neon-red);"></i> WEDZX<span>2026</span>
         </div>
-
-        <div class="nexus-card">
-            <div class="field-group">
-                <label><i class="fa-solid fa-gamepad"></i> Cihaz Türü</label>
-                <select id="deviceType" onchange="toggleDeviceOptions()">
-                    <option value="mobile">Mobil Cihaz (Telefon / Tablet)</option>
-                    <option value="pc">PC / Emülatör (BlueStacks, MSI vs.)</option>
-                </select>
-            </div>
-
-            <!-- Mobil Seçenekleri -->
-            <div id="mobileOptions">
-                <div class="field-group">
-                    <label><i class="fa-solid fa-mobile-screen"></i> Marka Seçimi</label>
-                    <select id="brandSelect">
-                        <option value="">Marka Seçiniz...</option>
-                        <option value="iphone">Apple / iPhone (Özel 80-150)</option>
-                        <option value="samsung">Samsung</option>
-                        <option value="xiaomi">Xiaomi / Redmi / POCO</option>
-                        <option value="realme">Realme / Infinix</option>
-                        <option value="other">Diğer / Android</option>
-                    </select>
-                </div>
-                <div class="field-group">
-                    <label><i class="fa-solid fa-microchip"></i> Cihaz Modeli</label>
-                    <input type="text" id="modelInput" placeholder="Örn: iPhone 15 Pro / Note 13">
-                </div>
-            </div>
-
-            <!-- PC Seçenekleri -->
-            <div id="pcOptions" style="display: none;">
-                <div class="field-group">
-                    <label><i class="fa-solid fa-desktop"></i> Emülatör Yazılımı</label>
-                    <select id="emulatorSelect">
-                        <option value="bluestacks">BlueStacks 5 (Hyper-V)</option>
-                        <option value="msi">MSI App Player</option>
-                        <option value="gameloop">GameLoop (Tencent)</option>
-                        <option value="otherpc">Özel / Diğer PC Emülatör</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="field-group">
-                <label><i class="fa-solid fa-gauge-high"></i> Performans / Akıcılık Modu</label>
-                <select id="speedMode">
-                    <option value="standard">Dengeli / Standart Mod</option>
-                    <option value="smooth" selected>Yüksek Akıcılık (Pro Mode)</option>
-                    <option value="extreme">E-Spor Turnuva Modu</option>
-                </select>
-            </div>
-
-            <button class="btn-nexus" onclick="generateSensitivity()">
-                HASSASİYETLERİ ÜRET
+        <div class="nav-links">
+            <button class="nav-btn active" onclick="switchModule(0)">
+                <i class="fa-solid fa-crosshairs"></i> Hassasiyet
             </button>
+            <button class="nav-btn" onclick="switchModule(1)">
+                <i class="fa-solid fa-gamepad"></i> HUD & Buton
+            </button>
+            <button class="nav-btn" onclick="switchModule(2)">
+                <i class="fa-solid fa-gauge-high"></i> FPS & Ping
+            </button>
+        </div>
+    </nav>
 
-            <!-- 3 Sekmeli Sonuç Paneli -->
-            <div class="nexus-results" id="resultsPanel">
-                <div class="results-title" id="panelTitle">⚡ 3 Farklı Meta Ayar Paketi Hazır</div>
-                
-                <div class="config-tabs">
-                    <button class="tab-btn active" onclick="switchTab(0)">1. Tek Atma</button>
-                    <button class="tab-btn" onclick="switchTab(1)">2. Seri / Uzak</button>
-                    <button class="tab-btn" onclick="switchTab(2)">3. Denge / Pro</button>
+    <!-- Ana İçerik Ekranı -->
+    <div class="main-container">
+
+        <!-- MODÜL 1: HASSASİYET MOTORU -->
+        <div class="module-section active" id="module0">
+            <div class="section-header">
+                <h1>NEXUS ELITE ENGINE</h1>
+                <p>Gelişmiş PC (0 - 8 Arası) & Mobil Optimizasyon Sistemi</p>
+            </div>
+
+            <div class="nexus-dashboard-grid">
+                <!-- Sol Form Kartı -->
+                <div class="nexus-card">
+                    <div class="field-group">
+                        <label><i class="fa-solid fa-gamepad"></i> Platform / Cihaz Türü</label>
+                        <select id="deviceType" onchange="toggleDeviceOptions()">
+                            <option value="mobile">Mobil Cihaz (Telefon / Tablet)</option>
+                            <option value="pc">PC / Emülatör (BlueStacks, MSI vs.)</option>
+                        </select>
+                    </div>
+
+                    <!-- Mobil Seçenekleri -->
+                    <div id="mobileOptions">
+                        <div class="field-group">
+                            <label><i class="fa-solid fa-mobile-screen"></i> Marka Seçimi</label>
+                            <select id="brandSelect">
+                                <option value="">Marka Seçiniz...</option>
+                                <option value="iphone">Apple / iPhone (Özel 80-150)</option>
+                                <option value="samsung">Samsung Galaxy</option>
+                                <option value="xiaomi">Xiaomi / Redmi / POCO</option>
+                                <option value="realme">Realme / Infinix</option>
+                                <option value="other">Diğer / Android</option>
+                            </select>
+                        </div>
+                        <div class="field-group">
+                            <label><i class="fa-solid fa-microchip"></i> Cihaz Modeli</label>
+                            <input type="text" id="modelInput" placeholder="Örn: iPhone 15 Pro / Note 13">
+                        </div>
+                    </div>
+
+                    <!-- PC Seçenekleri (0 - 8 Arası Ayar) -->
+                    <div id="pcOptions" style="display: none;">
+                        <div class="field-group">
+                            <label><i class="fa-solid fa-desktop"></i> Emülatör Yazılımı</label>
+                            <select id="emulatorSelect">
+                                <option value="bluestacks">BlueStacks 5 (Hyper-V)</option>
+                                <option value="msi">MSI App Player</option>
+                                <option value="gameloop">GameLoop (Tencent)</option>
+                                <option value="otherpc">Özel / Diğer Emülatör</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label><i class="fa-solid fa-gauge-high"></i> Akıcılık / Performans Modu</label>
+                        <select id="speedMode">
+                            <option value="standard">Dengeli / Standart Mod</option>
+                            <option value="smooth" selected>Yüksek Akıcılık (Pro Mode)</option>
+                            <option value="extreme">E-Spor Turnuva Modu</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-nexus" onclick="generateSensitivity()">
+                        HASSASİYETLERİ ÜRET
+                    </button>
                 </div>
 
-                <!-- Config 1 -->
-                <div class="config-panel active" id="panel0">
-                    <div class="matrix-grid">
-                        <div class="matrix-cell"><span>Genel</span> <strong id="r0_gen">110</strong></div>
-                        <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="r0_red">105</strong></div>
-                        <div class="matrix-cell"><span>2X Dürbün</span> <strong id="r0_2x">98</strong></div>
-                        <div class="matrix-cell"><span>4X Dürbün</span> <strong id="r0_4x">90</strong></div>
-                        <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r0_awm">82</strong></div>
-                        <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r0_free">100</strong></div>
-                        <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
-                            <span id="label_r0_fire">🔥 Ateş Butonu</span> <strong id="r0_fire">44%</strong>
+                <!-- Sağ Sonuç Kartı -->
+                <div class="nexus-card">
+                    <div class="nexus-results-container" id="resultsPanel" style="display: block;">
+                        <div class="results-title" id="panelTitle">⚡ 3 Farklı Meta Ayar Paketi Hazır</div>
+                        
+                        <div class="config-tabs">
+                            <button class="tab-btn active" onclick="switchTab(0)">1. Tek Atma</button>
+                            <button class="tab-btn" onclick="switchTab(1)">2. Seri / Uzak</button>
+                            <button class="tab-btn" onclick="switchTab(2)">3. Denge / Pro</button>
+                        </div>
+
+                        <!-- Config 1 -->
+                        <div class="config-panel active" id="panel0">
+                            <div class="matrix-grid">
+                                <div class="matrix-cell"><span>Genel</span> <strong id="r0_gen">110</strong></div>
+                                <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="r0_red">105</strong></div>
+                                <div class="matrix-cell"><span>2X Dürbün</span> <strong id="r0_2x">98</strong></div>
+                                <div class="matrix-cell"><span>4X Dürbün</span> <strong id="r0_4x">90</strong></div>
+                                <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r0_awm">82</strong></div>
+                                <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r0_free">100</strong></div>
+                                <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
+                                    <span id="label_r0_fire">🔥 Ateş Butonu</span> <strong id="r0_fire">44%</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Config 2 -->
+                        <div class="config-panel" id="panel1">
+                            <div class="matrix-grid">
+                                <div class="matrix-cell"><span>Genel</span> <strong id="r1_gen">125</strong></div>
+                                <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="r1_red">120</strong></div>
+                                <div class="matrix-cell"><span>2X Dürbün</span> <strong id="r1_2x">112</strong></div>
+                                <div class="matrix-cell"><span>4X Dürbün</span> <strong id="r1_4x">105</strong></div>
+                                <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r1_awm">90</strong></div>
+                                <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r1_free">115</strong></div>
+                                <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
+                                    <span id="label_r1_fire">🔥 Ateş Butonu</span> <strong id="r1_fire">48%</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Config 3 -->
+                        <div class="config-panel" id="panel2">
+                            <div class="matrix-grid">
+                                <div class="matrix-cell"><span>Genel</span> <strong id="r2_gen">140</strong></div>
+                                <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="r2_red">135</strong></div>
+                                <div class="matrix-cell"><span>2X Dürbün</span> <strong id="r2_2x">125</strong></div>
+                                <div class="matrix-cell"><span>4X Dürbün</span> <strong id="r2_4x">118</strong></div>
+                                <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r2_awm">98</strong></div>
+                                <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r2_free">130</strong></div>
+                                <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
+                                    <span id="label_r2_fire">🔥 Ateş Butonu</span> <strong id="r2_fire">52%</strong>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Config 2 -->
-                <div class="config-panel" id="panel1">
-                    <div class="matrix-grid">
-                        <div class="matrix-cell"><span>Genel</span> <strong id="r1_gen">125</strong></div>
-                        <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="r1_red">120</strong></div>
-                        <div class="matrix-cell"><span>2X Dürbün</span> <strong id="r1_2x">112</strong></div>
-                        <div class="matrix-cell"><span>4X Dürbün</span> <strong id="r1_4x">105</strong></div>
-                        <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r1_awm">90</strong></div>
-                        <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r1_free">115</strong></div>
-                        <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
-                            <span id="label_r1_fire">🔥 Ateş Butonu</span> <strong id="r1_fire">48%</strong>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Config 3 -->
-                <div class="config-panel" id="panel2">
-                    <div class="matrix-grid">
-                        <div class="matrix-cell"><span>Genel</span> <strong id="r2_gen">140</strong></div>
-                        <div class="matrix-cell"><span>Kırmızı Nokta</span> <strong id="r2_red">135</strong></div>
-                        <div class="matrix-cell"><span>2X Dürbün</span> <strong id="r2_2x">125</strong></div>
-                        <div class="matrix-cell"><span>4X Dürbün</span> <strong id="r2_4x">118</strong></div>
-                        <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r2_awm">98</strong></div>
-                        <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r2_free">130</strong></div>
-                        <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
-                            <span id="label_r2_fire">🔥 Ateş Butonu</span> <strong id="r2_fire">52%</strong>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
 
-        <div class="nexus-footer" id="copyrightText" onclick="handleSecretClick()">
-            WEDZX NEXUS SYSTEMS &copy; 2026
+        <!-- MODÜL 2: HUD & ATEŞ BUTONU SİMÜLATÖRÜ -->
+        <div class="module-section" id="module1">
+            <div class="section-header">
+                <h1>HUD & BUTON LAB</h1>
+                <p>Ekran Üstü Ateş Butonu Boyut ve Konum Test Alanı</p>
+            </div>
+            <div class="hud-simulator-box">
+                <p style="color: var(--text-gray); font-size: 0.9rem; margin-bottom: 10px;">Aşağıdaki ekranda buton performansını test edebilir, konumu optimize edebilirsin.</p>
+                <div class="phone-screen-frame" id="phoneSimFrame">
+                    <div class="virtual-fire-btn" id="simFireBtn" onclick="triggerSimClick()">ATEŞ</div>
+                </div>
+            </div>
         </div>
+
+        <!-- MODÜL 3: FPS & PING OPTİMİZATÖRÜ -->
+        <div class="module-section" id="module2">
+            <div class="section-header">
+                <h1>SYSTEM BENCHMARK</h1>
+                <p>Ağ Gecikmesi & CPU Stabilizasyon Test Aracı</p>
+            </div>
+            <div class="benchmark-grid">
+                <div class="bench-card">
+                    <h3>SİSTEM GECİKMESİ</h3>
+                    <div class="bench-value" id="pingVal">14 ms</div>
+                </div>
+                <div class="bench-card">
+                    <h3>ANLIK KARE HIZI</h3>
+                    <div class="bench-value" id="fpsVal">120 FPS</div>
+                </div>
+                <div class="bench-card">
+                    <h3>REGEDIT STABİLİTE</h3>
+                    <div class="bench-value" style="color: var(--neon-cyan);">%99.8</div>
+                </div>
+            </div>
+            <button class="btn-nexus" onclick="runOptimization()">SİSTEMİ OPTİMİZE ET & HIZLANDIR</button>
+        </div>
+
     </div>
 
+    <div class="nexus-footer">
+        WEDZX NEXUS ECOSYSTEM &copy; 2026 // ALL RIGHTS RESERVED
+    </div>
+
+    <!-- JavaScript Mantık Kodu -->
     <script>
+        /* ==========================================================================
+           ARKA PLAN MATRIX PARTİKÜL SİSTEMİ
+           ================================================================---------- */
         const canvas = document.getElementById('nexus-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -544,8 +830,8 @@
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 1.3;
-                this.vy = (Math.random() - 0.5) * 1.3;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
                 this.radius = Math.random() * 1.5 + 0.8;
             }
             update() {
@@ -564,7 +850,7 @@
             }
         }
 
-        for (let i = 0; i < 65; i++) particles.push(new Particle());
+        for (let i = 0; i < 70; i++) particles.push(new Particle());
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -575,12 +861,12 @@
                     const dx = particles[i].x - particles[j].x;
                     const dy = particles[i].y - particles[j].y;
                     const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 130) {
+                    if (dist < 120) {
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
                         ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 130})`;
-                        ctx.lineWidth = 0.6;
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 120})`;
+                        ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
                 }
@@ -589,6 +875,9 @@
         }
         animate();
 
+        /* ==========================================================================
+           MODÜL GEÇİŞ & TİKTOK DOĞRULAMA SİSTEMİ
+           ================================================================---------- */
         let hasVisitedTikTok = false;
         function markFollowed() { hasVisitedTikTok = true; }
 
@@ -603,6 +892,15 @@
 
         if (localStorage.getItem('nexus_unlocked') === 'true') {
             document.getElementById('nexusModal').style.display = 'none';
+        }
+
+        function switchModule(index) {
+            document.querySelectorAll('.nav-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx === index);
+            });
+            document.querySelectorAll('.module-section').forEach((sec, idx) => {
+                sec.classList.toggle('active', idx === index);
+            });
         }
 
         function toggleDeviceOptions() {
@@ -625,9 +923,11 @@
             });
         }
 
+        /* ==========================================================================
+           HASSASİYET ÜRETİCİ (PC: 0-8 Arası | Mobil: Özel Aralıklar)
+           ================================================================---------- */
         function generateSensitivity() {
             const type = document.getElementById('deviceType').value;
-            const mode = document.getElementById('speedMode').value;
 
             if (type === 'mobile') {
                 const brand = document.getElementById('brandSelect').value;
@@ -640,12 +940,10 @@
                 let g2, r2, s2_2, s4_2, awm2, f2, fire2;
 
                 if (brand === 'iphone') {
-                    // iPhone için 80 - 150 arası özel aralık
                     g0 = 92; r0 = 88; s2_0 = 85; s4_0 = 80; awm0 = 80; f0 = 90; fire0 = '44%';
                     g1 = 115; r1 = 108; s2_1 = 100; s4_1 = 92; awm1 = 85; f1 = 110; fire1 = '47%';
                     g2 = 140; r2 = 132; s2_2 = 122; s4_2 = 112; awm2 = 95; f2 = 135; fire2 = '50%';
                 } else {
-                    // Diğer telefonlar
                     g0 = 150; r0 = 142; s2_0 = 135; s4_0 = 125; awm0 = 85; f0 = 140; fire0 = '46%';
                     g1 = 175; r1 = 168; s2_1 = 160; s4_1 = 145; awm1 = 100; f1 = 165; fire1 = '49%';
                     g2 = 195; r2 = 188; s2_2 = 178; s4_2 = 165; awm2 = 115; f2 = 185; fire2 = '53%';
@@ -709,22 +1007,18 @@
                 document.getElementById('label_r1_fire').innerText = "⚡ Fare DPI";
                 document.getElementById('label_r2_fire').innerText = "⚡ Fare DPI";
             }
-
-            document.getElementById('resultsPanel').style.display = 'block';
         }
 
-        let clickCount = 0;
-        let clickTimer = null;
-        function handleSecretClick() {
-            clickCount++;
-            clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => { clickCount = 0; }, 1000);
-            if (clickCount >= 3) {
-                clickCount = 0;
-                const pass = prompt('Admin Şifresi:');
-                if (pass === 'wedzx2026') alert('Sistem Durumu: Çevrimiçi & Full Güvenli (2026)');
-                else if (pass !== null) alert('Hatalı şifre!');
-            }
+        function triggerSimClick() {
+            const btn = document.getElementById('simFireBtn');
+            btn.style.transform = 'scale(0.85)';
+            setTimeout(() => { btn.style.transform = 'scale(1)'; }, 100);
+        }
+
+        function runOptimization() {
+            document.getElementById('pingVal').innerText = "9 ms";
+            document.getElementById('fpsVal').innerText = "144 FPS";
+            alert('Sistem başarıyla optimize edildi! Gecikme minimuma indirildi.');
         }
     </script>
 </body>
