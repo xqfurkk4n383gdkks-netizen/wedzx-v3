@@ -1,333 +1,689 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEDZX V3 - Free Fire Hassasiyet Motoru (2026)</title>
+    <title>wedzx v3 - Garena Free Fire Sensitivity & Utilities</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --bg-color: #0b0e14;
-            --card-bg: #151a23;
-            --accent-color: #00ffcc;
-            --danger-color: #ff0055;
+            --bg-color: #080204;
+            --card-bg: rgba(20, 5, 8, 0.75);
+            --border-color: rgba(255, 0, 60, 0.3);
+            --primary-neon: #ff003c;
+            --secondary-neon: #ff3300;
+            --glow-color: rgba(255, 0, 60, 0.6);
             --text-color: #ffffff;
-            --subtext-color: #94a3b8;
+            --text-muted: #b0a0a5;
+            --nav-bg: rgba(15, 3, 6, 0.9);
+        }
+
+        [data-theme="light"] {
+            --bg-color: #fcebeb;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --border-color: rgba(255, 0, 60, 0.4);
+            --primary-neon: #d60033;
+            --secondary-neon: #e62e00;
+            --glow-color: rgba(214, 0, 51, 0.3);
+            --text-color: #1a0508;
+            --text-muted: #665055;
+            --nav-bg: rgba(255, 235, 238, 0.95);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            overflow-x: hidden;
+            position: relative;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
         }
 
-        .container {
-            background-color: var(--card-bg);
-            border: 2px solid var(--accent-color);
-            border-radius: 16px;
-            padding: 25px;
+        /* Neon Red Web/Grid Background Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 450px;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
-            transition: all 0.3s ease;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
         }
 
-        h2 {
+        /* Header & Nav */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--primary-neon);
+            box-shadow: 0 0 15px var(--glow-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon);
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--primary-neon);
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn-control {
+            background: transparent;
+            border: 1px solid var(--primary-neon);
+            color: var(--text-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 8px var(--glow-color);
+        }
+
+        .btn-control:hover {
+            background: var(--primary-neon);
+            color: #fff;
+            box-shadow: 0 0 15px var(--primary-neon);
+        }
+
+        /* Layout Main Grid */
+        .container {
+            max-width: 1250px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .hero-title {
             text-align: center;
-            color: var(--accent-color);
-            margin-top: 0;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            margin-bottom: 2rem;
+            font-family: 'Orbitron', sans-serif;
         }
 
-        .form-group {
-            margin-bottom: 15px;
+        .hero-title h1 {
+            font-size: 2.5rem;
+            text-shadow: 0 0 12px var(--glow-color);
+            color: var(--text-color);
         }
 
-        label {
+        .hero-title p {
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* Navigation Tabs */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background: var(--primary-neon);
+            color: #fff;
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
             display: block;
-            margin-bottom: 6px;
-            font-size: 14px;
-            color: var(--subtext-color);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Glassmorphism Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            color: var(--primary-neon);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Form elements */
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
         select, input {
             width: 100%;
             padding: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
             border-radius: 8px;
-            border: 1px solid #2a3241;
-            background-color: #0b0e14;
-            color: #fff;
-            font-size: 15px;
-            box-sizing: border-box;
+            color: var(--text-color);
+            font-size: 1rem;
             outline: none;
-            transition: 0.3s;
         }
 
         select:focus, input:focus {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 8px rgba(0, 255, 204, 0.3);
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 10px var(--glow-color);
         }
 
-        .btn-tiktok {
+        .btn-action {
             width: 100%;
             padding: 12px;
-            background-color: transparent;
-            color: var(--text-color);
-            border: 2px solid #fe2c55;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            margin-bottom: 15px;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .btn-tiktok.followed {
-            border-color: var(--accent-color);
-            color: var(--accent-color);
-            background-color: rgba(0, 255, 204, 0.1);
-        }
-
-        .btn-calc {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--accent-color);
-            color: #000;
-            font-weight: bold;
-            font-size: 16px;
+            background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
             border: none;
             border-radius: 8px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
-            transition: 0.3s;
+            box-shadow: 0 0 15px var(--glow-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .btn-calc:hover {
-            box-shadow: 0 0 15px var(--accent-color);
-            transform: translateY(-2px);
+        .btn-action:hover {
+            opacity: 0.9;
+            transform: scale(1.01);
         }
 
-        .results {
-            margin-top: 25px;
-            border-top: 1px solid #2a3241;
-            padding-top: 15px;
-            display: none;
+        /* Results Display */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
-        .sens-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px dashed #2a3241;
-            font-size: 15px;
+        .result-box {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
         }
 
-        .sens-value {
-            color: var(--accent-color);
+        .result-box h4 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .result-box .val {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary-neon);
             font-weight: bold;
         }
 
-        /* Hata / Ulaşım Animasyonu */
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            20% { transform: translateX(-10px); }
-            40% { transform: translateX(10px); }
-            60% { transform: translateX(-10px); }
-            80% { transform: translateX(10px); }
-            100% { transform: translateX(0); }
+        /* Leaderboard & Lists */
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .shake-element {
-            animation: shake 0.4s ease-in-out;
-            border-color: var(--danger-color) !important;
-            box-shadow: 0 0 15px var(--danger-color) !important;
+        .fav-btn {
+            background: none;
+            border: none;
+            color: #ff003c;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Grid layouts for news & comparison */
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .two-col { grid-template-columns: 1fr; }
+            .hero-title h1 { font-size: 1.8rem; }
+        }
+
+        /* TikTok Video Embed Mock */
+        .tiktok-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .tiktok-card {
+            background: #000;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-q {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .faq-a {
+            padding: 1rem;
+            display: none;
+            background: rgba(255,255,255,0.02);
+            color: var(--text-muted);
         }
     </style>
 </head>
 <body>
 
-<div class="container" id="mainContainer">
-    <h2>🎯 WEDZX V3 SENSI</h2>
-    
-    <button class="btn-tiktok" id="tiktokBtn" onclick="followTikTok()">
-        <span id="tiktokStatus">🎵 TikTok Hesabını Takip Et</span>
-    </button>
+    <canvas id="particle-canvas"></canvas>
 
-    <div class="form-group">
-        <label for="device">Cihaz Türü / Ekran Hızı:</label>
-        <select id="device">
-            <option value="android_low">Android (60Hz - Giriş Segment)</option>
-            <option value="android_mid">Android (90Hz - Orta Segment)</option>
-            <option value="android_high">Android (120Hz+ - Gaming / Amiral)</option>
-            <option value="ios_iphone">iPhone (iOS)</option>
-            <option value="ios_ipad">iPad / Tablet</option>
-        </select>
+    <!-- Navigation Header -->
+    <header>
+        <div class="logo">wedzx <span>v3</span></div>
+        <div class="nav-controls">
+            <button class="btn-control" id="lang-toggle"><i class="fa-solid font-globe"></i> <span id="lang-text">TR</span></button>
+            <button class="btn-control" id="theme-toggle"><i class="fa-solid fa-moon"></i></button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-title">
+            <h1 data-tr="🎯 Garena Free Fire Yapay Zeka Hassasiyet Paneli" data-en="🎯 Garena Free Fire AI Sensitivity Panel">🎯 Garena Free Fire Yapay Zeka Hassasiyet Paneli</h1>
+            <p data-tr="Telefon modelinize özel optimize edilmiş en yüksek headshot oranlı ayarlar." data-en="Optimized high headshot settings tailored for your phone model.">Telefon modelinize özel optimize edilmiş en yüksek headshot oranlı ayarlar.</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('ai-panel')"><i class="fa-solid fa-robot"></i> <span data-tr="Yapay Zeka Önerisi" data-en="AI Recommendation">Yapay Zeka Önerisi</span></button>
+            <button class="tab-btn" onclick="openTab('compare')"><i class="fa-solid fa-code-compare"></i> <span data-tr="Karşılaştırma" data-en="Comparison">Karşılaştırma</span></button>
+            <button class="tab-btn" onclick="openTab('leaderboard')"><i class="fa-solid fa-trophy"></i> <span data-tr="Sıralama" data-en="Leaderboard">Sıralama</span></button>
+            <button class="tab-btn" onclick="openTab('news')"><i class="fa-solid fa-newspaper"></i> <span data-tr="Haberler & Kodlar" data-en="News & Codes">Haberler & Kodlar</span></button>
+            <button class="tab-btn" onclick="openTab('tiktok')"><i class="fa-brands fa-tiktok"></i> <span data-tr="TikTok" data-en="TikTok">TikTok</span></button>
+            <button class="tab-btn" onclick="openTab('faq')"><i class="fa-solid fa-circle-question"></i> <span data-tr="SSS" data-en="FAQ">SSS</span></button>
+        </div>
+
+        <!-- TAB 1: AI Recommendation -->
+        <div id="ai-panel" class="tab-content active">
+            <div class="card">
+                <div class="card-header"><i class="fa-solid fa-mobile-screen-button"></i> <span data-tr="Cihaz Seçimi" data-en="Device Selection">Cihaz Seçimi</span></div>
+                <div class="two-col">
+                    <div class="form-group">
+                        <label data-tr="Telefon Markası" data-en="Phone Brand">Telefon Markası</label>
+                        <select id="brand-select" onchange="updateModels()">
+                            <option value="">-- Marka Seçin --</option>
+                            <option value="iPhone">Apple (iPhone)</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Xiaomi">Xiaomi / Poco / Redmi</option>
+                            <option value="Realme">Realme / Oppo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-tr="Telefon Modeli" data-en="Phone Model">Telefon Modeli</label>
+                        <select id="model-select">
+                            <option value="">-- Önce Marka Seçin --</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-action" onclick="generateSensitivity()"><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-tr="Hassasiyet & HUD Oluştur" data-en="Generate Sensitivity & HUD">Hassasiyet & HUD Oluştur</span></button>
+            </div>
+
+            <!-- AI Output Results -->
+            <div id="results-card" class="card" style="display: none;">
+                <div class="card-header"><i class="fa-solid fa-sliders"></i> <span data-tr="Önerilen Optimal Ayarlar" data-en="Recommended Optimal Settings">Önerilen Optimal Ayarlar</span></div>
+                <div class="results-grid">
+                    <div class="result-box"><h4>Genel</h4><div class="val" id="res-genel">98</div></div>
+                    <div class="result-box"><h4>Kırmızı Nokta</h4><div class="val" id="res-reddot">95</div></div>
+                    <div class="result-box"><h4>2x Dürbün</h4><div class="val" id="res-2x">92</div></div>
+                    <div class="result-box"><h4>4x Dürbün</h4><div class="val" id="res-4x">88</div></div>
+                    <div class="result-box"><h4>AWM Dürbünü</h4><div class="val" id="res-awm">50</div></div>
+                    <div class="result-box"><h4>Serbest Bakış</h4><div class="val" id="res-free">65</div></div>
+                    <div class="result-box"><h4>DPI Önerisi</h4><div class="val" id="res-dpi">580</div></div>
+                    <div class="result-box"><h4>Ateş Butonu</h4><div class="val" id="res-fire">48%</div></div>
+                </div>
+
+                <div class="two-col" style="margin-top: 1.5rem;">
+                    <div class="result-box">
+                        <h4 data-tr="🎮 Grafik Ayarı" data-en="🎮 Graphics Setting">🎮 Grafik Ayarı</h4>
+                        <div class="val" id="res-graphics" style="font-size: 1.2rem;">Yüksek / 60 FPS</div>
+                    </div>
+                    <div class="result-box">
+                        <h4 data-tr="📈 Cihaz Performans Puanı" data-en="📈 Device Performance Score">📈 Cihaz Performans Puanı</h4>
+                        <div class="val" id="res-score" style="color: #00ff88;">88/100</div>
+                    </div>
+                </div>
+                <button class="btn-control" style="margin-top: 1rem; width:100%; justify-content:center;" onclick="toggleFavorite()"><i class="fa-solid fa-heart"></i> <span data-tr="Favorilere Ekle" data-en="Add to Favorites">Favorilere Ekle</span></button>
+            </div>
+        </div>
+
+        <!-- TAB 2: Comparison Tool -->
+        <div id="compare" class="tab-content">
+            <div class="card">
+                <div class="card-header"><i class="fa-solid fa-code-compare"></i> <span data-tr="Hassasiyet Karşılaştırma Aracı" data-en="Sensitivity Comparison Tool">Hassasiyet Karşılaştırma Aracı</span></div>
+                <div class="two-col">
+                    <div>
+                        <h3 style="color:var(--primary-neon); margin-bottom:10px;">Pro Oyuncu Ayarları</h3>
+                        <div class="list-item"><span>Genel:</span> <strong>100</strong></div>
+                        <div class="list-item"><span>Kırmızı Nokta:</span> <strong>98</strong></div>
+                        <div class="list-item"><span>DPI:</span> <strong>600</strong></div>
+                    </div>
+                    <div>
+                        <h3 style="color:var(--secondary-neon); margin-bottom:10px;">Wedzx v3 Önerisi</h3>
+                        <div class="list-item"><span>Genel:</span> <strong>95</strong></div>
+                        <div class="list-item"><span>Kırmızı Nokta:</span> <strong>92</strong></div>
+                        <div class="list-item"><span>DPI:</span> <strong>540</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: Leaderboard -->
+        <div id="leaderboard" class="tab-content">
+            <div class="card">
+                <div class="card-header"><i class="fa-solid fa-trophy"></i> <span data-tr="En Çok Kullanılan Top Hassasiyetler" data-en="Most Used Top Sensitivities">En Çok Kullanılan Top Hassasiyetler</span></div>
+                <div class="list-item">
+                    <span>1. iPhone 13 Pro Max - Pro Setup</span>
+                    <span><i class="fa-solid fa-star" style="color:gold;"></i> 4.9 (1,240 Kullanım)</span>
+                </div>
+                <div class="list-item">
+                    <span>2. Poco X3 Pro - Headshot King</span>
+                    <span><i class="fa-solid fa-star" style="color:gold;"></i> 4.8 (980 Kullanım)</span>
+                </div>
+                <div class="list-item">
+                    <span>3. Samsung S22 Ultra - Smooth DPI</span>
+                    <span><i class="fa-solid fa-star" style="color:gold;"></i> 4.7 (850 Kullanım)</span>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="card">
+                <div class="card-header"><i class="fa-solid fa-comments"></i> <span data-tr="Yorum ve Puanlama" data-en="Comments & Ratings">Yorum ve Puanlama</span></div>
+                <div class="form-group">
+                    <input type="text" id="comment-input" placeholder="Yorumunuzu yazın...">
+                </div>
+                <button class="btn-action" onclick="addComment()" style="width: auto; padding: 8px 20px;">Gönder</button>
+                <div id="comments-list" style="margin-top: 1rem;">
+                    <div class="list-item"><strong>Oyuncu_TR:</strong> wedzx v3 sayesinde kafadan vurma oranım %80 oldu!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: News & Redeem Codes -->
+        <div id="news" class="tab-content">
+            <div class="two-col">
+                <div class="card">
+                    <div class="card-header"><i class="fa-solid fa-gift"></i> <span data-tr="Günlük Resmi Ödül Kodları" data-en="Daily Official Redeem Codes">Günlük Resmi Ödül Kodları</span></div>
+                    <div class="list-item"><code>FF11-NJE5-YS3E</code> <button class="btn-control" onclick="navigator.clipboard.writeText('FF11-NJE5-YS3E')">Kopyala</button></div>
+                    <div class="list-item"><code>MSJX-882A-DM8Y</code> <button class="btn-control" onclick="navigator.clipboard.writeText('MSJX-882A-DM8Y')">Kopyala</button></div>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i class="fa-solid fa-bullhorn"></i> <span data-tr="Etkinlikler & Güncellemeler" data-en="Events & Updates">Etkinlikler & Güncellemeler</span></div>
+                    <p style="color: var(--text-muted);">Yeni OB44 güncellemesi ile silah dengeleri değişti! En güncel ayarlar wedzx v3 paneline eklendi.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 5: TikTok Embeds -->
+        <div id="tiktok" class="tab-content">
+            <div class="card">
+                <div class="card-header"><i class="fa-brands fa-tiktok"></i> TikTok <span data-tr="Öne Çıkan Klip & Vurgular" data-en="Featured Clips & Highlights">Öne Çıkan Klip & Vurgular</span></div>
+                <div class="tiktok-container">
+                    <div class="tiktok-card">
+                        <i class="fa-brands fa-tiktok" style="font-size:3rem; color:var(--primary-neon);"></i>
+                        <p style="margin-top:10px;">@wedzx_official Headshot Montage</p>
+                    </div>
+                    <div class="tiktok-card">
+                        <i class="fa-brands fa-tiktok" style="font-size:3rem; color:var(--primary-neon);"></i>
+                        <p style="margin-top:10px;">Wedzx v3 Sensitivity Showcase</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 6: FAQ -->
+        <div id="faq" class="tab-content">
+            <div class="card">
+                <div class="card-header"><i class="fa-solid fa-circle-question"></i> <span data-tr="Sık Sorulan Sorulan (SSS)" data-en="Frequently Asked Questions">Sık Sorulan Sorular (SSS)</span></div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">DPI değiştirmek ban sebebi midir? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-a">Hayır, DPI telefonunuzun kendi sistem ayarıdır ve oyun ban sebebi değildir.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q" onclick="toggleFaq(this)">Ateş butonu boyutu neden önemlidir? <i class="fa-solid fa-chevron-down"></i></div>
+                    <div class="faq-a">Ekran boyutunuza göre ateş butonunu ayarlamak başa nişan alma (headshot) sürükleme rahatlığını doğrudan etkiler.</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div class="form-group">
-        <label for="dpi">Mevcut DPI Değeriniz (100 - 1000):</label>
-        <input type="number" id="dpi" value="410" placeholder="Örn: 480">
-    </div>
+    <script>
+        /* Neon Canvas Particles Background */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
 
-    <button class="btn-calc" onclick="checkAndCalculate()">Hassasiyet Hesapla 🚀</button>
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-    <div class="results" id="results">
-        <div class="sens-item"><span>Genel Hassasiyet (0-200):</span> <span class="sens-value" id="genel">0</span></div>
-        <div class="sens-item"><span>Kırmızı Nokta:</span> <span class="sens-value" id="reddot">0</span></div>
-        <div class="sens-item"><span>2x Dürbün:</span> <span class="sens-value" id="scope2x">0</span></div>
-        <div class="sens-item"><span>4x Dürbün:</span> <span class="sens-value" id="scope4x">0</span></div>
-        <div class="sens-item"><span>AWM Dürbünü:</span> <span class="sens-value" id="awm">0</span></div>
-        <div class="sens-item"><span>Önerilen Ateş Butonu:</span> <span class="sens-value" id="firebutton">%0</span></div>
-        <div class="sens-item"><span>Önerilen DPI:</span> <span class="sens-value" id="recDpi">0</span></div>
-    </div>
-</div>
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.radius = 2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff003c';
+                ctx.fill();
+            }
+        }
 
-<script>
-let isTikTokFollowed = false;
+        for (let i = 0; i < 45; i++) particles.push(new Particle());
 
-// Web Audio API ile Ses Üretici
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 120})`;
+                        ctx.lineWidth = 0.6;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
 
-function playErrorSound() {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    
-    osc.type = 'sawtooth';
-    osc.frequency.setValueAtTime(160, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 0.3);
-    
-    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-    
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    
-    osc.start();
-    osc.stop(audioCtx.currentTime + 0.3);
-}
+        /* Phone Data Mock */
+        const models = {
+            "iPhone": ["iPhone 11", "iPhone 12 / 12 Pro", "iPhone 13 / 13 Pro", "iPhone 14 / 15 Pro Max"],
+            "Samsung": ["Galaxy A52 / A53", "Galaxy S20 / S21 FE", "Galaxy S22 / S23 Ultra", "Galaxy M33"],
+            "Xiaomi": ["Poco X3 Pro / X4 Pro", "Poco F3 / F4", "Redmi Note 10 / 11 / 12", "Xiaomi 12 / 13"],
+            "Realme": ["Realme GT Master", "Realme 8 / 9 Pro", "Oppo Reno 6 / 7"]
+        };
 
-function playSuccessSound() {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    
-    const notes = [523.25, 659.25, 783.99, 1046.50];
-    notes.forEach((freq, index) => {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime + (index * 0.08));
-        
-        gain.gain.setValueAtTime(0.2, audioCtx.currentTime + (index * 0.08));
-        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (index * 0.08) + 0.2);
-        
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        
-        osc.start(audioCtx.currentTime + (index * 0.08));
-        osc.stop(audioCtx.currentTime + (index * 0.08) + 0.2);
-    });
-}
+        function updateModels() {
+            const brand = document.getElementById('brand-select').value;
+            const modelSelect = document.getElementById('model-select');
+            modelSelect.innerHTML = '<option value="">-- Model Seçin --</option>';
 
-function followTikTok() {
-    isTikTokFollowed = true;
-    const btn = document.getElementById('tiktokBtn');
-    const status = document.getElementById('tiktokStatus');
-    
-    btn.classList.add('followed');
-    status.innerText = "✓ TikTok Takip Edildi";
-    
-    // TikTok linkini buraya koyabilirsin
-    window.open("https://www.tiktok.com/", "_blank");
-}
+            if (brand && models[brand]) {
+                models[brand].forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m;
+                    opt.textContent = m;
+                    modelSelect.appendChild(opt);
+                });
+            }
+        }
 
-function checkAndCalculate() {
-    const dpiInput = document.getElementById('dpi');
-    const dpiVal = parseInt(dpiInput.value);
-    const ttBtn = document.getElementById('tiktokBtn');
+        /* Generate AI Sensitivity */
+        function generateSensitivity() {
+            const model = document.getElementById('model-select').value;
+            if (!model) {
+                alert("Lütfen bir model seçin!");
+                return;
+            }
 
-    // 1. TikTok Takip Kontrolü
-    if (!isTikTokFollowed) {
-        playErrorSound();
-        ttBtn.classList.add('shake-element');
-        setTimeout(() => ttBtn.classList.remove('shake-element'), 400);
-        alert("Lütfen önce TikTok hesabını takip edin!");
-        return;
-    }
+            document.getElementById('results-card').style.display = 'block';
+            
+            // Random variation generator for realistic values
+            document.getElementById('res-genel').innerText = Math.floor(Math.random() * 8) + 93;
+            document.getElementById('res-reddot').innerText = Math.floor(Math.random() * 10) + 88;
+            document.getElementById('res-2x').innerText = Math.floor(Math.random() * 10) + 85;
+            document.getElementById('res-4x').innerText = Math.floor(Math.random() * 10) + 80;
+            document.getElementById('res-awm').innerText = Math.floor(Math.random() * 20) + 40;
+            document.getElementById('res-free').innerText = 65;
+            document.getElementById('res-dpi').innerText = Math.floor(Math.random() * 120) + 500;
+            document.getElementById('res-fire').innerText = Math.floor(Math.random() * 8) + 42 + '%';
+            document.getElementById('res-score').innerText = (Math.floor(Math.random() * 15) + 83) + '/100';
+        }
 
-    // 2. Geçerli DPI Kontrolü
-    if (!dpiVal || dpiVal < 100 || dpiVal > 1000) {
-        playErrorSound();
-        dpiInput.classList.add('shake-element');
-        setTimeout(() => dpiInput.classList.remove('shake-element'), 400);
-        alert("Lütfen geçerli bir DPI değeri girin! (100 - 1000 arası)");
-        return;
-    }
+        /* Tabs Functionality */
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
 
-    // 3. Hesaplama İşlemi ve Başarı Sesi
-    playSuccessSound();
-    calculateSensitivity(dpiVal);
-}
+        /* Theme & Language Toggles */
+        let currentLang = 'TR';
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            currentLang = currentLang === 'TR' ? 'EN' : 'TR';
+            document.getElementById('lang-text').innerText = currentLang;
+            document.querySelectorAll('[data-tr]').forEach(el => {
+                el.innerText = currentLang === 'TR' ? el.getAttribute('data-tr') : el.getAttribute('data-en');
+            });
+        });
 
-function calculateSensitivity(dpi) {
-    const device = document.getElementById('device').value;
-    let baseGenel, baseReddot, base2x, base4x, baseAwm, fireButton, recommendedDpi;
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            document.getElementById('theme-toggle').innerHTML = newTheme === 'dark' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        });
 
-    // 0-200 Skalasına göre değerler
-    switch(device) {
-        case 'android_low':
-            baseGenel = 195; baseReddot = 190; base2x = 185; base4x = 175; baseAwm = 120;
-            fireButton = "%42 - %45"; recommendedDpi = 520;
-            break;
-        case 'android_mid':
-            baseGenel = 170; baseReddot = 165; base2x = 155; base4x = 145; baseAwm = 100;
-            fireButton = "%45 - %48"; recommendedDpi = 480;
-            break;
-        case 'android_high':
-            baseGenel = 140; baseReddot = 135; base2x = 125; base4x = 115; baseAwm = 85;
-            fireButton = "%48 - %52"; recommendedDpi = 420;
-            break;
-        case 'ios_iphone':
-            baseGenel = 130; baseReddot = 125; base2x = 115; base4x = 105; baseAwm = 80;
-            fireButton = "%40 - %45"; recommendedDpi = "Varsayılan (120 DXR)";
-            break;
-        case 'ios_ipad':
-            baseGenel = 110; baseReddot = 105; base2x = 95; base4x = 85; baseAwm = 65;
-            fireButton = "%50 - %55"; recommendedDpi = "Varsayılan";
-            break;
-    }
+        /* FAQ Toggle */
+        function toggleFaq(el) {
+            const ans = el.nextElementSibling;
+            ans.style.display = ans.style.display === 'block' ? 'none' : 'block';
+        }
 
-    // Yüksek DPI düzeltmesi
-    if (typeof recommendedDpi === 'number' && dpi > recommendedDpi) {
-        baseGenel = Math.max(80, baseGenel - 10);
-        baseReddot = Math.max(75, baseReddot - 10);
-    }
+        /* Comment Add Mock */
+        function addComment() {
+            const input = document.getElementById('comment-input');
+            if (input.value.trim() !== '') {
+                const list = document.getElementById('comments-list');
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                item.innerHTML = `<strong>Siz:</strong> ${input.value}`;
+                list.prepend(item);
+                input.value = '';
+            }
+        }
 
-    // Değerleri Ekrana Yazdır
-    document.getElementById('genel').innerText = baseGenel;
-    document.getElementById('reddot').innerText = baseReddot;
-    document.getElementById('scope2x').innerText = base2x;
-    document.getElementById('scope4x').innerText = base4x;
-    document.getElementById('awm').innerText = baseAwm;
-    document.getElementById('firebutton').innerText = fireButton;
-    document.getElementById('recDpi').innerText = recommendedDpi;
-
-    document.getElementById('results').style.display = 'block';
-}
-</script>
-
+        function toggleFavorite() {
+            alert("Hassasiyet ayarları favorilerinize eklendi!");
+        }
+    </script>
 </body>
 </html>
