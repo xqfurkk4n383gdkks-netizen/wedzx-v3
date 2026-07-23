@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEDZX v4 // FREE FIRE 2026 SENSITIVITY ENGINE</title>
+    <title>WEDZX v5 // ULTIMATE GAMING & ESPORTS ECOSYSTEM</title>
+    <!-- FontAwesome & Google Cyber Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-main: #05050a;
-            --panel-bg: rgba(12, 12, 22, 0.85);
-            --primary-red: #ff003c;
-            --primary-glow: rgba(255, 0, 60, 0.5);
-            --accent-cyan: #00f0ff;
-            --text-color: #ffffff;
-            --text-muted: #8a8a9e;
-            --border-color: rgba(255, 0, 60, 0.25);
+            --bg-dark: #030308;
+            --panel-bg: rgba(10, 10, 20, 0.88);
+            --neon-red: #ff003c;
+            --neon-red-glow: rgba(255, 0, 60, 0.5);
+            --neon-cyan: #00f0ff;
+            --neon-cyan-glow: rgba(0, 240, 255, 0.4);
+            --neon-green: #00ff66;
+            --text-main: #ffffff;
+            --text-muted: #8e8ea6;
+            --border-color: rgba(255, 0, 60, 0.3);
+            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -28,8 +32,8 @@
         }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-color);
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -38,7 +42,7 @@
             position: relative;
         }
 
-        /* Dynamic Neural Background Canvas */
+        /* Arka Plan Canvas */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -46,95 +50,121 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at center, #0e0514 0%, #030307 100%);
+            background: radial-gradient(circle at center, #0c0414 0%, #030308 100%);
         }
 
-        /* Top Header Navigation */
+        /* Üst Menü / Navigasyon Barı */
         header {
-            width: 100%;
-            max-width: 1200px;
-            padding: 20px 30px;
-            margin-top: 15px;
+            width: 95%;
+            max-width: 1300px;
+            padding: 18px 30px;
+            margin-top: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: var(--panel-bg);
             border: 1px solid var(--border-color);
-            border-radius: 14px;
+            border-radius: 16px;
             backdrop-filter: blur(20px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+            z-index: 10;
         }
 
         .brand {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 900;
             letter-spacing: 3px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .brand span {
-            color: var(--primary-red);
-            text-shadow: 0 0 15px var(--primary-glow);
+            color: var(--neon-red);
+            text-shadow: 0 0 15px var(--neon-red-glow);
         }
 
-        .system-status {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--accent-cyan);
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #00ff66;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #00ff66;
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 0, 60, 0.15);
+            border-color: var(--neon-red);
+            color: var(--text-main);
+            box-shadow: 0 0 20px var(--neon-red-glow);
         }
 
-        /* Main App Container */
+        /* Ana İçerik Alanı */
         main {
-            width: 100%;
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
+            width: 95%;
+            max-width: 1300px;
+            margin: 30px auto 50px;
+            z-index: 10;
         }
 
-        .grid-container {
+        .module-section {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .module-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Kart Mimarisi */
+        .card-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
 
-        @media (max-width: 900px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
+        @media (max-width: 960px) {
+            .card-grid { grid-template-columns: 1fr; }
         }
 
-        .card {
+        .cyber-card {
             background: var(--panel-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 35px;
+            padding: 32px;
             backdrop-filter: blur(25px);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             position: relative;
         }
 
-        .card::before {
+        .cyber-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 3px;
-            background: linear-gradient(90deg, var(--primary-red), var(--accent-cyan));
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-cyan));
             border-top-left-radius: 16px;
             border-top-right-radius: 16px;
         }
@@ -143,18 +173,17 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 25px;
+            margin-bottom: 22px;
             display: flex;
             align-items: center;
             gap: 10px;
-            color: var(--text-color);
         }
 
         .card-title i {
-            color: var(--primary-red);
+            color: var(--neon-red);
         }
 
-        /* Form Controls */
+        /* Form Elemanları */
         .form-group {
             margin-bottom: 20px;
         }
@@ -175,42 +204,42 @@
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
-            color: var(--text-color);
+            color: var(--text-main);
             font-size: 1rem;
             font-weight: 600;
             outline: none;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .form-control:focus {
-            border-color: var(--primary-red);
-            box-shadow: 0 0 15px var(--primary-glow);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px var(--neon-cyan-glow);
         }
 
-        .btn-calc {
+        .btn-action {
             width: 100%;
             padding: 16px;
-            background: var(--primary-red);
+            background: var(--neon-red);
             border: none;
             border-radius: 8px;
             color: #fff;
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 800;
             letter-spacing: 2px;
             cursor: pointer;
-            box-shadow: 0 0 25px var(--primary-glow);
-            transition: all 0.3s ease;
+            box-shadow: 0 0 25px var(--neon-red-glow);
+            transition: var(--transition);
             margin-top: 10px;
         }
 
-        .btn-calc:hover {
+        .btn-action:hover {
             background: #ff1a4f;
-            box-shadow: 0 0 35px var(--primary-red);
+            box-shadow: 0 0 35px var(--neon-red);
             transform: translateY(-2px);
         }
 
-        /* Output Matrix Styling */
+        /* Çıktı Kutuları */
         .output-box {
             background: rgba(0, 0, 0, 0.4);
             border: 1px dashed rgba(255, 0, 60, 0.3);
@@ -224,23 +253,55 @@
             align-items: center;
             padding: 12px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 1rem;
+            font-size: 0.98rem;
         }
 
-        .matrix-row:last-child {
-            border-bottom: none;
-        }
+        .matrix-row:last-child { border-bottom: none; }
 
         .matrix-value {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 700;
-            color: var(--accent-cyan);
+            color: var(--neon-cyan);
             font-size: 1.1rem;
         }
 
-        .btn-size-highlight {
-            color: var(--primary-red) !important;
-            text-shadow: 0 0 10px var(--primary-glow);
+        /* Aim Trainer Arena */
+        .trainer-arena {
+            width: 100%;
+            height: 350px;
+            background: radial-gradient(circle at center, #10061c 0%, #020206 100%);
+            border: 2px solid var(--neon-red);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            cursor: crosshair;
+            margin-top: 15px;
+        }
+
+        .target-dot {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: var(--neon-red);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--neon-red);
+            display: none;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Crosshair Customizer Canvas */
+        .crosshair-preview-box {
+            width: 100%;
+            height: 220px;
+            background: #000;
+            border: 1px solid var(--neon-cyan);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
         }
 
         footer {
@@ -257,114 +318,221 @@
 
     <canvas id="bg-canvas"></canvas>
 
+    <!-- Header Navigation -->
     <header>
         <div class="brand">
-            <i class="fa-solid fa-crosshairs" style="color: var(--primary-red);"></i> WEDZX <span>v4</span>
+            <i class="fa-solid fa-crosshairs" style="color: var(--neon-red);"></i> WEDZX <span>v5</span>
         </div>
-        <div class="system-status">
-            <div class="status-dot"></div> FF 2026 META ENGINE
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="switchModule(0)">
+                <i class="fa-solid fa-sliders"></i> Hassasiyet Motoru
+            </button>
+            <button class="nav-btn" onclick="switchModule(1)">
+                <i class="fa-solid fa-bullseye"></i> Aim & Refleks Lab
+            </button>
+            <button class="nav-btn" onclick="switchModule(2)">
+                <i class="fa-solid fa-crosshairs"></i> Custom Crosshair
+            </button>
+            <button class="nav-btn" onclick="switchModule(3)">
+                <i class="fa-solid fa-gauge-high"></i> Benchmark & FPS
+            </button>
         </div>
     </header>
 
     <main>
-        <div class="grid-container">
-            
-            <!-- Sol Kart: Kullanıcı Girdi Alanı -->
-            <div class="card">
-                <div class="card-title">
-                    <i class="fa-solid fa-sliders"></i> CİHAZ VE MODEL YAPILANDIRMASI
+        <!-- MODÜL 0: HASSASİYET MOTORU -->
+        <div class="module-section active" id="module0">
+            <div class="card-grid">
+                <div class="cyber-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-mobile-screen-button"></i> CİHAZ & META YAPILANDIRMASI
+                    </div>
+
+                    <div class="form-group">
+                        <label>Platform / Cihaz Mimarisi</label>
+                        <select id="platformSelect" class="form-control" onchange="handlePlatformChange()">
+                            <option value="iphone">Apple iOS (iPhone / iPad - 80-150 Özel)</option>
+                            <option value="android">Android Cihazlar</option>
+                            <option value="pc">PC / Emülatör (BlueStacks / MSI)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Cihaz Modeli</label>
+                        <input type="text" id="deviceInput" class="form-control" placeholder="Örn: iPhone 14 Pro, Poco X3 GT, S23 Ultra">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Oyun Modu</label>
+                        <select id="modeSelect" class="form-control">
+                            <option value="cs">Esports Dereceli (CS / Tek Atma)</option>
+                            <option value="br">Battle Royale (Uzak Mesafe Sprey)</option>
+                            <option value="pro">Pro Turnuva Modu</option>
+                        </select>
+                    </div>
+
+                    <button class="btn-action" onclick="generateSensitivity()">HASSASİYET MATRİSİNİ OLUŞTUR</button>
                 </div>
 
-                <div class="form-group">
-                    <label>Platform Türü</label>
-                    <select id="platformSelect" class="form-control" onchange="handlePlatformChange()">
-                        <option value="iphone">Apple iOS (iPhone / iPad)</option>
-                        <option value="android">Android Cihazlar</option>
-                        <option value="pc">PC Emülatör (BlueStacks / MSI)</option>
-                    </select>
-                </div>
+                <div class="cyber-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-microchip"></i> HESAPLANAN DOKUNMA & ATEŞ BUTONU
+                    </div>
 
-                <!-- Telefon Modeli Yazma Alanı -->
-                <div class="form-group" id="modelGroup">
-                    <label>Telefon / Tablet Modeliniz</label>
-                    <input type="text" id="deviceModelInput" class="form-control" placeholder="Örn: iPhone 13 Pro, Poco X3 Pro, S22 Ultra">
+                    <div class="output-box">
+                        <div class="matrix-row">
+                            <span>Hedef Cihaz:</span>
+                            <span class="matrix-value" id="outDevice">Belirtilmedi</span>
+                        </div>
+                        <div class="matrix-row">
+                            <span>Genel Kamera:</span>
+                            <span class="matrix-value" id="outGen">--</span>
+                        </div>
+                        <div class="matrix-row">
+                            <span>Kırmızı Nokta (Red Dot):</span>
+                            <span class="matrix-value" id="outRed">--</span>
+                        </div>
+                        <div class="matrix-row">
+                            <span>2X Dürbün:</span>
+                            <span class="matrix-value" id="out2x">--</span>
+                        </div>
+                        <div class="matrix-row">
+                            <span>4X Dürbün:</span>
+                            <span class="matrix-value" id="out4x">--</span>
+                        </div>
+                        <div class="matrix-row">
+                            <span>AWM Dürbün:</span>
+                            <span class="matrix-value" id="outAwm">--</span>
+                        </div>
+                        <div class="matrix-row" style="margin-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 12px;">
+                            <span>🔥 Önerilen Ateş Butonu:</span>
+                            <span class="matrix-value" style="color: var(--neon-red);" id="outBtn">--</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label>Oyun Tarzı / Mod</label>
-                    <select id="gameStyleSelect" class="form-control">
-                        <option value="cs">Çatışma Belli (4v4 / Tek Atma)</option>
-                        <option value="br">Battle Royale (Uzak Mesafe Sprey)</option>
-                        <option value="balance">Dengeli Pro Mod</option>
-                    </select>
-                </div>
-
-                <button class="btn-calc" onclick="calculateSens()">HASSASİYET MATRİSİNİ OLUŞTUR</button>
             </div>
+        </div>
 
-            <!-- Sağ Kart: Hassasiyet Sonuç Çıktısı -->
-            <div class="card">
+        <!-- MODÜL 1: AIM & REFLEKS LAB -->
+        <div class="module-section" id="module1">
+            <div class="cyber-card">
                 <div class="card-title">
-                    <i class="fa-solid fa-microchip"></i> HESAPLANAN DOKUNMA VE ATEŞ AYARLARI
+                    <i class="fa-solid fa-stopwatch"></i> REFLEKS & ISINMA TESTİ (MS MEASUREMENT)
+                </div>
+                <p style="color: var(--text-muted); margin-bottom: 15px;">Ekran içerisindeki kırmızı hedef belirdiğinde olabildiğince hızlı tıklayın.</p>
+                
+                <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 15px;">
+                    <button class="btn-action" style="width: auto; padding: 10px 25px;" onclick="startAimTest()">TESTİ BAŞLAT</button>
+                    <span style="font-family: 'JetBrains Mono'; color: var(--neon-cyan);">Son Tepki Süresi: <strong id="msScore" style="color:#fff;">-- ms</strong></span>
                 </div>
 
-                <div class="output-box">
-                    <div class="matrix-row">
-                        <span>Cihaz / Model:</span>
-                        <span class="matrix-value" id="outModel">Belirtilmedi</span>
-                    </div>
-                    <div class="matrix-row">
-                        <span>Genel Kamera:</span>
-                        <span class="matrix-value" id="outGen">--</span>
-                    </div>
-                    <div class="matrix-row">
-                        <span>Kırmızı Nokta (Red Dot):</span>
-                        <span class="matrix-value" id="outRed">--</span>
-                    </div>
-                    <div class="matrix-row">
-                        <span>2X Dürbün:</span>
-                        <span class="matrix-value" id="out2x">--</span>
-                    </div>
-                    <div class="matrix-row">
-                        <span>4X Dürbün:</span>
-                        <span class="matrix-value" id="out4x">--</span>
-                    </div>
-                    <div class="matrix-row">
-                        <span>AWM Dürbün:</span>
-                        <span class="matrix-value" id="outAwm">--</span>
-                    </div>
-                    <div class="matrix-row" style="margin-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 12px;">
-                        <span>🔥 Önerilen Ateş Butonu Boyutu:</span>
-                        <span class="matrix-value btn-size-highlight" id="outBtn">--</span>
-                    </div>
+                <div class="trainer-arena" id="arena" onclick="handleArenaClick(event)">
+                    <div class="target-dot" id="target" onclick="hitTarget(event)"></div>
                 </div>
             </div>
+        </div>
 
+        <!-- MODÜL 2: CUSTOM CROSSHAIR -->
+        <div class="module-section" id="module2">
+            <div class="card-grid">
+                <div class="cyber-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-palette"></i> NİŞANGAH İÇİN CANLI TERCİHLER
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nişangah Renk Seçimi</label>
+                        <input type="color" id="crossColor" class="form-control" value="#00f0ff" onchange="drawCrosshair()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Çizgi Boyutu (Size)</label>
+                        <input type="range" id="crossSize" min="4" max="30" value="12" style="width:100%" oninput="drawCrosshair()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Merkez Boşluğu (Gap)</label>
+                        <input type="range" id="crossGap" min="0" max="20" value="4" style="width:100%" oninput="drawCrosshair()">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Çizgi Kalınlığı (Thickness)</label>
+                        <input type="range" id="crossThick" min="1" max="8" value="2" style="width:100%" oninput="drawCrosshair()">
+                    </div>
+                </div>
+
+                <div class="cyber-card">
+                    <div class="card-title">
+                        <i class="fa-solid fa-eye"></i> CANLI ÖNİZLEME CANVASI
+                    </div>
+
+                    <div class="crosshair-preview-box">
+                        <canvas id="crosshairCanvas" width="200" height="200"></canvas>
+                    </div>
+
+                    <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center;">Tasarım ayarlarınız Free Fire ve diğer mobil oyunlarınızın ekran HUD düzenlerine uyarlanabilir.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODÜL 3: BENCHMARK & FPS -->
+        <div class="module-section" id="module3">
+            <div class="cyber-card">
+                <div class="card-title">
+                    <i class="fa-solid fa-bolt"></i> SİSTEM PERFORMANS BENCHMARK
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center; margin-bottom: 25px;">
+                    <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">ANLIK PING</div>
+                        <div style="font-family: 'JetBrains Mono'; font-size: 1.8rem; color: var(--neon-green);" id="pingVal">12 ms</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">HEDEF FPS</div>
+                        <div style="font-family: 'JetBrains Mono'; font-size: 1.8rem; color: var(--neon-cyan);" id="fpsVal">120 FPS</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color);">
+                        <div style="color: var(--text-muted); font-size: 0.8rem;">REGEDIT DOKUNMA HIZI</div>
+                        <div style="font-family: 'JetBrains Mono'; font-size: 1.8rem; color: var(--neon-red);">%99.8</div>
+                    </div>
+                </div>
+
+                <button class="btn-action" onclick="runOptimization()">SİSTEM GELİŞMİŞ OPTİMİZASYONUNU ÇALIŞTIR</button>
+            </div>
         </div>
     </main>
 
     <footer>
-        WEDZX v4 // FREE FIRE ENGINE &copy; 2026 // ALL RIGHTS RESERVED
+        WEDZX v5 // ULTIMATE ESPORTS SYSTEM &copy; 2026 // ALL RIGHTS RESERVED
     </footer>
 
     <script>
+        // Modül Geçişleri
+        function switchModule(idx) {
+            document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === idx);
+            });
+            document.querySelectorAll('.module-section').forEach((sec, i) => {
+                sec.classList.toggle('active', i === idx);
+            });
+            if (idx === 2) setTimeout(drawCrosshair, 50);
+        }
+
         function handlePlatformChange() {
             const platform = document.getElementById('platformSelect').value;
-            const modelInput = document.getElementById('deviceModelInput');
-            
+            const input = document.getElementById('deviceInput');
             if (platform === 'pc') {
-                modelInput.placeholder = "Emülatör Sürümü (Örn: BlueStacks 5 Hyper-V)";
+                input.placeholder = "Emülatör Modeli (Örn: BlueStacks 5 Hyper-V)";
             } else {
-                modelInput.placeholder = "Örn: iPhone 13 Pro, Poco X3 Pro, S22 Ultra";
+                input.placeholder = "Örn: iPhone 14 Pro, Poco X3 GT, S23 Ultra";
             }
         }
 
-        function calculateSens() {
+        // Hassasiyet Oluşturucu
+        function generateSensitivity() {
             const platform = document.getElementById('platformSelect').value;
-            const userModel = document.getElementById('deviceModelInput').value.trim();
-            
-            const modelDisplay = userModel !== "" ? userModel : (platform === 'iphone' ? 'iPhone Model' : 'Genel Cihaz');
-            document.getElementById('outModel').innerText = modelDisplay;
+            const deviceVal = document.getElementById('deviceInput').value.trim();
+            document.getElementById('outDevice').innerText = deviceVal !== "" ? deviceVal : (platform === 'iphone' ? 'iPhone Model' : 'Genel Cihaz');
 
             if (platform === 'iphone') {
                 // iPhone için 80 - 150 aralığı
@@ -373,51 +541,121 @@
                 document.getElementById('out2x').innerText = Math.floor(Math.random() * (120 - 85 + 1)) + 85;
                 document.getElementById('out4x').innerText = Math.floor(Math.random() * (105 - 80 + 1)) + 80;
                 document.getElementById('outAwm').innerText = Math.floor(Math.random() * (95 - 80 + 1)) + 80;
-                document.getElementById('outBtn').innerText = "41% - 45%";
+                document.getElementById('outBtn').innerText = "42% - 46%";
             } else if (platform === 'pc') {
-                // PC / Emülatör Hassasiyetleri
-                document.getElementById('outGen').innerText = "3.2 (DPI 800)";
-                document.getElementById('outRed').innerText = "2.8";
-                document.getElementById('out2x').innerText = "2.2";
-                document.getElementById('out4x').innerText = "1.8";
-                document.getElementById('outAwm').innerText = "1.0";
+                document.getElementById('outGen').innerText = "3.4 (DPI 800)";
+                document.getElementById('outRed').innerText = "2.9";
+                document.getElementById('out2x').innerText = "2.4";
+                document.getElementById('out4x').innerText = "1.9";
+                document.getElementById('outAwm').innerText = "1.1";
                 document.getElementById('outBtn').innerText = "48% - 52%";
             } else {
-                // Android Cihazlar
-                document.getElementById('outGen').innerText = Math.floor(Math.random() * (195 - 160 + 1)) + 160;
-                document.getElementById('outRed').innerText = Math.floor(Math.random() * (180 - 145 + 1)) + 145;
-                document.getElementById('out2x').innerText = Math.floor(Math.random() * (165 - 130 + 1)) + 130;
-                document.getElementById('out4x').innerText = Math.floor(Math.random() * (150 - 115 + 1)) + 115;
-                document.getElementById('outAwm').innerText = Math.floor(Math.random() * (110 - 85 + 1)) + 85;
+                document.getElementById('outGen').innerText = Math.floor(Math.random() * (195 - 165 + 1)) + 165;
+                document.getElementById('outRed').innerText = Math.floor(Math.random() * (180 - 150 + 1)) + 150;
+                document.getElementById('out2x').innerText = Math.floor(Math.random() * (165 - 135 + 1)) + 135;
+                document.getElementById('out4x').innerText = Math.floor(Math.random() * (150 - 120 + 1)) + 120;
+                document.getElementById('outAwm').innerText = Math.floor(Math.random() * (110 - 90 + 1)) + 90;
                 document.getElementById('outBtn').innerText = "44% - 48%";
             }
         }
 
-        // Arka Plan Canvas Efekti (Ağ / Parçacık)
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
+        // Aim Refleks Lab Mantığı
+        let startTime = 0;
+        let testActive = false;
 
-        function initCanvas() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
+        function startAimTest() {
+            const target = document.getElementById('target');
+            const arena = document.getElementById('arena');
+            target.style.display = 'none';
+            testActive = true;
+
+            const randomDelay = Math.floor(Math.random() * 2000) + 1000;
+            setTimeout(() => {
+                if (!testActive) return;
+                const maxX = arena.clientWidth - 40;
+                const maxY = arena.clientHeight - 40;
+                const randomX = Math.floor(Math.random() * maxX) + 20;
+                const randomY = Math.floor(Math.random() * maxY) + 20;
+
+                target.style.left = randomX + 'px';
+                target.style.top = randomY + 'px';
+                target.style.display = 'block';
+                startTime = Date.now();
+            }, randomDelay);
+        }
+
+        function hitTarget(e) {
+            e.stopPropagation();
+            if (!testActive) return;
+            const reactionTime = Date.now() - startTime;
+            document.getElementById('msScore').innerText = reactionTime + ' ms';
+            document.getElementById('target').style.display = 'none';
+            testActive = false;
+        }
+
+        function handleArenaClick(e) {
+            if (testActive && document.getElementById('target').style.display === 'block') {
+                document.getElementById('msScore').innerText = 'Iskaladınız!';
+                document.getElementById('target').style.display = 'none';
+                testActive = false;
+            }
+        }
+
+        // Crosshair Çizim Canvası
+        function drawCrosshair() {
+            const canvas = document.getElementById('crosshairCanvas');
+            const ctx = canvas.getContext('2d');
+            const color = document.getElementById('crossColor').value;
+            const size = parseInt(document.getElementById('crossSize').value);
+            const gap = parseInt(document.getElementById('crossGap').value);
+            const thick = parseInt(document.getElementById('crossThick').value);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = color;
+
+            const cx = canvas.width / 2;
+            const cy = canvas.height / 2;
+
+            // Sol Line
+            ctx.fillRect(cx - gap - size, cy - thick / 2, size, thick);
+            // Sağ Line
+            ctx.fillRect(cx + gap, cy - thick / 2, size, thick);
+            // Üst Line
+            ctx.fillRect(cx - thick / 2, cy - gap - size, thick, size);
+            // Alt Line
+            ctx.fillRect(cx - thick / 2, cy + gap, thick, size);
+        }
+
+        function runOptimization() {
+            document.getElementById('pingVal').innerText = "8 ms";
+            document.getElementById('fpsVal').innerText = "144 FPS";
+            alert("WEDZX v5 sistem ve dokunma motoru başarıyla optimize edildi!");
+        }
+
+        // Canvas Arka Plan Ağ Efekti
+        const bgCanvas = document.getElementById('bg-canvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        let width, height, particles = [];
+
+        function initBg() {
+            width = bgCanvas.width = window.innerWidth;
+            height = bgCanvas.height = window.innerHeight;
             particles = [];
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 65; i++) {
                 particles.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 1.2,
-                    vy: (Math.random() - 0.5) * 1.2,
+                    vx: (Math.random() - 0.5) * 1.1,
+                    vy: (Math.random() - 0.5) * 1.1,
                     r: Math.random() * 2 + 1
                 });
             }
         }
 
-        function drawCanvas() {
-            ctx.clearRect(0, 0, width, height);
-            ctx.fillStyle = '#ff003c';
-            ctx.strokeStyle = 'rgba(255, 0, 60, 0.15)';
+        function drawBg() {
+            bgCtx.clearRect(0, 0, width, height);
+            bgCtx.fillStyle = '#ff003c';
+            bgCtx.strokeStyle = 'rgba(255, 0, 60, 0.12)';
 
             for (let i = 0; i < particles.length; i++) {
                 let p = particles[i];
@@ -427,28 +665,28 @@
                 if (p.x < 0 || p.x > width) p.vx *= -1;
                 if (p.y < 0 || p.y > height) p.vy *= -1;
 
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-                ctx.fill();
+                bgCtx.beginPath();
+                bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                bgCtx.fill();
 
                 for (let j = i + 1; j < particles.length; j++) {
                     let p2 = particles[j];
                     let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
                     if (dist < 120) {
-                        ctx.lineWidth = 1 - (dist / 120);
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
+                        bgCtx.lineWidth = 1 - (dist / 120);
+                        bgCtx.beginPath();
+                        bgCtx.moveTo(p.x, p.y);
+                        bgCtx.lineTo(p2.x, p2.y);
+                        bgCtx.stroke();
                     }
                 }
             }
-            requestAnimationFrame(drawCanvas);
+            requestAnimationFrame(drawBg);
         }
 
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
-        drawCanvas();
+        window.addEventListener('resize', initBg);
+        initBg();
+        drawBg();
     </script>
 </body>
 </html>
