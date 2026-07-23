@@ -3,519 +3,541 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEDZX v5 // ULTIMATE GAMING & ESPORTS ECOSYSTEM</title>
-    <!-- FontAwesome & Google Cyber Fonts -->
+    <title>WEDZX v6 // NEXUS CYBER-HUD 2026</title>
+    <!-- FontAwesome & Futuristic Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;800&display=swap" rel="stylesheet">
     
     <style>
+        /* ==========================================================================
+           1. HOLOGRAPHIC CYBER-HUD CORE STYLES (COMPLETELY NEW INTERFACE)
+           ================================================================---------- */
         :root {
-            --bg-dark: #030308;
-            --panel-bg: rgba(10, 10, 20, 0.88);
-            --neon-red: #ff003c;
-            --neon-red-glow: rgba(255, 0, 60, 0.5);
+            --bg-void: #020206;
+            --hud-glass: rgba(12, 14, 28, 0.75);
+            --neon-pink: #ff0055;
             --neon-cyan: #00f0ff;
-            --neon-cyan-glow: rgba(0, 240, 255, 0.4);
-            --neon-green: #00ff66;
-            --text-main: #ffffff;
-            --text-muted: #8e8ea6;
-            --border-color: rgba(255, 0, 60, 0.3);
-            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            --neon-amber: #ffaa00;
+            --neon-lime: #00ff88;
+            --glow-pink: rgba(255, 0, 85, 0.45);
+            --glow-cyan: rgba(0, 240, 255, 0.45);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --text-white: #ffffff;
+            --text-dim: #9aa0ba;
+            --transition-fast: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Rajdhani', sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             user-select: none;
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background-color: var(--bg-void);
+            color: var(--text-white);
             min-height: 100vh;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
-            position: relative;
         }
 
-        /* Arka Plan Canvas */
-        #bg-canvas {
+        /* Arka Plan Holografik Işık ve Izgara Efekti */
+        #cyber-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            background: radial-gradient(circle at center, #0c0414 0%, #030308 100%);
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(255, 0, 85, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(0, 240, 255, 0.12) 0%, transparent 40%);
         }
 
-        /* Üst Menü / Navigasyon Barı */
-        header {
-            width: 95%;
-            max-width: 1300px;
-            padding: 18px 30px;
-            margin-top: 20px;
+        .hex-grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(0deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 0, 85, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ==========================================================================
+           2. NEW FLOATING GLASS DOCK (YENİLENMİŞ NAVİGASYON)
+           ================================================================---------- */
+        .hud-dock {
+            width: 90%;
+            max-width: 1200px;
+            margin: 25px auto 0;
+            background: var(--hud-glass);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+            padding: 16px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
-            z-index: 10;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 255, 255, 0.02);
+            position: relative;
+            z-index: 100;
         }
 
-        .brand {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            letter-spacing: 3px;
+        .hud-logo {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .brand span {
-            color: var(--neon-red);
-            text-shadow: 0 0 15px var(--neon-red-glow);
-        }
-
-        .nav-tabs {
+        .nav-chips {
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
-        .nav-btn {
+        .chip-btn {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: var(--text-muted);
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.78rem;
-            font-weight: 700;
+            border: 1px solid var(--border-glass);
+            color: var(--text-dim);
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: var(--transition-fast);
             display: flex;
             align-items: center;
             gap: 8px;
+            letter-spacing: 1px;
         }
 
-        .nav-btn:hover, .nav-btn.active {
-            background: rgba(255, 0, 60, 0.15);
-            border-color: var(--neon-red);
-            color: var(--text-main);
-            box-shadow: 0 0 20px var(--neon-red-glow);
+        .chip-btn:hover, .chip-btn.active {
+            background: linear-gradient(135deg, rgba(255, 0, 85, 0.2), rgba(0, 240, 255, 0.2));
+            border-color: var(--neon-cyan);
+            color: var(--text-white);
+            box-shadow: 0 0 20px var(--glow-cyan);
         }
 
-        /* Ana İçerik Alanı */
+        /* ==========================================================================
+           3. MAIN PANELS & MODERN LAYOUT (TAMAMEN DEĞİŞTİRİLEN ARAYÜZ)
+           ================================================================---------- */
         main {
-            width: 95%;
-            max-width: 1300px;
-            margin: 30px auto 50px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto 60px;
             z-index: 10;
         }
 
-        .module-section {
+        .hud-module {
             display: none;
-            animation: fadeIn 0.4s ease forwards;
+            animation: hudPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .module-section.active {
+        .hud-module.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes hudPop {
+            from { opacity: 0; transform: scale(0.98) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
-        /* Kart Mimarisi */
-        .card-grid {
+        .cyber-panel-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 30px;
         }
 
-        @media (max-width: 960px) {
-            .card-grid { grid-template-columns: 1fr; }
+        @media (max-width: 900px) {
+            .cyber-panel-grid { grid-template-columns: 1fr; }
         }
 
-        .cyber-card {
-            background: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 32px;
-            backdrop-filter: blur(25px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+        .glass-frame {
+            background: var(--hud-glass);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 35px;
             position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
         }
 
-        .cyber-card::before {
+        .glass-frame::after {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-red), var(--neon-cyan));
-            border-top-left-radius: 16px;
-            border-top-right-radius: 16px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
         }
 
-        .card-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 22px;
+        .panel-header {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--text-white);
         }
 
-        .card-title i {
-            color: var(--neon-red);
+        .panel-header i {
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--glow-pink);
         }
 
-        /* Form Elemanları */
-        .form-group {
-            margin-bottom: 20px;
+        /* Input Controls & Selectors */
+        .hud-group {
+            margin-bottom: 22px;
         }
 
-        .form-group label {
+        .hud-group label {
             display: block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-muted);
+            font-size: 0.8rem;
+            color: var(--text-dim);
             margin-bottom: 8px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 14px 18px;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: var(--text-main);
-            font-size: 1rem;
+            letter-spacing: 1.5px;
             font-weight: 600;
-            outline: none;
-            transition: var(--transition);
         }
 
-        .form-control:focus {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 15px var(--neon-cyan-glow);
-        }
-
-        .btn-action {
+        .hud-control {
             width: 100%;
-            padding: 16px;
-            background: var(--neon-red);
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            color: var(--text-white);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition-fast);
+        }
+
+        .hud-control:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--glow-cyan);
+            background: rgba(5, 5, 15, 0.8);
+        }
+
+        .btn-neon-trigger {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--neon-pink), #ff0033);
             border: none;
-            border-radius: 8px;
-            color: #fff;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.88rem;
-            font-weight: 800;
+            border-radius: 14px;
+            color: var(--text-white);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
             letter-spacing: 2px;
             cursor: pointer;
-            box-shadow: 0 0 25px var(--neon-red-glow);
-            transition: var(--transition);
+            box-shadow: 0 10px 30px var(--glow-pink);
+            transition: var(--transition-fast);
             margin-top: 10px;
         }
 
-        .btn-action:hover {
-            background: #ff1a4f;
-            box-shadow: 0 0 35px var(--neon-red);
+        .btn-neon-trigger:hover {
             transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(255, 0, 85, 0.7);
         }
 
-        /* Çıktı Kutuları */
-        .output-box {
+        /* Matrix Display Area */
+        .hud-results-matrix {
             background: rgba(0, 0, 0, 0.4);
-            border: 1px dashed rgba(255, 0, 60, 0.3);
-            border-radius: 12px;
-            padding: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 16px;
+            padding: 22px;
         }
 
-        .matrix-row {
+        .matrix-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            padding: 14px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            font-size: 0.98rem;
+            font-size: 0.95rem;
         }
 
-        .matrix-row:last-child { border-bottom: none; }
+        .matrix-item:last-child { border-bottom: none; }
 
-        .matrix-value {
+        .matrix-val {
             font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
+            font-weight: 800;
             color: var(--neon-cyan);
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            text-shadow: 0 0 10px var(--glow-cyan);
         }
 
-        /* Aim Trainer Arena */
-        .trainer-arena {
+        /* Crosshair Sandbox Studio */
+        .sandbox-box {
             width: 100%;
-            height: 350px;
-            background: radial-gradient(circle at center, #10061c 0%, #020206 100%);
-            border: 2px solid var(--neon-red);
-            border-radius: 12px;
+            height: 240px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.1);
+        }
+
+        /* Refleks Testi Arenası */
+        .reflex-arena {
+            width: 100%;
+            height: 320px;
+            background: radial-gradient(circle at center, #0a0e24 0%, #020206 100%);
+            border: 1px solid rgba(255, 0, 85, 0.3);
+            border-radius: 16px;
             position: relative;
             overflow: hidden;
             cursor: crosshair;
             margin-top: 15px;
         }
 
-        .target-dot {
+        .reflex-target {
             position: absolute;
-            width: 30px;
-            height: 30px;
-            background: var(--neon-red);
+            width: 32px;
+            height: 32px;
+            background: var(--neon-pink);
             border: 2px solid #fff;
             border-radius: 50%;
-            box-shadow: 0 0 20px var(--neon-red);
+            box-shadow: 0 0 25px var(--neon-pink);
             display: none;
             transform: translate(-50%, -50%);
         }
 
-        /* Crosshair Customizer Canvas */
-        .crosshair-preview-box {
-            width: 100%;
-            height: 220px;
-            background: #000;
-            border: 1px solid var(--neon-cyan);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
         footer {
             margin-top: auto;
-            padding: 20px;
+            padding: 25px;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.75rem;
-            color: var(--text-muted);
+            color: var(--text-dim);
+            letter-spacing: 2px;
             text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="bg-canvas"></canvas>
+    <canvas id="cyber-canvas"></canvas>
+    <div class="hex-grid-overlay"></div>
 
-    <!-- Header Navigation -->
-    <header>
-        <div class="brand">
-            <i class="fa-solid fa-crosshairs" style="color: var(--neon-red);"></i> WEDZX <span>v5</span>
+    <!-- Üst Yüzen Navigasyon Dock -->
+    <nav class="hud-dock">
+        <div class="hud-logo">
+            <i class="fa-solid fa-atom" style="color: var(--neon-pink);"></i> WEDZX <span>v6</span>
         </div>
-        <div class="nav-tabs">
-            <button class="nav-btn active" onclick="switchModule(0)">
-                <i class="fa-solid fa-sliders"></i> Hassasiyet Motoru
+        <div class="nav-chips">
+            <button class="chip-btn active" onclick="switchHudModule(0)">
+                <i class="fa-solid fa-sliders"></i> Hassasiyet
             </button>
-            <button class="nav-btn" onclick="switchModule(1)">
-                <i class="fa-solid fa-bullseye"></i> Aim & Refleks Lab
+            <button class="chip-btn" onclick="switchHudModule(1)">
+                <i class="fa-solid fa-crosshairs"></i> Crosshair Studio
             </button>
-            <button class="nav-btn" onclick="switchModule(2)">
-                <i class="fa-solid fa-crosshairs"></i> Custom Crosshair
+            <button class="chip-btn" onclick="switchHudModule(2)">
+                <i class="fa-solid fa-stopwatch"></i> Refleks Lab
             </button>
-            <button class="nav-btn" onclick="switchModule(3)">
-                <i class="fa-solid fa-gauge-high"></i> Benchmark & FPS
+            <button class="chip-btn" onclick="switchHudModule(3)">
+                <i class="fa-solid fa-bolt"></i> Performance
             </button>
         </div>
-    </header>
+    </nav>
 
     <main>
-        <!-- MODÜL 0: HASSASİYET MOTORU -->
-        <div class="module-section active" id="module0">
-            <div class="card-grid">
-                <div class="cyber-card">
-                    <div class="card-title">
-                        <i class="fa-solid fa-mobile-screen-button"></i> CİHAZ & META YAPILANDIRMASI
+        <!-- MODÜL 0: HASSASİYET SİSTEMİ (YENİLENMİŞ ARAYÜZ) -->
+        <div class="hud-module active" id="module0">
+            <div class="cyber-panel-grid">
+                <div class="glass-frame">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-gamepad"></i> CİHAZ & MODEL KALİBRASYONU
                     </div>
 
-                    <div class="form-group">
-                        <label>Platform / Cihaz Mimarisi</label>
-                        <select id="platformSelect" class="form-control" onchange="handlePlatformChange()">
-                            <option value="iphone">Apple iOS (iPhone / iPad - 80-150 Özel)</option>
-                            <option value="android">Android Cihazlar</option>
-                            <option value="pc">PC / Emülatör (BlueStacks / MSI)</option>
+                    <div class="hud-group">
+                        <label>Platform Mimarı</label>
+                        <select id="platformSelect" class="hud-control" onchange="handlePlatformChange()">
+                            <option value="iphone">Apple iOS (iPhone / iPad - 80-150)</option>
+                            <option value="android">Android Flagship / Mid-Range</option>
+                            <option value="pc">PC Emülatör (BlueStacks / MSI)</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="hud-group">
                         <label>Cihaz Modeli</label>
-                        <input type="text" id="deviceInput" class="form-control" placeholder="Örn: iPhone 14 Pro, Poco X3 GT, S23 Ultra">
+                        <input type="text" id="deviceInput" class="hud-control" placeholder="Örn: iPhone 15 Pro, Poco X5 Pro, S23 Ultra">
                     </div>
 
-                    <div class="form-group">
-                        <label>Oyun Modu</label>
-                        <select id="modeSelect" class="form-control">
-                            <option value="cs">Esports Dereceli (CS / Tek Atma)</option>
-                            <option value="br">Battle Royale (Uzak Mesafe Sprey)</option>
-                            <option value="pro">Pro Turnuva Modu</option>
+                    <div class="hud-group">
+                        <label>Mod Algoritması</label>
+                        <select id="modeSelect" class="hud-control">
+                            <option value="cs">CS Dereceli / Tek Atma (One-Tap)</option>
+                            <option value="br">Battle Royale (Sprey / Uzak)</option>
+                            <option value="pro">E-Spor Turnuva Protokolü</option>
                         </select>
                     </div>
 
-                    <button class="btn-action" onclick="generateSensitivity()">HASSASİYET MATRİSİNİ OLUŞTUR</button>
+                    <button class="btn-neon-trigger" onclick="generateSensitivity()">OPTIMIZE MATRISI HESAPLA</button>
                 </div>
 
-                <div class="cyber-card">
-                    <div class="card-title">
-                        <i class="fa-solid fa-microchip"></i> HESAPLANAN DOKUNMA & ATEŞ BUTONU
+                <div class="glass-frame">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-microchip"></i> MATRİS SONUÇLARI
                     </div>
 
-                    <div class="output-box">
-                        <div class="matrix-row">
-                            <span>Hedef Cihaz:</span>
-                            <span class="matrix-value" id="outDevice">Belirtilmedi</span>
+                    <div class="hud-results-matrix">
+                        <div class="matrix-item">
+                            <span>Seçilen Cihaz:</span>
+                            <span class="matrix-val" id="outDevice">Belirtilmedi</span>
                         </div>
-                        <div class="matrix-row">
+                        <div class="matrix-item">
                             <span>Genel Kamera:</span>
-                            <span class="matrix-value" id="outGen">--</span>
+                            <span class="matrix-val" id="outGen">--</span>
                         </div>
-                        <div class="matrix-row">
-                            <span>Kırmızı Nokta (Red Dot):</span>
-                            <span class="matrix-value" id="outRed">--</span>
+                        <div class="matrix-item">
+                            <span>Red Dot (Kırmızı Nokta):</span>
+                            <span class="matrix-val" id="outRed">--</span>
                         </div>
-                        <div class="matrix-row">
+                        <div class="matrix-item">
                             <span>2X Dürbün:</span>
-                            <span class="matrix-value" id="out2x">--</span>
+                            <span class="matrix-val" id="out2x">--</span>
                         </div>
-                        <div class="matrix-row">
+                        <div class="matrix-item">
                             <span>4X Dürbün:</span>
-                            <span class="matrix-value" id="out4x">--</span>
+                            <span class="matrix-val" id="out4x">--</span>
                         </div>
-                        <div class="matrix-row">
+                        <div class="matrix-item">
                             <span>AWM Dürbün:</span>
-                            <span class="matrix-value" id="outAwm">--</span>
+                            <span class="matrix-val" id="outAwm">--</span>
                         </div>
-                        <div class="matrix-row" style="margin-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 12px;">
-                            <span>🔥 Önerilen Ateş Butonu:</span>
-                            <span class="matrix-value" style="color: var(--neon-red);" id="outBtn">--</span>
+                        <div class="matrix-item" style="border-top: 1px dashed rgba(255,255,255,0.1); margin-top: 8px; padding-top: 12px;">
+                            <span>🔥 Ateş Butonu Boyutu:</span>
+                            <span class="matrix-val" style="color: var(--neon-pink);" id="outBtn">--</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- MODÜL 1: AIM & REFLEKS LAB -->
-        <div class="module-section" id="module1">
-            <div class="cyber-card">
-                <div class="card-title">
-                    <i class="fa-solid fa-stopwatch"></i> REFLEKS & ISINMA TESTİ (MS MEASUREMENT)
+        <!-- MODÜL 1: CROSSHAIR STUDIO -->
+        <div class="hud-module" id="module1">
+            <div class="cyber-panel-grid">
+                <div class="glass-frame">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-palette"></i> CROSSHAIR PARAMETRELERİ
+                    </div>
+
+                    <div class="hud-group">
+                        <label>Nişangah Rengi</label>
+                        <input type="color" id="crossColor" class="hud-control" value="#00f0ff" onchange="renderCrosshair()">
+                    </div>
+
+                    <div class="hud-group">
+                        <label>Çizgi Boyutu (Size)</label>
+                        <input type="range" id="crossSize" min="4" max="30" value="12" style="width:100%" oninput="renderCrosshair()">
+                    </div>
+
+                    <div class="hud-group">
+                        <label>Merkez Boşluğu (Gap)</label>
+                        <input type="range" id="crossGap" min="0" max="20" value="4" style="width:100%" oninput="renderCrosshair()">
+                    </div>
+
+                    <div class="hud-group">
+                        <label>Çizgi Kalınlığı (Thickness)</label>
+                        <input type="range" id="crossThick" min="1" max="8" value="2" style="width:100%" oninput="renderCrosshair()">
+                    </div>
                 </div>
-                <p style="color: var(--text-muted); margin-bottom: 15px;">Ekran içerisindeki kırmızı hedef belirdiğinde olabildiğince hızlı tıklayın.</p>
+
+                <div class="glass-frame">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-eye"></i> CANLI HUD İNCELEME
+                    </div>
+
+                    <div class="sandbox-box">
+                        <canvas id="crossCanvas" width="200" height="200"></canvas>
+                    </div>
+
+                    <p style="color: var(--text-dim); font-size: 0.85rem; text-align: center;">Tasarım ayarlarınızı ekran buton düzeninize göre özelleştirebilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODÜL 2: REFLEKS LAB -->
+        <div class="hud-module" id="module2">
+            <div class="glass-frame">
+                <div class="panel-header">
+                    <i class="fa-solid fa-stopwatch"></i> DOKUNMA TEPKİ & MS TESTİ
+                </div>
+                <p style="color: var(--text-dim); margin-bottom: 15px; font-size: 0.9rem;">Ekranda beliren pembe hedef noktasına en hızlı şekilde dokunun.</p>
                 
                 <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 15px;">
-                    <button class="btn-action" style="width: auto; padding: 10px 25px;" onclick="startAimTest()">TESTİ BAŞLAT</button>
-                    <span style="font-family: 'JetBrains Mono'; color: var(--neon-cyan);">Son Tepki Süresi: <strong id="msScore" style="color:#fff;">-- ms</strong></span>
+                    <button class="btn-neon-trigger" style="width: auto; padding: 12px 30px;" onclick="startReflexTest()">TESTİ BAŞLAT</button>
+                    <span style="font-family: 'JetBrains Mono'; color: var(--neon-cyan);">Tepki Süresi: <strong id="msScore" style="color:#fff;">-- ms</strong></span>
                 </div>
 
-                <div class="trainer-arena" id="arena" onclick="handleArenaClick(event)">
-                    <div class="target-dot" id="target" onclick="hitTarget(event)"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODÜL 2: CUSTOM CROSSHAIR -->
-        <div class="module-section" id="module2">
-            <div class="card-grid">
-                <div class="cyber-card">
-                    <div class="card-title">
-                        <i class="fa-solid fa-palette"></i> NİŞANGAH İÇİN CANLI TERCİHLER
-                    </div>
-
-                    <div class="form-group">
-                        <label>Nişangah Renk Seçimi</label>
-                        <input type="color" id="crossColor" class="form-control" value="#00f0ff" onchange="drawCrosshair()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Çizgi Boyutu (Size)</label>
-                        <input type="range" id="crossSize" min="4" max="30" value="12" style="width:100%" oninput="drawCrosshair()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Merkez Boşluğu (Gap)</label>
-                        <input type="range" id="crossGap" min="0" max="20" value="4" style="width:100%" oninput="drawCrosshair()">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Çizgi Kalınlığı (Thickness)</label>
-                        <input type="range" id="crossThick" min="1" max="8" value="2" style="width:100%" oninput="drawCrosshair()">
-                    </div>
-                </div>
-
-                <div class="cyber-card">
-                    <div class="card-title">
-                        <i class="fa-solid fa-eye"></i> CANLI ÖNİZLEME CANVASI
-                    </div>
-
-                    <div class="crosshair-preview-box">
-                        <canvas id="crosshairCanvas" width="200" height="200"></canvas>
-                    </div>
-
-                    <p style="color: var(--text-muted); font-size: 0.85rem; text-align: center;">Tasarım ayarlarınız Free Fire ve diğer mobil oyunlarınızın ekran HUD düzenlerine uyarlanabilir.</p>
+                <div class="reflex-arena" id="arena" onclick="handleArenaClick(event)">
+                    <div class="reflex-target" id="target" onclick="hitTarget(event)"></div>
                 </div>
             </div>
         </div>
 
-        <!-- MODÜL 3: BENCHMARK & FPS -->
-        <div class="module-section" id="module3">
-            <div class="cyber-card">
-                <div class="card-title">
-                    <i class="fa-solid fa-bolt"></i> SİSTEM PERFORMANS BENCHMARK
+        <!-- MODÜL 3: PERFORMANCE BENCHMARK -->
+        <div class="hud-module" id="module3">
+            <div class="glass-frame">
+                <div class="panel-header">
+                    <i class="fa-solid fa-gauge-high"></i> SİSTEM PERFORMANCE BENCHMARK
                 </div>
                 
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: center; margin-bottom: 25px;">
-                    <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color);">
-                        <div style="color: var(--text-muted); font-size: 0.8rem;">ANLIK PING</div>
-                        <div style="font-family: 'JetBrains Mono'; font-size: 1.8rem; color: var(--neon-green);" id="pingVal">12 ms</div>
+                    <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 14px; border: 1px solid var(--border-glass);">
+                        <div style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 8px;">PING HIZI</div>
+                        <div style="font-family: 'JetBrains Mono'; font-size: 1.8rem; color: var(--neon-lime);" id="pingVal">11 ms</div>
                     </div>
-                    <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color);">
-                        <div style="color: var(--text-muted); font-size: 0.8rem;">HEDEF FPS</div>
+                    <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 14px; border: 1px solid var(--border-glass);">
+                        <div style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 8px;">FPS STABİLİTE</div>
                         <div style="font-family: 'JetBrains Mono'; font-size: 1.8rem; color: var(--neon-cyan);" id="fpsVal">120 FPS</div>
                     </div>
-                    <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; border: 1px solid var(--border-color);">
-                        <div style="color: var(--text-muted); font-size: 0.8rem;">REGEDIT DOKUNMA HIZI</div>
-                        <div style="font-family: 'JetBrains Mono'; font-size: 1.8rem; color: var(--neon-red);">%99.8</div>
+                    <div style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 14px; border: 1px solid var(--border-glass);">
+                        <div style="color: var(--text-dim); font-size: 0.8rem; margin-bottom: 8px;">REGEDIT TEPKİSİ</div>
+                        <div style="font-family: 'JetBrains Mono'; font-size: 1.8rem; color: var(--neon-pink);">%99.9</div>
                     </div>
                 </div>
 
-                <button class="btn-action" onclick="runOptimization()">SİSTEM GELİŞMİŞ OPTİMİZASYONUNU ÇALIŞTIR</button>
+                <button class="btn-neon-trigger" onclick="runOptimization()">WEDZX PROTOKOLÜNÜ OPTİMİZE ET</button>
             </div>
         </div>
     </main>
 
     <footer>
-        WEDZX v5 // ULTIMATE ESPORTS SYSTEM &copy; 2026 // ALL RIGHTS RESERVED
+        WEDZX v6 // NEXUS CYBER-HUD &copy; 2026 // ALL RIGHTS RESERVED
     </footer>
 
+    <!-- JavaScript Mantık ve Animasyonlar -->
     <script>
-        // Modül Geçişleri
-        function switchModule(idx) {
-            document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+        function switchHudModule(idx) {
+            document.querySelectorAll('.chip-btn').forEach((btn, i) => {
                 btn.classList.toggle('active', i === idx);
             });
-            document.querySelectorAll('.module-section').forEach((sec, i) => {
-                sec.classList.toggle('active', i === idx);
+            document.querySelectorAll('.hud-module').forEach((mod, i) => {
+                mod.classList.toggle('active', i === idx);
             });
-            if (idx === 2) setTimeout(drawCrosshair, 50);
+            if (idx === 1) setTimeout(renderCrosshair, 50);
         }
 
         function handlePlatformChange() {
@@ -524,30 +546,28 @@
             if (platform === 'pc') {
                 input.placeholder = "Emülatör Modeli (Örn: BlueStacks 5 Hyper-V)";
             } else {
-                input.placeholder = "Örn: iPhone 14 Pro, Poco X3 GT, S23 Ultra";
+                input.placeholder = "Örn: iPhone 15 Pro, Poco X5 Pro, S23 Ultra";
             }
         }
 
-        // Hassasiyet Oluşturucu
         function generateSensitivity() {
             const platform = document.getElementById('platformSelect').value;
             const deviceVal = document.getElementById('deviceInput').value.trim();
             document.getElementById('outDevice').innerText = deviceVal !== "" ? deviceVal : (platform === 'iphone' ? 'iPhone Model' : 'Genel Cihaz');
 
             if (platform === 'iphone') {
-                // iPhone için 80 - 150 aralığı
                 document.getElementById('outGen').innerText = Math.floor(Math.random() * (150 - 110 + 1)) + 110;
                 document.getElementById('outRed').innerText = Math.floor(Math.random() * (135 - 95 + 1)) + 95;
                 document.getElementById('out2x').innerText = Math.floor(Math.random() * (120 - 85 + 1)) + 85;
                 document.getElementById('out4x').innerText = Math.floor(Math.random() * (105 - 80 + 1)) + 80;
                 document.getElementById('outAwm').innerText = Math.floor(Math.random() * (95 - 80 + 1)) + 80;
-                document.getElementById('outBtn').innerText = "42% - 46%";
+                document.getElementById('outBtn').innerText = "42% - 45%";
             } else if (platform === 'pc') {
-                document.getElementById('outGen').innerText = "3.4 (DPI 800)";
-                document.getElementById('outRed').innerText = "2.9";
-                document.getElementById('out2x').innerText = "2.4";
-                document.getElementById('out4x').innerText = "1.9";
-                document.getElementById('outAwm').innerText = "1.1";
+                document.getElementById('outGen').innerText = "3.2 (DPI 800)";
+                document.getElementById('outRed').innerText = "2.8";
+                document.getElementById('out2x').innerText = "2.3";
+                document.getElementById('out4x').innerText = "1.8";
+                document.getElementById('outAwm').innerText = "1.0";
                 document.getElementById('outBtn').innerText = "48% - 52%";
             } else {
                 document.getElementById('outGen').innerText = Math.floor(Math.random() * (195 - 165 + 1)) + 165;
@@ -559,11 +579,11 @@
             }
         }
 
-        // Aim Refleks Lab Mantığı
+        // Refleks Testi
         let startTime = 0;
         let testActive = false;
 
-        function startAimTest() {
+        function startReflexTest() {
             const target = document.getElementById('target');
             const arena = document.getElementById('arena');
             target.style.display = 'none';
@@ -601,9 +621,9 @@
             }
         }
 
-        // Crosshair Çizim Canvası
-        function drawCrosshair() {
-            const canvas = document.getElementById('crosshairCanvas');
+        // Crosshair Render
+        function renderCrosshair() {
+            const canvas = document.getElementById('crossCanvas');
             const ctx = canvas.getContext('2d');
             const color = document.getElementById('crossColor').value;
             const size = parseInt(document.getElementById('crossSize').value);
@@ -616,24 +636,20 @@
             const cx = canvas.width / 2;
             const cy = canvas.height / 2;
 
-            // Sol Line
             ctx.fillRect(cx - gap - size, cy - thick / 2, size, thick);
-            // Sağ Line
             ctx.fillRect(cx + gap, cy - thick / 2, size, thick);
-            // Üst Line
             ctx.fillRect(cx - thick / 2, cy - gap - size, thick, size);
-            // Alt Line
             ctx.fillRect(cx - thick / 2, cy + gap, thick, size);
         }
 
         function runOptimization() {
-            document.getElementById('pingVal').innerText = "8 ms";
+            document.getElementById('pingVal').innerText = "7 ms";
             document.getElementById('fpsVal').innerText = "144 FPS";
-            alert("WEDZX v5 sistem ve dokunma motoru başarıyla optimize edildi!");
+            alert("WEDZX v6 protokolü başarıyla entegre edildi!");
         }
 
-        // Canvas Arka Plan Ağ Efekti
-        const bgCanvas = document.getElementById('bg-canvas');
+        // Canvas Particles
+        const bgCanvas = document.getElementById('cyber-canvas');
         const bgCtx = bgCanvas.getContext('2d');
         let width, height, particles = [];
 
@@ -641,12 +657,12 @@
             width = bgCanvas.width = window.innerWidth;
             height = bgCanvas.height = window.innerHeight;
             particles = [];
-            for (let i = 0; i < 65; i++) {
+            for (let i = 0; i < 60; i++) {
                 particles.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 1.1,
-                    vy: (Math.random() - 0.5) * 1.1,
+                    vx: (Math.random() - 0.5) * 1.2,
+                    vy: (Math.random() - 0.5) * 1.2,
                     r: Math.random() * 2 + 1
                 });
             }
@@ -654,8 +670,8 @@
 
         function drawBg() {
             bgCtx.clearRect(0, 0, width, height);
-            bgCtx.fillStyle = '#ff003c';
-            bgCtx.strokeStyle = 'rgba(255, 0, 60, 0.12)';
+            bgCtx.fillStyle = '#ff0055';
+            bgCtx.strokeStyle = 'rgba(0, 240, 255, 0.12)';
 
             for (let i = 0; i < particles.length; i++) {
                 let p = particles[i];
