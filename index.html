@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEDZX // 2026 NEXUS ENGINE</title>
+    <title>WEDZX // 2026 NEXUS ELITE ENGINE</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-base: #010103;
+            --bg-base: #020205;
             --neon-red: #ff003c;
-            --neon-glow: rgba(255, 0, 60, 0.7);
-            --card-surface: rgba(10, 10, 16, 0.9);
-            --border-color: rgba(255, 0, 60, 0.3);
+            --neon-glow: rgba(255, 0, 60, 0.8);
+            --card-surface: rgba(8, 8, 14, 0.95);
+            --border-color: rgba(255, 0, 60, 0.35);
             --text-white: #ffffff;
-            --text-gray: #9494a0;
+            --text-gray: #8b8b9e;
         }
 
         * {
@@ -49,8 +49,8 @@
         .wrapper {
             position: relative;
             z-index: 2;
-            width: 90%;
-            max-width: 500px;
+            width: 92%;
+            max-width: 520px;
             margin: 30px auto;
         }
 
@@ -61,35 +61,35 @@
 
         .nexus-header h1 {
             font-family: 'Syncopate', sans-serif;
-            font-size: 1.9rem;
-            letter-spacing: 4px;
+            font-size: 2.1rem;
+            letter-spacing: 5px;
             color: var(--text-white);
-            text-shadow: 0 0 15px var(--neon-glow);
+            text-shadow: 0 0 20px var(--neon-glow);
             text-transform: uppercase;
         }
 
         .nexus-header h1 span {
             color: var(--neon-red);
-            text-shadow: 0 0 25px var(--neon-red);
+            text-shadow: 0 0 30px var(--neon-red);
         }
 
         .nexus-header p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-gray);
-            letter-spacing: 1px;
-            margin-top: 5px;
+            letter-spacing: 2px;
+            margin-top: 6px;
             text-transform: uppercase;
         }
 
         .nexus-card {
             background: var(--card-surface);
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 30px;
+            border-radius: 6px;
+            padding: 35px;
             position: relative;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(255, 0, 60, 0.05);
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+            backdrop-filter: blur(25px);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), inset 0 0 30px rgba(255, 0, 60, 0.08);
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
         }
 
         .nexus-card::before {
@@ -98,7 +98,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 3px;
+            height: 4px;
             background: linear-gradient(90deg, transparent, var(--neon-red), transparent);
         }
 
@@ -110,7 +110,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 700;
             color: var(--text-gray);
             text-transform: uppercase;
@@ -125,51 +125,51 @@
         .field-group select, 
         .field-group input {
             width: 100%;
-            padding: 13px 15px;
-            background: rgba(2, 2, 5, 0.8);
+            padding: 14px 16px;
+            background: rgba(3, 3, 7, 0.9);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-white);
             font-size: 1.05rem;
             font-weight: 600;
             outline: none;
             transition: all 0.3s ease;
-            border-radius: 2px;
+            border-radius: 3px;
         }
 
         .field-group select:focus, 
         .field-group input:focus {
             border-color: var(--neon-red);
-            box-shadow: 0 0 15px var(--neon-glow);
-            background: rgba(10, 2, 5, 0.9);
+            box-shadow: 0 0 20px var(--neon-glow);
+            background: rgba(12, 3, 6, 0.95);
         }
 
         .btn-nexus {
             width: 100%;
-            padding: 16px;
+            padding: 17px;
             background: var(--neon-red);
             border: none;
             color: var(--text-white);
             font-family: 'Syncopate', sans-serif;
             font-size: 0.85rem;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 2.5px;
             cursor: pointer;
             text-transform: uppercase;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 20px var(--neon-glow);
+            box-shadow: 0 0 25px var(--neon-glow);
             transition: all 0.3s ease;
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
-            margin-top: 5px;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+            margin-top: 8px;
         }
 
         .btn-nexus:hover {
             background: #ff1a4f;
-            box-shadow: 0 0 35px var(--neon-red), 0 0 10px #fff;
+            box-shadow: 0 0 40px var(--neon-red), 0 0 15px #fff;
             transform: translateY(-2px);
         }
 
-        /* --- Yenilenmiş Sonuç Paneli (3 Farklı Ayar) --- */
+        /* Sonuç Paneli */
         .nexus-results {
             display: none;
             margin-top: 25px;
@@ -193,37 +193,37 @@
 
         .config-tabs {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             margin-bottom: 15px;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.03);
+            padding: 11px 5px;
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.08);
             color: var(--text-gray);
             font-family: 'Rajdhani', sans-serif;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             cursor: pointer;
             text-transform: uppercase;
             transition: 0.3s;
         }
 
         .tab-btn.active {
-            background: rgba(255, 0, 60, 0.15);
+            background: rgba(255, 0, 60, 0.18);
             border-color: var(--neon-red);
             color: var(--text-white);
-            box-shadow: 0 0 15px rgba(255, 0, 60, 0.2);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.3);
         }
 
         .config-panel {
             display: none;
-            background: rgba(4, 4, 8, 0.95);
+            background: rgba(5, 5, 10, 0.96);
             border: 1px solid var(--neon-red);
             padding: 18px;
-            box-shadow: inset 0 0 25px rgba(255, 0, 60, 0.15);
+            box-shadow: inset 0 0 30px rgba(255, 0, 60, 0.15);
         }
 
         .config-panel.active {
@@ -237,9 +237,9 @@
         }
 
         .matrix-cell {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.015);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 10px 12px;
+            padding: 11px 13px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -258,7 +258,7 @@
             text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
         }
 
-        /* --- Yenilenmiş Ultra Havalı TikTok Modal Tasarımı --- */
+        /* TikTok Modal Tasarımı */
         .nexus-modal {
             position: fixed;
             top: 0;
@@ -270,52 +270,52 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
         }
 
         .modal-box-glow {
             position: relative;
             width: 90%;
-            max-width: 420px;
-            background: linear-gradient(145deg, rgba(15, 15, 25, 0.95), rgba(5, 5, 10, 0.98));
+            max-width: 440px;
+            background: linear-gradient(145deg, rgba(14, 14, 24, 0.96), rgba(4, 4, 8, 0.99));
             border: 1px solid var(--neon-red);
-            padding: 40px 30px;
+            padding: 45px 30px;
             text-align: center;
-            box-shadow: 0 0 60px rgba(255, 0, 60, 0.4), inset 0 0 25px rgba(255, 0, 60, 0.15);
+            box-shadow: 0 0 70px rgba(255, 0, 60, 0.45), inset 0 0 30px rgba(255, 0, 60, 0.15);
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 25px), calc(100% - 25px) 100%, 0 100%);
         }
 
         .modal-avatar-frame {
-            width: 80px;
-            height: 80px;
+            width: 85px;
+            height: 85px;
             margin: 0 auto 20px;
             border: 2px solid var(--neon-red);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255, 0, 60, 0.1);
-            box-shadow: 0 0 25px var(--neon-glow);
+            background: rgba(255, 0, 60, 0.12);
+            box-shadow: 0 0 30px var(--neon-glow);
             animation: pulseAvatar 2s infinite;
         }
 
         @keyframes pulseAvatar {
-            0% { box-shadow: 0 0 15px var(--neon-glow); }
-            50% { box-shadow: 0 0 35px var(--neon-glow), 0 0 10px #fff; }
-            100% { box-shadow: 0 0 15px var(--neon-glow); }
+            0% { box-shadow: 0 0 20px var(--neon-glow); }
+            50% { box-shadow: 0 0 40px var(--neon-glow), 0 0 15px #fff; }
+            100% { box-shadow: 0 0 20px var(--neon-glow); }
         }
 
         .modal-avatar-frame i {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             color: var(--text-white);
-            text-shadow: 0 0 10px var(--neon-red);
+            text-shadow: 0 0 12px var(--neon-red);
         }
 
         .modal-box-glow h2 {
             font-family: 'Syncopate', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             color: var(--text-white);
         }
 
@@ -345,13 +345,13 @@
             text-transform: uppercase;
             letter-spacing: 1.5px;
             margin-bottom: 12px;
-            box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.25);
             transition: 0.3s;
         }
 
         .btn-tiktok-cyber:hover {
-            background: rgba(255, 0, 60, 0.2);
-            box-shadow: 0 0 30px var(--neon-glow);
+            background: rgba(255, 0, 60, 0.25);
+            box-shadow: 0 0 35px var(--neon-glow);
         }
 
         .btn-verify-cyber {
@@ -365,20 +365,20 @@
             font-weight: 700;
             letter-spacing: 2px;
             cursor: pointer;
-            box-shadow: 0 0 25px var(--neon-glow);
+            box-shadow: 0 0 30px var(--neon-glow);
             transition: 0.3s;
         }
 
         .btn-verify-cyber:hover {
             background: #ff1a4f;
-            box-shadow: 0 0 40px var(--neon-glow);
+            box-shadow: 0 0 45px var(--neon-glow);
         }
 
         .nexus-footer {
             margin-top: 20px;
             text-align: center;
             font-size: 0.75rem;
-            color: #22222d;
+            color: #242435;
             cursor: pointer;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -389,7 +389,7 @@
 
     <canvas id="nexus-canvas"></canvas>
 
-    <!-- Yeni Nesil Cyberpunk TikTok Modal -->
+    <!-- TikTok Modal -->
     <div class="nexus-modal" id="nexusModal">
         <div class="modal-box-glow">
             <div class="modal-avatar-frame">
@@ -404,38 +404,60 @@
         </div>
     </div>
 
-    <!-- Main Content Container -->
+    <!-- Main Content -->
     <div class="wrapper">
         <div class="nexus-header">
             <h1>WEDZX <span>2026</span></h1>
-            <p>Free Fire Nexus Headshot Engine</p>
+            <p>Free Fire Nexus Elite Engine</p>
         </div>
 
         <div class="nexus-card">
             <div class="field-group">
-                <label><i class="fa-solid fa-mobile-screen"></i> Marka Seçimi</label>
-                <select id="brandSelect">
-                    <option value="">Marka Seçiniz...</option>
-                    <option value="iphone">Apple / iPhone</option>
-                    <option value="samsung">Samsung</option>
-                    <option value="xiaomi">Xiaomi / Redmi / POCO</option>
-                    <option value="realme">Realme</option>
-                    <option value="infinix">Infinix / Tecno</option>
-                    <option value="other">Diğer / Özel Cihaz</option>
+                <label><i class="fa-solid fa-gamepad"></i> Cihaz Türü</label>
+                <select id="deviceType" onchange="toggleDeviceOptions()">
+                    <option value="mobile">Mobil Cihaz (Telefon / Tablet)</option>
+                    <option value="pc">PC / Emülatör (BlueStacks, MSI vs.)</option>
                 </select>
             </div>
 
-            <div class="field-group">
-                <label><i class="fa-solid fa-microchip"></i> Cihaz Modeli</label>
-                <input type="text" id="modelInput" placeholder="Örn: iPhone 15 Pro / Note 13">
+            <!-- Mobil Seçenekleri -->
+            <div id="mobileOptions">
+                <div class="field-group">
+                    <label><i class="fa-solid fa-mobile-screen"></i> Marka Seçimi</label>
+                    <select id="brandSelect">
+                        <option value="">Marka Seçiniz...</option>
+                        <option value="iphone">Apple / iPhone (Özel 80-150)</option>
+                        <option value="samsung">Samsung</option>
+                        <option value="xiaomi">Xiaomi / Redmi / POCO</option>
+                        <option value="realme">Realme / Infinix</option>
+                        <option value="other">Diğer / Android</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label><i class="fa-solid fa-microchip"></i> Cihaz Modeli</label>
+                    <input type="text" id="modelInput" placeholder="Örn: iPhone 15 Pro / Note 13">
+                </div>
+            </div>
+
+            <!-- PC Seçenekleri -->
+            <div id="pcOptions" style="display: none;">
+                <div class="field-group">
+                    <label><i class="fa-solid fa-desktop"></i> Emülatör Yazılımı</label>
+                    <select id="emulatorSelect">
+                        <option value="bluestacks">BlueStacks 5 (Hyper-V)</option>
+                        <option value="msi">MSI App Player</option>
+                        <option value="gameloop">GameLoop (Tencent)</option>
+                        <option value="otherpc">Özel / Diğer PC Emülatör</option>
+                    </select>
+                </div>
             </div>
 
             <div class="field-group">
-                <label><i class="fa-solid fa-gauge-high"></i> Ekran / DPI Hızı</label>
-                <select id="dpiSelect">
-                    <option value="standard">Standart Ekran Akıcılığı (60Hz)</option>
-                    <option value="smooth" selected>Yüksek Akıcılık (90Hz / 120Hz)</option>
-                    <option value="extreme">E-Spor Esport Mode (144Hz+)</option>
+                <label><i class="fa-solid fa-gauge-high"></i> Performans / Akıcılık Modu</label>
+                <select id="speedMode">
+                    <option value="standard">Dengeli / Standart Mod</option>
+                    <option value="smooth" selected>Yüksek Akıcılık (Pro Mode)</option>
+                    <option value="extreme">E-Spor Turnuva Modu</option>
                 </select>
             </div>
 
@@ -443,9 +465,9 @@
                 HASSASİYETLERİ ÜRET
             </button>
 
-            <!-- 3 Farklı Sekmeli Sonuç Paneli -->
+            <!-- 3 Sekmeli Sonuç Paneli -->
             <div class="nexus-results" id="resultsPanel">
-                <div class="results-title">⚡ 3 Farklı Meta Ayar Paketi Hazır</div>
+                <div class="results-title" id="panelTitle">⚡ 3 Farklı Meta Ayar Paketi Hazır</div>
                 
                 <div class="config-tabs">
                     <button class="tab-btn active" onclick="switchTab(0)">1. Tek Atma</button>
@@ -453,7 +475,7 @@
                     <button class="tab-btn" onclick="switchTab(2)">3. Denge / Pro</button>
                 </div>
 
-                <!-- Config 1: Tek Atma (One-Tap) -->
+                <!-- Config 1 -->
                 <div class="config-panel active" id="panel0">
                     <div class="matrix-grid">
                         <div class="matrix-cell"><span>Genel</span> <strong id="r0_gen">110</strong></div>
@@ -463,12 +485,12 @@
                         <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r0_awm">82</strong></div>
                         <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r0_free">100</strong></div>
                         <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
-                            <span>🔥 Ateş Butonu</span> <strong id="r0_fire">44%</strong>
+                            <span id="label_r0_fire">🔥 Ateş Butonu</span> <strong id="r0_fire">44%</strong>
                         </div>
                     </div>
                 </div>
 
-                <!-- Config 2: Seri / Uzak Mesafe -->
+                <!-- Config 2 -->
                 <div class="config-panel" id="panel1">
                     <div class="matrix-grid">
                         <div class="matrix-cell"><span>Genel</span> <strong id="r1_gen">125</strong></div>
@@ -478,12 +500,12 @@
                         <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r1_awm">90</strong></div>
                         <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r1_free">115</strong></div>
                         <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
-                            <span>🔥 Ateş Butonu</span> <strong id="r1_fire">48%</strong>
+                            <span id="label_r1_fire">🔥 Ateş Butonu</span> <strong id="r1_fire">48%</strong>
                         </div>
                     </div>
                 </div>
 
-                <!-- Config 3: Denge / Turnuva -->
+                <!-- Config 3 -->
                 <div class="config-panel" id="panel2">
                     <div class="matrix-grid">
                         <div class="matrix-cell"><span>Genel</span> <strong id="r2_gen">140</strong></div>
@@ -493,7 +515,7 @@
                         <div class="matrix-cell"><span>AWM Dürbün</span> <strong id="r2_awm">98</strong></div>
                         <div class="matrix-cell"><span>Serbest Bakış</span> <strong id="r2_free">130</strong></div>
                         <div class="matrix-cell" style="grid-column: span 2; border-left-color: #00ff88;">
-                            <span>🔥 Ateş Butonu</span> <strong id="r2_fire">52%</strong>
+                            <span id="label_r2_fire">🔥 Ateş Butonu</span> <strong id="r2_fire">52%</strong>
                         </div>
                     </div>
                 </div>
@@ -583,6 +605,17 @@
             document.getElementById('nexusModal').style.display = 'none';
         }
 
+        function toggleDeviceOptions() {
+            const type = document.getElementById('deviceType').value;
+            if (type === 'mobile') {
+                document.getElementById('mobileOptions').style.display = 'block';
+                document.getElementById('pcOptions').style.display = 'none';
+            } else {
+                document.getElementById('mobileOptions').style.display = 'none';
+                document.getElementById('pcOptions').style.display = 'block';
+            }
+        }
+
         function switchTab(index) {
             document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
                 btn.classList.toggle('active', idx === index);
@@ -593,54 +626,89 @@
         }
 
         function generateSensitivity() {
-            const brand = document.getElementById('brandSelect').value;
-            const model = document.getElementById('modelInput').value.trim();
-            const dpi = document.getElementById('dpiSelect').value;
+            const type = document.getElementById('deviceType').value;
+            const mode = document.getElementById('speedMode').value;
 
-            if (!brand) { alert('Lütfen telefon markanızı seçiniz!'); return; }
-            if (!model) { alert('Lütfen telefon modelinizi yazınız!'); return; }
+            if (type === 'mobile') {
+                const brand = document.getElementById('brandSelect').value;
+                const model = document.getElementById('modelInput').value.trim();
+                if (!brand) { alert('Lütfen telefon markanızı seçiniz!'); return; }
+                if (!model) { alert('Lütfen telefon modelinizi yazınız!'); return; }
 
-            let baseGen, baseRed, base2x, base4x, baseAwm, baseFree, fireBtn;
+                let g0, r0, s2_0, s4_0, awm0, f0, fire0;
+                let g1, r1, s2_1, s4_1, awm1, f1, fire1;
+                let g2, r2, s2_2, s4_2, awm2, f2, fire2;
 
-            // iPhone özel kuralı: 80 ile 150 arasında hassasiyetler
-            if (brand === 'iphone') {
-                baseGen = 95; baseRed = 90; base2x = 85; base4x = 80; baseAwm = 80; baseFree = 92; fireBtn = '45%';
-                if (dpi === 'smooth') { baseGen = 110; baseRed = 105; base2x = 98; base4x = 90; baseAwm = 82; baseFree = 100; fireBtn = '47%'; }
-                if (dpi === 'extreme') { baseGen = 135; baseRed = 128; base2x = 118; base4x = 110; baseAwm = 95; baseFree = 125; fireBtn = '50%'; }
+                if (brand === 'iphone') {
+                    // iPhone için 80 - 150 arası özel aralık
+                    g0 = 92; r0 = 88; s2_0 = 85; s4_0 = 80; awm0 = 80; f0 = 90; fire0 = '44%';
+                    g1 = 115; r1 = 108; s2_1 = 100; s4_1 = 92; awm1 = 85; f1 = 110; fire1 = '47%';
+                    g2 = 140; r2 = 132; s2_2 = 122; s4_2 = 112; awm2 = 95; f2 = 135; fire2 = '50%';
+                } else {
+                    // Diğer telefonlar
+                    g0 = 150; r0 = 142; s2_0 = 135; s4_0 = 125; awm0 = 85; f0 = 140; fire0 = '46%';
+                    g1 = 175; r1 = 168; s2_1 = 160; s4_1 = 145; awm1 = 100; f1 = 165; fire1 = '49%';
+                    g2 = 195; r2 = 188; s2_2 = 178; s4_2 = 165; awm2 = 115; f2 = 185; fire2 = '53%';
+                }
+
+                document.getElementById('r0_gen').innerText = g0;
+                document.getElementById('r0_red').innerText = r0;
+                document.getElementById('r0_2x').innerText = s2_0;
+                document.getElementById('r0_4x').innerText = s4_0;
+                document.getElementById('r0_awm').innerText = awm0;
+                document.getElementById('r0_free').innerText = f0;
+                document.getElementById('r0_fire').innerText = fire0;
+
+                document.getElementById('r1_gen').innerText = g1;
+                document.getElementById('r1_red').innerText = r1;
+                document.getElementById('r1_2x').innerText = s2_1;
+                document.getElementById('r1_4x').innerText = s4_1;
+                document.getElementById('r1_awm').innerText = awm1;
+                document.getElementById('r1_free').innerText = f1;
+                document.getElementById('r1_fire').innerText = fire1;
+
+                document.getElementById('r2_gen').innerText = g2;
+                document.getElementById('r2_red').innerText = r2;
+                document.getElementById('r2_2x').innerText = s2_2;
+                document.getElementById('r2_4x').innerText = s4_2;
+                document.getElementById('r2_awm').innerText = awm2;
+                document.getElementById('r2_free').innerText = f2;
+                document.getElementById('r2_fire').innerText = fire2;
+
+                document.getElementById('label_r0_fire').innerText = "🔥 Ateş Butonu";
+                document.getElementById('label_r1_fire').innerText = "🔥 Ateş Butonu";
+                document.getElementById('label_r2_fire').innerText = "🔥 Ateş Butonu";
+
             } else {
-                // Diğer markalar için dinamik hesaplama
-                baseGen = 150; baseRed = 142; base2x = 135; base4x = 125; baseAwm = 85; baseFree = 140; fireBtn = '48%';
-                if (dpi === 'smooth') { baseGen = 175; baseRed = 168; base2x = 160; base4x = 145; baseAwm = 100; baseFree = 165; fireBtn = '52%'; }
-                if (dpi === 'extreme') { baseGen = 195; baseRed = 188; base2x = 178; base4x = 165; baseAwm = 115; baseFree = 185; fireBtn = '55%'; }
+                // PC / Emülatör Hassasiyetleri: Tam olarak 0 ile 8 arasında
+                document.getElementById('r0_gen').innerText = (3.2).toFixed(1);
+                document.getElementById('r0_red').innerText = (2.8).toFixed(1);
+                document.getElementById('r0_2x').innerText = (2.4).toFixed(1);
+                document.getElementById('r0_4x').innerText = (2.1).toFixed(1);
+                document.getElementById('r0_awm').innerText = (1.2).toFixed(1);
+                document.getElementById('r0_free').innerText = (3.5).toFixed(1);
+                document.getElementById('r0_fire').innerText = "1200 DPI";
+
+                document.getElementById('r1_gen').innerText = (5.1).toFixed(1);
+                document.getElementById('r1_red').innerText = (4.5).toFixed(1);
+                document.getElementById('r1_2x').innerText = (3.9).toFixed(1);
+                document.getElementById('r1_4x').innerText = (3.4).toFixed(1);
+                document.getElementById('r1_awm').innerText = (1.8).toFixed(1);
+                document.getElementById('r1_free').innerText = (5.5).toFixed(1);
+                document.getElementById('r1_fire').innerText = "1400 DPI";
+
+                document.getElementById('r2_gen').innerText = (7.4).toFixed(1);
+                document.getElementById('r2_red').innerText = (6.8).toFixed(1);
+                document.getElementById('r2_2x').innerText = (5.9).toFixed(1);
+                document.getElementById('r2_4x').innerText = (5.2).toFixed(1);
+                document.getElementById('r2_awm').innerText = (2.9).toFixed(1);
+                document.getElementById('r2_free').innerText = (7.8).toFixed(1);
+                document.getElementById('r2_fire').innerText = "1600 DPI";
+
+                document.getElementById('label_r0_fire').innerText = "⚡ Fare DPI";
+                document.getElementById('label_r1_fire').innerText = "⚡ Fare DPI";
+                document.getElementById('label_r2_fire').innerText = "⚡ Fare DPI";
             }
-
-            // 3 Farklı Ayar Paketini Doldur (Tek Atma, Seri, Denge)
-            // 1. Paket (Tek Atma)
-            document.getElementById('r0_gen').innerText = baseGen;
-            document.getElementById('r0_red').innerText = baseRed;
-            document.getElementById('r0_2x').innerText = base2x;
-            document.getElementById('r0_4x').innerText = base4x;
-            document.getElementById('r0_awm').innerText = baseAwm;
-            document.getElementById('r0_free').innerText = baseFree;
-            document.getElementById('r0_fire').innerText = fireBtn;
-
-            // 2. Paket (Seri / Uzak)
-            document.getElementById('r1_gen').innerText = Math.min(198, baseGen + 15);
-            document.getElementById('r1_red').innerText = Math.min(195, baseRed + 15);
-            document.getElementById('r1_2x').innerText = Math.min(190, base2x + 14);
-            document.getElementById('r1_4x').innerText = Math.min(180, base4x + 12);
-            document.getElementById('r1_awm').innerText = Math.min(140, baseAwm + 8);
-            document.getElementById('r1_free').innerText = Math.min(195, baseFree + 15);
-            document.getElementById('r1_fire').innerText = (parseInt(fireBtn) + 2) + '%';
-
-            // 3. Paket (Denge / Pro)
-            document.getElementById('r2_gen').innerText = Math.min(199, baseGen + 30);
-            document.getElementById('r2_red').innerText = Math.min(196, baseRed + 28);
-            document.getElementById('r2_2x').innerText = Math.min(192, base2x + 25);
-            document.getElementById('r2_4x').innerText = Math.min(185, base4x + 22);
-            document.getElementById('r2_awm').innerText = Math.min(150, baseAwm + 16);
-            document.getElementById('r2_free').innerText = Math.min(198, baseFree + 28);
-            document.getElementById('r2_fire').innerText = (parseInt(fireBtn) + 5) + '%';
 
             document.getElementById('resultsPanel').style.display = 'block';
         }
@@ -654,7 +722,7 @@
             if (clickCount >= 3) {
                 clickCount = 0;
                 const pass = prompt('Admin Şifresi:');
-                if (pass === 'wedzx2026') alert('Sistem Durumu: Aktif ve Güvenli (2026)');
+                if (pass === 'wedzx2026') alert('Sistem Durumu: Çevrimiçi & Full Güvenli (2026)');
                 else if (pass !== null) alert('Hatalı şifre!');
             }
         }
