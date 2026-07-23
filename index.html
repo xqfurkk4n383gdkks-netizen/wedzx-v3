@@ -3,428 +3,566 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WEDZX SENSITIVITY VVIP 2026</title>
+    <title>WEDZX V2 - Free Fire 2026 VIP Hassasiyet Paneli</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --neon-red: #ff0033;
-            --dark-bg: #0a0507;
-            --panel-bg: rgba(20, 5, 10, 0.85);
+            --primary: #ff003c;
+            --primary-glow: rgba(255, 0, 60, 0.6);
+            --bg-dark: #0a0a0c;
+            --card-bg: rgba(18, 18, 24, 0.85);
+            --text-light: #f1f1f5;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            user-select: none;
         }
 
         body {
-            background-color: var(--dark-bg);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Neon Ağ Arka Plan Canvas */
-        #particleCanvas {
+        /* Neon Red Animated Network Canvas Background */
+        #particle-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            z-index: 0;
+            pointer-events: none;
         }
 
         .container {
             position: relative;
-            z-index: 2;
+            z-index: 1;
             width: 90%;
-            max-width: 480px;
-            background: var(--panel-bg);
-            border: 2px solid var(--neon-red);
+            max-width: 650px;
+            margin: 30px auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        header h1 span {
+            color: var(--primary);
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* Stats & Visitor Bar */
+        .stats-bar {
+            background: var(--card-bg);
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            border-radius: 12px;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-item .label {
+            font-size: 0.75rem;
+            color: #ccc;
+            text-transform: uppercase;
+        }
+
+        /* Main Form Card */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 0, 60, 0.3);
             border-radius: 16px;
             padding: 25px;
-            box-shadow: 0 0 25px rgba(255, 0, 51, 0.4);
-            backdrop-filter: blur(8px);
-        }
-
-        h1 {
-            text-align: center;
-            color: var(--neon-red);
-            font-size: 24px;
-            text-shadow: 0 0 10px var(--neon-red);
-            margin-bottom: 5px;
-            letter-spacing: 2px;
-        }
-
-        .sub-title {
-            text-align: center;
-            font-size: 12px;
-            color: #aaa;
-            margin-bottom: 20px;
-        }
-
-        /* Sayaç Kutusu */
-        .counter-box {
-            background: rgba(0,0,0,0.6);
-            border: 1px dashed var(--neon-red);
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .counter-box span {
-            color: var(--neon-red);
-            font-weight: bold;
-        }
-
-        /* Takip Paneli */
-        .lock-panel {
-            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            margin-bottom: 25px;
         }
 
         .input-group {
-            margin: 15px 0;
+            margin-bottom: 20px;
         }
 
-        input[type="text"] {
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #ddd;
+            font-weight: 600;
+        }
+
+        .input-group select, .input-group input {
             width: 100%;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.7);
-            border: 1px solid var(--neon-red);
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #333;
             border-radius: 8px;
             color: #fff;
+            font-size: 0.95rem;
             outline: none;
-            text-align: center;
-            font-size: 15px;
+            transition: all 0.3s ease;
         }
 
-        .btn {
+        .input-group select:focus, .input-group input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .btn-submit {
             width: 100%;
-            padding: 12px;
-            background: var(--neon-red);
+            padding: 14px;
+            background: linear-gradient(45deg, #ff003c, #990024);
             border: none;
             border-radius: 8px;
             color: #fff;
+            font-size: 1rem;
             font-weight: bold;
-            font-size: 16px;
+            letter-spacing: 1px;
             cursor: pointer;
-            box-shadow: 0 0 15px var(--neon-red);
-            transition: 0.3s;
-            margin-top: 10px;
+            box-shadow: 0 0 15px var(--primary-glow);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 25px var(--neon-red);
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--primary-glow);
         }
 
-        .btn-tiktok {
-            background: #000;
-            border: 1px solid var(--neon-red);
-            margin-bottom: 10px;
-            display: inline-block;
-            text-decoration: none;
-        }
-
-        /* Hassasiyet İçeriği (Gizli) */
-        .sensi-content {
+        /* Result Panel */
+        .results-container {
             display: none;
+            margin-top: 25px;
+            background: rgba(10, 10, 15, 0.9);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--primary);
         }
 
-        .device-select {
+        .results-container h3 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .sens-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .sens-card {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 8px;
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid var(--primary);
+        }
+
+        .sens-card span {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        .sens-card strong {
+            font-size: 1.1rem;
+            color: #fff;
+        }
+
+        /* TikTok Access Modal Gating */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-box {
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 30px var(--primary-glow);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+        }
+
+        .modal-box i.tiktok-icon {
+            font-size: 3rem;
+            color: var(--primary);
             margin-bottom: 15px;
         }
 
-        select {
+        .modal-box h2 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-box p {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .btn-tiktok {
+            display: inline-block;
             width: 100%;
-            padding: 10px;
-            background: #000;
-            border: 1px solid var(--neon-red);
-            color: #fff;
-            border-radius: 6px;
-        }
-
-        .sensi-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255, 0, 51, 0.2);
-            font-size: 14px;
-        }
-
-        .sensi-item span:last-child {
-            color: var(--neon-red);
-            font-weight: bold;
-        }
-
-        .fire-button-box {
-            background: rgba(255, 0, 51, 0.15);
-            border: 1px solid var(--neon-red);
             padding: 12px;
-            border-radius: 8px;
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        .admin-btn {
-            background: transparent;
-            border: none;
-            color: #444;
-            font-size: 10px;
-            margin-top: 15px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        /* Admin Paneli Modal */
-        .admin-modal {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%;
-            max-width: 400px;
             background: #000;
-            border: 2px solid var(--neon-red);
-            padding: 20px;
-            border-radius: 12px;
-            z-index: 10;
-            box-shadow: 0 0 30px var(--neon-red);
+            border: 1px solid #ff003c;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            box-shadow: 0 0 10px rgba(255, 0, 60, 0.4);
         }
 
-        .user-list {
-            max-height: 200px;
-            overflow-y: auto;
-            margin-top: 10px;
-            border: 1px solid #333;
-            padding: 5px;
+        .btn-verify {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            border: none;
+            color: #fff;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
-        .user-item {
-            font-size: 12px;
-            padding: 5px;
-            border-bottom: 1px solid #222;
-            color: #00ff66;
+        .admin-footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .admin-link {
+            color: var(--primary);
+            cursor: pointer;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particleCanvas"></canvas>
+    <!-- Red Neon Background Canvas -->
+    <canvas id="particle-canvas"></canvas>
 
-    <div class="container">
-        <h1>WEDZX VVIP SENSI</h1>
-        <div class="sub-title">FREE FIRE 2026 HEADSHOT ENGINE</div>
-
-        <!-- Canlı Ziyaretçi Sayacı -->
-        <div class="counter-box">
-            🌐 Toplam Giriş: <span id="visitorCount">0</span>
-        </div>
-
-        <!-- Takip Etme / Kilit Ekranı -->
-        <div id="lockPanel" class="lock-panel">
-            <p style="font-size: 13px; color: #ddd; margin-bottom: 15px;">
-                Hassasiyet ayarlarını açmak için TikTok hesabımızı takip etmelisiniz!
-            </p>
-            
-            <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn btn-tiktok" onclick="markFollowed()">
-                🎵 @wedzx_ Takip Et
+    <!-- TikTok Unlock Gate Modal -->
+    <div class="modal-overlay" id="tiktokModal">
+        <div class="modal-box">
+            <i class="fa-brands fa-tiktok tiktok-icon"></i>
+            <h2>Kilitli İçerik!</h2>
+            <p>Sisteme giriş yapabilmek için <strong>@wedzx_</strong> TikTok hesabını takip etmeniz gerekmektedir.</p>
+            <a href="https://www.tiktok.com/@wedzx_" target="_blank" class="btn-tiktok" onclick="markFollowed()">
+                <i class="fa-brands fa-tiktok"></i> @wedzx_ Takip Et
             </a>
+            <button class="btn-verify" onclick="checkVerification()">Takip Ettim, Giriş Yap</button>
+        </div>
+    </div>
 
-            <div class="input-group">
-                <input type="text" id="tiktokUser" placeholder="TikTok Kullanıcı Adınız (@olmadan)">
+    <!-- Main Container -->
+    <div class="container">
+        <header>
+            <h1>WEDZX <span>2026 VIP</span></h1>
+            <p>Garena Free Fire One-Tap & Headshot Hassasiyet Motoru</p>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="value" id="totalVisits">12,480</div>
+                <div class="label">Toplam Giriş</div>
             </div>
-
-            <button class="btn" onclick="verifyAndEnter()">SİSTEME GİRİŞ YAP</button>
+            <div class="stat-item">
+                <div class="value" id="liveOnline">142</div>
+                <div class="label">Canlı Çevrimiçi</div>
+            </div>
+            <div class="stat-item">
+                <div class="value">2026.1</div>
+                <div class="label">Versiyon</div>
+            </div>
         </div>
 
-        <!-- Hassasiyet Ayarları Paneli -->
-        <div id="sensiPanel" class="sensi-content">
-            <div class="device-select">
-                <label style="font-size: 12px; color: #aaa;">Cihaz Özelliğinizi Seçin:</label>
-                <select id="ramSelect" onchange="updateSensi()">
-                    <option value="low">2GB - 3GB RAM (Düşük Cihaz)</option>
-                    <option value="mid" selected>4GB - 6GB RAM (Orta Cihaz)</option>
-                    <option value="high">8GB - 12GB+ RAM (Üst Cihaz)</option>
+        <!-- Form Card -->
+        <div class="card">
+            <div class="input-group">
+                <label><i class="fa-solid fa-mobile-screen"></i> Telefon Markanız</label>
+                <select id="brandSelect" onchange="updateModels()">
+                    <option value="">Marka Seçiniz...</option>
+                    <option value="iphone">Apple / iPhone</option>
+                    <option value="samsung">Samsung</option>
+                    <option value="xiaomi">Xiaomi / Redmi / POCO</option>
+                    <option value="realme">Realme</option>
+                    <option value="infinix">Infinix / Tecno</option>
+                    <option value="other">Diğer / Manuel Model</option>
                 </select>
             </div>
 
-            <div class="sensi-item"><span>Genel (General):</span><span id="genVal">185</span></div>
-            <div class="sensi-item"><span>Kırmızı Nokta (Red Dot):</span><span id="redVal">178</span></div>
-            <div class="sensi-item"><span>2x Dürbün:</span><span id="x2Val">172</span></div>
-            <div class="sensi-item"><span>4x Dürbün:</span><span id="x4Val">160</span></div>
-            <div class="sensi-item"><span>Sniper Dürbünü:</span><span id="snpVal">115</span></div>
-            <div class="sensi-item"><span>Serbest Bakış:</span><span id="freeVal">180</span></div>
-
-            <div class="fire-button-box">
-                🎯 <b>2026 İdeal Ateş Butonu Boyutu:</b><br>
-                <span id="fireBtnVal" style="font-size: 20px; color: var(--neon-red); font-weight: bold;">48% - 52%</span>
+            <div class="input-group">
+                <label><i class="fa-solid fa-microchip"></i> Telefon Modeli</label>
+                <input type="text" id="modelInput" placeholder="Örn: iPhone 13 / Redmi Note 12 Pro">
             </div>
 
-            <button class="btn" style="margin-top:20px; background:#222; box-shadow:none;" onclick="location.reload()">Çıkış Yap</button>
+            <div class="input-group">
+                <label><i class="fa-solid fa-memory"></i> RAM Miktarı (GB)</label>
+                <select id="ramSelect">
+                    <option value="2-3">2 GB - 3 GB (Düşük Segment)</option>
+                    <option value="4-6" selected>4 GB - 6 GB (Orta Segment)</option>
+                    <option value="8-12">8 GB - 12 GB (Üst Segment)</option>
+                    <option value="16+">16 GB+ (Gaming/Flagship)</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label><i class="fa-brands fa-tiktok"></i> TikTok Kullanıcı Adınız (Admin İncelemesi İçin)</label>
+                <input type="text" id="userTiktok" placeholder="@kullanici_adiniz">
+            </div>
+
+            <button class="btn-submit" onclick="generateSensitivity()">
+                <i class="fa-solid fa-crosshair"></i> 2026 VIP HASSASİYETİ ÜRET
+            </button>
+
+            <!-- Results Section -->
+            <div class="results-container" id="resultsPanel">
+                <h3><i class="fa-solid fa-fire"></i> Mükemmel 2026 Ayarları</h3>
+                <div class="sens-grid">
+                    <div class="sens-card"><span>Genel:</span> <strong id="resGenel">195</strong></div>
+                    <div class="sens-card"><span>Kırmızı Nokta:</span> <strong id="resRedDot">185</strong></div>
+                    <div class="sens-card"><span>2X Dürbün:</span> <strong id="res2x">175</strong></div>
+                    <div class="sens-card"><span>4X Dürbün:</span> <strong id="res4x">160</strong></div>
+                    <div class="sens-card"><span>AWM Dürbünü:</span> <strong id="resAwm">110</strong></div>
+                    <div class="sens-card"><span>Serbest Bakış:</span> <strong id="resFree">180</strong></div>
+                    <div class="sens-card" style="grid-column: span 2; border-left-color: #00ff88;">
+                        <span>🔥 Ateş Butonu Boyutu:</span> <strong id="resFireButton">48%</strong>
+                    </div>
+                    <div class="sens-card" style="grid-column: span 2; border-left-color: #00e1ff;">
+                        <span>⚡ Önerilen DPI:</span> <strong id="resDpi">480 DPI</strong>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <button class="admin-btn" onclick="openAdmin()">[ Admin Paneli ]</button>
-    </div>
-
-    <!-- Sadece Senin Görebileceğin Admin Paneli -->
-    <div id="adminModal" class="admin-modal">
-        <h3 style="color:var(--neon-red); text-align:center;">🔒 WEDZX Admin Log</h3>
-        <p style="font-size:11px; color:#888; text-align:center;">Girenlerin TikTok Hesapları</p>
-        <div id="userList" class="user-list"></div>
-        <button class="btn" style="margin-top:10px; padding:5px;" onclick="closeAdmin()">Kapat</button>
+        <div class="admin-footer">
+            Tüm hakları saklıdır &copy; 2026 WEDZX_ VIP | 
+            <span class="admin-link" onclick="openAdminPanel()">Admin Girişi</span>
+        </div>
     </div>
 
     <script>
-        // --- 1. GERÇEK GİRİŞ VE VERİ SAKLAMA (LocalStorage) ---
-        let hasFollowed = false;
-
-        function markFollowed() {
-            hasFollowed = true;
-        }
-
-        // Ziyaretçi Sayısı Mantığı
-        let totalVisits = localStorage.getItem('wedzx_visits') || 142; // Başlangıç tabanı
-        if(!sessionStorage.getItem('visited_this_session')) {
-            totalVisits = parseInt(totalVisits) + 1;
-            localStorage.setItem('wedzx_visits', totalVisits);
-            sessionStorage.setItem('visited_this_session', 'true');
-        }
-        document.getElementById('visitorCount').innerText = totalVisits;
-
-        // Kullanıcı Girişi
-        function verifyAndEnter() {
-            const username = document.getElementById('tiktokUser').value.trim();
-            
-            if(!hasFollowed) {
-                alert("Lütfen önce TikTok ikonuna tıklayıp @wedzx_ hesabını takip edin!");
-                return;
-            }
-            if(username === "") {
-                alert("Lütfen TikTok kullanıcı adınızı girin!");
-                return;
-            }
-
-            // Kullanıcı adını veritabanına (localStorage) kaydet
-            let users = JSON.parse(localStorage.getItem('wedzx_user_logs')) || [];
-            users.push({ name: "@" + username, time: new Date().toLocaleTimeString() });
-            localStorage.setItem('wedzx_user_logs', JSON.stringify(users));
-
-            // Paneli Aç
-            document.getElementById('lockPanel').style.display = 'none';
-            document.getElementById('sensiPanel').style.display = 'block';
-        }
-
-        // --- 2. 2026 GÜNCEL HASSASİYET DEĞERLERİ ---
-        const sensiData = {
-            low: { gen: "195", red: "185", x2: "185", x4: "175", snp: "130", free: "190", fire: "44% - 48%" },
-            mid: { gen: "185", red: "178", x2: "172", x4: "160", snp: "115", free: "180", fire: "48% - 52%" },
-            high: { gen: "160", red: "155", x2: "150", x4: "140", snp: "95", free: "160", fire: "52% - 56%" }
-        };
-
-        function updateSensi() {
-            const type = document.getElementById('ramSelect').value;
-            const data = sensiData[type];
-
-            document.getElementById('genVal').innerText = data.gen;
-            document.getElementById('redVal').innerText = data.red;
-            document.getElementById('x2Val').innerText = data.x2;
-            document.getElementById('x4Val').innerText = data.x4;
-            document.getElementById('snpVal').innerText = data.snp;
-            document.getElementById('freeVal').innerText = data.free;
-            document.getElementById('fireBtnVal').innerText = data.fire;
-        }
-
-        // --- 3. ADMİN PANELİ ---
-        function openAdmin() {
-            const pass = prompt("Admin Şifresini Girin:");
-            if(pass === "wedzx2026") { // Şifre: wedzx2026
-                const users = JSON.parse(localStorage.getItem('wedzx_user_logs')) || [];
-                const listDiv = document.getElementById('userList');
-                listDiv.innerHTML = "";
-                
-                if(users.length === 0) {
-                    listDiv.innerHTML = "<div class='user-item'>Henüz kayıtlı kullanıcı yok.</div>";
-                } else {
-                    users.forEach(u => {
-                        listDiv.innerHTML += `<div class='user-item'>👤 ${u.name} <span style='color:#666'>(${u.time})</span></div>`;
-                    });
-                }
-                document.getElementById('adminModal').style.display = 'block';
-            } else {
-                alert("Hatalı Şifre!");
-            }
-        }
-
-        function closeAdmin() {
-            document.getElementById('adminModal').style.display = 'none';
-        }
-
-        // --- 4. NEON KIRMIZI AĞ ANİMASYONU (CANVAS) ---
-        const canvas = document.getElementById('particleCanvas');
+        // --- 1. Neon Red Network Particles Canvas ---
+        const canvas = document.getElementById('particle-canvas');
         const ctx = canvas.getContext('2d');
+        let particles = [];
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
-        resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        const particles = [];
-        const particleCount = 65;
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 1.2;
+                this.vy = (Math.random() - 0.5) * 1.2;
+                this.radius = 2;
+            }
 
-        for (let i = 0; i < particleCount; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 1.5,
-                vy: (Math.random() - 0.5) * 1.5,
-                radius: Math.random() * 2 + 1
-            });
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#ff003c';
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#ff003c';
+                ctx.fill();
+            }
         }
 
-        function drawParticles() {
+        for (let i = 0; i < 55; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#ff0033';
-            ctx.strokeStyle = 'rgba(255, 0, 51, 0.15)';
-
+            
             for (let i = 0; i < particles.length; i++) {
-                let p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-
-                if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
+                particles[i].update();
+                particles[i].draw();
 
                 for (let j = i + 1; j < particles.length; j++) {
-                    let p2 = particles[j];
-                    let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
 
                     if (dist < 120) {
                         ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(255, 0, 60, ${1 - dist / 120})`;
+                        ctx.lineWidth = 0.6;
                         ctx.stroke();
                     }
                 }
             }
-            requestAnimationFrame(drawParticles);
+            requestAnimationFrame(animate);
         }
-        drawParticles();
+        animate();
+
+        // --- 2. TikTok Access Control & Real Counter ---
+        let hasVisitedTikTok = false;
+
+        function markFollowed() {
+            hasVisitedTikTok = true;
+        }
+
+        function checkVerification() {
+            if (hasVisitedTikTok || localStorage.getItem('wedzx_unlocked') === 'true') {
+                localStorage.setItem('wedzx_unlocked', 'true');
+                document.getElementById('tiktokModal').style.display = 'none';
+            } else {
+                alert('Lütfen önce TikTok ikonuna tıklayıp @wedzx_ hesabını ziyaret edin!');
+            }
+        }
+
+        if (localStorage.getItem('wedzx_unlocked') === 'true') {
+            document.getElementById('tiktokModal').style.display = 'none';
+        }
+
+        // Live Counter Logic
+        let baseVisits = parseInt(localStorage.getItem('wedzx_visits') || '14280');
+        baseVisits += 1;
+        localStorage.setItem('wedzx_visits', baseVisits);
+        document.getElementById('totalVisits').innerText = baseVisits.toLocaleString();
+
+        setInterval(() => {
+            let online = Math.floor(Math.random() * 40) + 120;
+            document.getElementById('liveOnline').innerText = online;
+        }, 4000);
+
+        // --- 3. Sensitivity Generator (Free Fire 2026 Meta) ---
+        function generateSensitivity() {
+            const model = document.getElementById('modelInput').value.trim();
+            const ram = document.getElementById('ramSelect').value;
+            const tiktok = document.getElementById('userTiktok').value.trim();
+
+            if (!model) {
+                alert('Lütfen telefon modelinizi yazınız!');
+                return;
+            }
+
+            // Save visitor data locally for Admin view
+            if (tiktok) {
+                let logs = JSON.parse(localStorage.getItem('wedzx_admin_logs') || '[]');
+                logs.push({ tiktok: tiktok, model: model, date: new Date().toLocaleString() });
+                localStorage.setItem('wedzx_admin_logs', JSON.stringify(logs));
+            }
+
+            // Calculation Logic based on RAM and 2026 Drag Headshot Meta
+            let general, redDot, scope2x, scope4x, awm, freeLook, fireButton, dpi;
+
+            if (ram === '2-3') {
+                general = 198; redDot = 190; scope2x = 180; scope4x = 165; awm = 120; freeLook = 185;
+                fireButton = '44%'; dpi = '480 DPI';
+            } else if (ram === '4-6') {
+                general = 185; redDot = 178; scope2x = 172; scope4x = 160; awm = 110; freeLook = 180;
+                fireButton = '48%'; dpi = '450 DPI';
+            } else if (ram === '8-12') {
+                general = 168; redDot = 160; scope2x = 150; scope4x = 140; awm = 95; freeLook = 165;
+                fireButton = '52%'; dpi = '410 DPI (Varsayılan)';
+            } else {
+                general = 150; redDot = 142; scope2x = 135; scope4x = 125; awm = 85; freeLook = 150;
+                fireButton = '54%'; dpi = 'Orijinal DPI';
+            }
+
+            document.getElementById('resGenel').innerText = general;
+            document.getElementById('resRedDot').innerText = redDot;
+            document.getElementById('res2x').innerText = scope2x;
+            document.getElementById('res4x').innerText = scope4x;
+            document.getElementById('resAwm').innerText = awm;
+            document.getElementById('resFree').innerText = freeLook;
+            document.getElementById('resFireButton').innerText = fireButton;
+            document.getElementById('resDpi').innerText = dpi;
+
+            document.getElementById('resultsPanel').style.display = 'block';
+        }
+
+        // --- 4. Admin Panel View ---
+        function openAdminPanel() {
+            const pass = prompt('Admin Şifresini Giriniz:');
+            if (pass === 'wedzx2026') {
+                let logs = JSON.parse(localStorage.getItem('wedzx_admin_logs') || '[]');
+                let msg = '=== WEDZX ADMIN LOGLARI ===\n\n';
+                if (logs.length === 0) {
+                    msg += 'Henüz kayıtlı kullanıcı verisi yok.';
+                } else {
+                    logs.forEach((item, index) => {
+                        msg += `${index + 1}. TikTok: ${item.tiktok} | Cihaz: ${item.model} | Tarih: ${item.date}\n`;
+                    });
+                }
+                alert(msg);
+            } else if (pass !== null) {
+                alert('Hatalı şifre!');
+            }
+        }
     </script>
 </body>
 </html>
-
