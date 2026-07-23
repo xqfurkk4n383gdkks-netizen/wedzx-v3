@@ -48,12 +48,12 @@
             z-index: 1;
             width: 90%;
             max-width: 650px;
-            margin: 30px auto;
+            margin: 40px auto;
         }
 
         header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         header h1 {
@@ -72,36 +72,6 @@
             font-size: 0.95rem;
             color: #aaa;
             margin-top: 5px;
-        }
-
-        /* Stats & Visitor Bar */
-        .stats-bar {
-            background: var(--card-bg);
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 15px var(--primary-glow);
-            border-radius: 12px;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin-bottom: 25px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-item .value {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-
-        .stat-item .label {
-            font-size: 0.75rem;
-            color: #ccc;
-            text-transform: uppercase;
         }
 
         /* Main Form Card */
@@ -281,13 +251,8 @@
             margin-top: 20px;
             text-align: center;
             font-size: 0.8rem;
-            color: #666;
-        }
-
-        .admin-link {
-            color: var(--primary);
+            color: #444;
             cursor: pointer;
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -316,27 +281,11 @@
             <p>Garena Free Fire One-Tap & Headshot Hassasiyet Motoru</p>
         </header>
 
-        <!-- Stats Bar -->
-        <div class="stats-bar">
-            <div class="stat-item">
-                <div class="value" id="totalVisits">12,480</div>
-                <div class="label">Toplam Giriş</div>
-            </div>
-            <div class="stat-item">
-                <div class="value" id="liveOnline">142</div>
-                <div class="label">Canlı Çevrimiçi</div>
-            </div>
-            <div class="stat-item">
-                <div class="value">2026.1</div>
-                <div class="label">Versiyon</div>
-            </div>
-        </div>
-
         <!-- Form Card -->
         <div class="card">
             <div class="input-group">
                 <label><i class="fa-solid fa-mobile-screen"></i> Telefon Markanız</label>
-                <select id="brandSelect" onchange="updateModels()">
+                <select id="brandSelect">
                     <option value="">Marka Seçiniz...</option>
                     <option value="iphone">Apple / iPhone</option>
                     <option value="samsung">Samsung</option>
@@ -363,7 +312,7 @@
             </div>
 
             <div class="input-group">
-                <label><i class="fa-brands fa-tiktok"></i> TikTok Kullanıcı Adınız (Admin İncelemesi İçin)</label>
+                <label><i class="fa-brands fa-tiktok"></i> TikTok Kullanıcı Adınız</label>
                 <input type="text" id="userTiktok" placeholder="@kullanici_adiniz">
             </div>
 
@@ -391,9 +340,9 @@
             </div>
         </div>
 
-        <div class="admin-footer">
-            Tüm hakları saklıdır &copy; 2026 WEDZX_ VIP | 
-            <span class="admin-link" onclick="openAdminPanel()">Admin Girişi</span>
+        <!-- Gizli Admin Tetikleyicisi -->
+        <div class="admin-footer" id="copyrightText" onclick="handleSecretClick()">
+            Tüm hakları saklıdır &copy; 2026 WEDZX_ VIP
         </div>
     </div>
 
@@ -467,7 +416,7 @@
         }
         animate();
 
-        // --- 2. TikTok Access Control & Real Counter ---
+        // --- 2. TikTok Lock Logic ---
         let hasVisitedTikTok = false;
 
         function markFollowed() {
@@ -478,27 +427,28 @@
             if (hasVisitedTikTok || localStorage.getItem('wedzx_unlocked') === 'true') {
                 localStorage.setItem('wedzx_unlocked', 'true');
                 document.getElementById('tiktokModal').style.display = 'none';
+                
+                // Gerçek Ziyaretçi Sayacını Arttır (Sadece ilk girişte)
+                if (!sessionStorage.getItem('counted_visit')) {
+                    let totalVisits = parseInt(localStorage.getItem('wedzx_real_visits') || '0') + 1;
+                    localStorage.setItem('wedzx_real_visits', totalVisits);
+                    sessionStorage.setItem('counted_visit', 'true');
+                }
             } else {
-                alert('Lütfen önce TikTok ikonuna tıklayıp @wedzx_ hesabını ziyaret edin!');
+                alert('Lütfen önce TikTok ikonuna tıklayıp @wedzx_ hesabını takip edin!');
             }
         }
 
         if (localStorage.getItem('wedzx_unlocked') === 'true') {
             document.getElementById('tiktokModal').style.display = 'none';
+            if (!sessionStorage.getItem('counted_visit')) {
+                let totalVisits = parseInt(localStorage.getItem('wedzx_real_visits') || '0') + 1;
+                localStorage.setItem('wedzx_real_visits', totalVisits);
+                sessionStorage.setItem('counted_visit', 'true');
+            }
         }
 
-        // Live Counter Logic
-        let baseVisits = parseInt(localStorage.getItem('wedzx_visits') || '14280');
-        baseVisits += 1;
-        localStorage.setItem('wedzx_visits', baseVisits);
-        document.getElementById('totalVisits').innerText = baseVisits.toLocaleString();
-
-        setInterval(() => {
-            let online = Math.floor(Math.random() * 40) + 120;
-            document.getElementById('liveOnline').innerText = online;
-        }, 4000);
-
-        // --- 3. Sensitivity Generator (Free Fire 2026 Meta) ---
+        // --- 3. Sensitivity Generator ---
         function generateSensitivity() {
             const model = document.getElementById('modelInput').value.trim();
             const ram = document.getElementById('ramSelect').value;
@@ -509,14 +459,13 @@
                 return;
             }
 
-            // Save visitor data locally for Admin view
+            // Save visitor data
             if (tiktok) {
                 let logs = JSON.parse(localStorage.getItem('wedzx_admin_logs') || '[]');
                 logs.push({ tiktok: tiktok, model: model, date: new Date().toLocaleString() });
                 localStorage.setItem('wedzx_admin_logs', JSON.stringify(logs));
             }
 
-            // Calculation Logic based on RAM and 2026 Drag Headshot Meta
             let general, redDot, scope2x, scope4x, awm, freeLook, fireButton, dpi;
 
             if (ram === '2-3') {
@@ -545,12 +494,34 @@
             document.getElementById('resultsPanel').style.display = 'block';
         }
 
-        // --- 4. Admin Panel View ---
+        // --- 4. Secret Admin Panel Trigger (Click 3 Times) ---
+        let clickCount = 0;
+        let clickTimer = null;
+
+        function handleSecretClick() {
+            clickCount++;
+            clearTimeout(clickTimer);
+            
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 1000);
+
+            if (clickCount >= 3) {
+                clickCount = 0;
+                openAdminPanel();
+            }
+        }
+
         function openAdminPanel() {
             const pass = prompt('Admin Şifresini Giriniz:');
             if (pass === 'wedzx2026') {
+                let realVisits = localStorage.getItem('wedzx_real_visits') || '0';
                 let logs = JSON.parse(localStorage.getItem('wedzx_admin_logs') || '[]');
-                let msg = '=== WEDZX ADMIN LOGLARI ===\n\n';
+                
+                let msg = `=== WEDZX GİZLİ ADMIN PANELİ ===\n\n`;
+                msg += `📊 Gerçek Toplam Ziyaretçi: ${realVisits}\n\n`;
+                msg += `--- SİTEYE GİREN TİKTOK HESAPLARI ---\n`;
+
                 if (logs.length === 0) {
                     msg += 'Henüz kayıtlı kullanıcı verisi yok.';
                 } else {
